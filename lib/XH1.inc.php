@@ -12,7 +12,7 @@
  *	@package XHTML
  */
 
-include("XH0.inc.php");
+require_once("XH0.inc.php");
 
 
 define("XHTYPE_XHTML_1_0_STRICT",1);
