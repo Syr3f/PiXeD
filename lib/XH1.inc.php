@@ -44,7 +44,6 @@ class CXHDocument extends CXHHTML
 	
 	/**
 	 *	@param string $sLanguage Language abbreviation used in document
-	 *	@param int $iType Integer defining the type of document; use type XHTYPE constants; STRICT type is the only one implemented
 	 */
 	public function __construct($sLanguage, $iType = XHTYPE_XHTML_1_0_STRICT)
 	{
@@ -200,6 +199,33 @@ class CXHDoc extends CXHDocument
 	public function AppendToBody($vContent)
 	{
 		$this->_oBody->AppendContent($vContent);
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function AddStyle($sName, $sStyle)
+	{
+		$this->_oBody->AddStyle($sName, $sStyle);
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function SetClass($sClass)
+	{
+		$this->_oBody->SetClass($sClass);
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function SetId($sId)
+	{
+		$this->_oBody->SetId($sId);
 	}
 	
 	

@@ -1532,9 +1532,9 @@ class CXHBreak extends CXHEntityCoreAttrs
  */
 class CXHEmphasis extends CXHEntityAttrs
 {
-	public function __construct()
+	public function __construct($vContent)
 	{
-		parent::__construct("em");
+		parent::__construct("em", true, $vContent);
 	}
 }
 
@@ -1550,9 +1550,9 @@ class CXHEmphasis extends CXHEntityAttrs
  */
 class CXHStrong extends CXHEntityAttrs
 {
-	public function __construct()
+	public function __construct($vContent)
 	{
-		parent::__construct("strong");
+		parent::__construct("strong", true, $vContent);
 	}
 }
 

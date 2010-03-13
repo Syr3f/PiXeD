@@ -20,10 +20,40 @@ include("XH1.inc.php");
 
 
 /**
- *	Creates a Blueprint grid document.
+ *	Creates an XDiP document with default style and Blueprint grid.
  */
-class CXHBpDoc extends CXHDoc
+class XPiDDoc extends CXHDoc
 {
+	/**
+	 *	@todo To document
+	 */
+	const iClassSpan = 'span';
+
+	
+	/**
+	 *	@todo To document
+	 */
+	const iClassAppend = 'append';
+
+
+	/**
+	 *	@todo To document
+	 */
+	const iClassPrepend = 'prepend';
+
+	
+	/**
+	 *	@todo To document
+	 */
+	const iClassPull = 'pull';
+
+
+	/**
+	 *	@todo To document
+	 */
+	const iClassPush = 'push';
+
+
 	/**
 	 *	@todo To document
 	 */
@@ -46,20 +76,32 @@ class CXHBpDoc extends CXHDoc
 	 *	@todo To document
 	 */
 	private $_oContainer;
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	private $_sClassSet;
 
 	
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sTitle = "My XDiP Modeler Document", $sEncoding = "UTF-8", $sLanguage = "en")
+	private $_bIsContainerIntegrated;
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function __construct($sTitle = "My XPiD Document", $sEncoding = "UTF-8", $sLanguage = "en")
 	{
 		parent::__construct($sTitle, $sEncoding, $sLanguage);
 				
 		$this->_iRowColCount = 0;
+		$this->_sClassSet = "";
 		
 		$this->_oContainer = new CXHDiv();
-		
-		$this->_oContainer->SetClass("container");
+		$this->_bIsContainerIntegrated = false;
 		
 		$this->_setCSS();
 	}
@@ -70,14 +112,6 @@ class CXHBpDoc extends CXHDoc
 	 */
 	public function _setCSS()
 	{
-			$oCSS = new CXHCSS(CSS_BLUEPRINT_RESET);
-		
-		parent::AppendToHeader($oCSS);
-
-			//$oCSS = new CXHCSS(CSS_BLUEPRINT_TYPO);
-		
-		//parent::AppendToHeader($oCSS);
-
 			$oCSS = new CXHCSS(CSS_BLUEPRINT_SCREEN);
 		
 		parent::AppendToHeader($oCSS);
@@ -113,23 +147,23 @@ class CXHBpDoc extends CXHDoc
 	/**
 	 *	@todo To document
 	 */
-	public function _validateAddition($cClassType, $iCols, $bIsColBordered)
+	public function _validateAddition($csClassType, $iCols, $bIsColBordered)
 	{
 		$this->_iRowColCount += $iCols + ($bIsColBordered ? 1 : 0);
 	
-		switch ($cClassType)
+		switch ($csClassType)
 		{
-			case CXHBpCol::iClassSpan:
-			case CXHBpCol::iClassAppend:
-			case CXHBpCol::iClassPrepend:
+			case self::iClassSpan:
+			case self::iClassAppend:
+			case self::iClassPrepend:
 				if ($this->_iRowColCount > self::iMaxCols)
-					throw new XHException("Column ".$cClassType." is above the grid limit of ".self::iMaxCols." (".$this->iRowColCount.")");
+					throw new XHException("Column ".$csClassType." is above the grid limit of ".self::iMaxCols." (".$this->iRowColCount.")");
 			break;
-			case CXHBpCol::iClassPull:
+			case self::iClassPull:
 				if ($iCols > self::iMaxPull)
 					throw new XHException("Column pull is above the limit of ".self::iMaxPull." (".$iCols.")");
 			break;
-			case CXHBpCol::iClassPush:
+			case self::iClassPush:
 				if ($iCols > self::iMaxPush)
 					throw new XHException("Column push is above the limit of ".self::iMaxPush." (".$iCols.")");
 			break;
@@ -141,38 +175,54 @@ class CXHBpDoc extends CXHDoc
 	/**
 	 *	@todo To document
 	 */
-	public function AddCol($cClassType, $iCols, $vContent, $bBoxed = false, $bColBorder = true, $bLast = false)
+	public function SetContainerClass($sClass)
 	{
-			$oCol = new CXHLGCol($cClassType, $iCols, $bBoxed, $bColBorder, $bLast);
-		
-			$oCol->AppendContent($vContent);
-		
-		$this->AppendContent($oCol);
+		$this->_sClassSet = $sClass;
 	}
 	
 	
 	/**
 	 *	@todo To document
 	 */
-	public function InsertCol($oCol)
+	public function AddContainerStyle($sName, $sStyle)
 	{
-		$this->AppendContent($oCol);
+		$this->_oContainer->AddStyle($sName, $sStyle);
 	}
 	
 	
 	/**
 	 *	@todo To document
 	 */
-	public function AppendContent($oCol)
+	public function AdaptObject($oObject, $csClassType, $iNumCols, $bHasColBorder = false, $bIsLast = true)
 	{
-		$this->_validateAddition($oCol->GetClassType(), $oCol->GetNumCols(), $oCol->IsColBordered());
-	
-		if (_io($oCol, 'CXHBpCol'))
-			$this->_oContainer->AppendContent($oCol);
-		else
-			throw new XHException("Column to be appended is not an instance of CXHBpCol");
+		if (_io($oObject, 'CXHEntityAttrs'))
+		{
+			$sClass = $oObject->GetClass();
 			
-		if ($oCol->IsLast())
+			if (_sl($sClass))
+				$sClass .= " ";
+			
+			$oObject->SetClass($sClass.$csClassType."-".$iNumCols);
+		}
+		else
+			throw new XHException("Column to be appended is not an instance of CXHEntityAttrs");
+		
+		return $oObject;
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function IntegrateObject($oObject, $csClassType, $iNumCols, $bHasColBorder = false, $bIsLast = true)
+	{
+		$this->_validateAddition($cClassType, $iNumCols, $bHasColBorder);
+	
+		$oObject = $this->AdaptObject($oObject, $csClassType, $iNumCols, $bIsBoxed, $bHasColBorder, $bIsLast);
+
+		$this->ContainerAppend($oObject);
+
+		if ($bIsLast)
 			$this->_iRowColCount = 0;
 	}
 	
@@ -180,167 +230,35 @@ class CXHBpDoc extends CXHDoc
 	/**
 	 *	@todo To document
 	 */
-	public function __toString()
+	public function ContainerAppend($oObject)
 	{
+		$this->_oContainer->AppendContent($oObject);
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	private function _setContainerClasses()
+	{
+		$sContainerClass = "container";
+		
+		$sClasses = (_sl($this->_sClassSet) ? $sContainerCLass." ".$this->_sClassSet : $sContainerClass);
+		
+		$this->_oContainer->SetClass($sClasses);
+	}
+	
+
+	/**
+	 *	@todo To document
+	 */
+	public function IntegrateContainer()
+	{
+		$this->_bIsContainerIntegrated = true;
+	
+		$this->_setContainerClasses();
+	
 		parent::AppendContent($this->_oContainer);
-	
-		return parent::__toString();
-	}
-}
-
-
-/**
- *	@todo To document
- */
-class CXHBpCol extends CXHDiv
-{
-
-	
-	/**
-	 *	@todo To document
-	 */
-	const iClassSpan = 'span';
-
-	
-	/**
-	 *	@todo To document
-	 */
-	const iClassAppend = 'append';
-
-
-	/**
-	 *	@todo To document
-	 */
-	const iClassPrepend = 'prepend';
-
-	
-	/**
-	 *	@todo To document
-	 */
-	const iClassPull = 'pull';
-
-
-	/**
-	 *	@todo To document
-	 */
-	const iClassPush = 'push';
-	
-	
-	/**
-	 *	@todo To document
-	 */
-	private $_sClass;
-	
-	
-	/**
-	 *	@todo To document
-	 */
-	private $_sClassType;
-	
-	
-	/**
-	 *	@todo To document
-	 */
-	private $_bBoxed;
-	
-	
-	/**
-	 *	@todo To document
-	 */
-	private $_bColBorder;
-	
-	
-	/**
-	 *	@todo To document
-	 */
-	private $_bLast;
-	
-	
-	/**
-	 *	@todo To document
-	 */
-	private $_iNumCols;
-
-
-	/**
-	 *	@todo To document
-	 */
-	private $_vContent;
-
-	
-	/**
-	 *	@todo To document
-	 */
-	public function __construct($sClassType, $iNumCols, $bBoxed, $bColBorder, $bLast)
-	{
-		parent::__construct();
-		
-		$this->_sClass = "";
-		
-		$this->_sClassType = $sClassType;
-		$this->_iNumCols = $iNumCols;
-		$this->_bBoxed = $bBoxed;
-		$this->_bColBorder = $bColBorder;
-		$this->_bLast = $bLast;
-		
-		$this->_vContent = "";
-	}
-	
-	
-	/**
-	 *	@todo To document
-	 */
-	public function SetClass($sClass)
-	{
-		$this->_sClass = $sClass;
-	}
-	
-	
-	/**
-	 *	@todo To document
-	 */
-	public function GetClassType()
-	{
-		return $this->_sClassType;
-	}
-	
-	
-	/**
-	 *	@todo To document
-	 */
-	public function GetNumCols()
-	{
-		return $this->_iNumCols;
-	}
-	
-	
-	/**
-	 *	@todo To document
-	 */
-	public function IsColBordered()
-	{
-		return $this->_bColBorder;
-	}
-	
-	
-	/**
-	 *	@todo To document
-	 */
-	 public function IsLast()
-	 {
-		return $this->_bLast;
-	 }
-	 
-	
-	/**
-	 *	@todo To document
-	 */
-	public function AppendContent($vContent)
-	{
-		if (!_io($vContent, 'CXHBpCol'))
-			$this->_vContent = $vContent;
-		else
-			throw new XHException("Content to be appended is an instance of CXHBpCol");
 	}
 	
 	
@@ -349,38 +267,9 @@ class CXHBpCol extends CXHDiv
 	 */
 	public function __toString()
 	{
-		$sClass = $this->_sClassType."-".$this->_iNumCols;
+		if (!$this->_bIsContainerIntegrated)
+			$this->IntegrateContainer();
 	
-		if ($this->_bColBorder) $sClass .= " colborder";
-
-		if ($this->_bLast) $sClass .= " last";
-		
-		parent::SetClass($this->_sClass.$sClass);
-		
-		$vContent = $this->_vContent;
-		
-		if ($this->_bBoxed)
-		{
-			if (_io($vContent, 'CXHEntityAttrs') || _io($vContent, 'CXHEntityCoreAttrs'))
-			{
-				$sClass = $vContent->GetClass();
-			
-				if (_sl($sClass))
-					$sClass = " ".$sClass;
-			
-				$vContent->SetClass("box".$sClass);
-			}
-			else
-			{
-				$vContent = new CXHDiv($this->_vContent);
-			
-				$vContent->SetClass("box");
-			}
-			
-		}
-
-		parent::AppendContent($vContent);
-
 		return parent::__toString();
 	}
 }
