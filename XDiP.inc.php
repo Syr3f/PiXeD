@@ -21,8 +21,7 @@ define("CSS_BLUEPRINT_PRINT",	LIBBASEURL."/lib/css/blueprint/print.css");
 
 include("lib/XH1.inc.php");
 #include("XH2.inc.php");
-
-include("lib/XHModeler.inc.php");
+include("lib/XH3.inc.php");
 
 
 ?>
