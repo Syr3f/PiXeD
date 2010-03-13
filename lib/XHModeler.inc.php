@@ -47,9 +47,16 @@ class CXHModeler extends CXHDoc
 	}
 	
 	
+	public function Add
+	
+	
 	public function __toString()
 	{
 		$oDiv = new CXHDiv();
+		
+			$oContainer = $this->_genContainer();
+		
+		$oDiv->AppendContent($oContainer);
 	
 		return parent::__toString();
 	}
