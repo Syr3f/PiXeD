@@ -75,6 +75,8 @@ class CXHDocument extends CXHHTML
 	 */
 	public function ReplaceHead($vHead)
 	{
+		echo 1;
+		
 		switch (getType($vHead))
 		{
 			case "object":
@@ -100,6 +102,8 @@ class CXHDocument extends CXHHTML
 	 */
 	public function ReplaceBody($vBody)
 	{
+		echo 2;
+	
 		switch (getType($vBody))
 		{
 			case "object":
@@ -128,12 +132,12 @@ class CXHDocument extends CXHHTML
 		if (!_sl($this->_sHead))
 			throw new XHException("Document has no head");
 			
-		$this->AppendContent($this->_sHead);
+		parent::AppendContent($this->_sHead);
 
 		if (!_sl($this->_sBody))
 			throw new XHException("Document has no body");
 
-		$this->AppendContent($this->_sBody);
+		parent::AppendContent($this->_sBody);
 
 		return $this->_sDoctype.chr(13).chr(10).parent::__toString();
 	}
