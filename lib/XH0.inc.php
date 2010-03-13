@@ -221,6 +221,20 @@ abstract class CXHEntityCoreAttrs extends CMLEntity
 	{
 		$this->_hsAttrs3["id"] = $sId;
 	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function GetId()
+	{
+		$sId = PWL_EMPTY_STRING;
+		
+		if (array_key_exists("id", $this->_hsAttrs3))
+			$sId = $this->_hsAttrs3["id"];
+			
+		return $sId;
+	}
 
 
 	/**
@@ -231,6 +245,20 @@ abstract class CXHEntityCoreAttrs extends CMLEntity
 	public function SetClass($sClass)
 	{
 		$this->_hsAttrs3["class"] = $sClass;
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function GetClass()
+	{
+		$sClass = PWL_EMPTY_STRING;
+	
+		if (array_key_exists("class", $this->_hsAttrs3))
+			$sClass = $this->_hsAttrs3["class"];
+		
+		return $sClass;
 	}
 
 
@@ -378,7 +406,21 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
 	{
 		$this->_hsAttrs2["id"] = $sId;
 	}
-
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function GetId()
+	{
+		$sId = PWL_EMPTY_STRING;
+		
+		if (array_key_exists("id", $this->_hsAttrs2))
+			$sId = $this->_hsAttrs2["id"];
+			
+		return $sId;
+	}
+	
 
 	/**
 	 *	Sets the class of the entity
@@ -389,7 +431,21 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
 	{
 		$this->_hsAttrs2["class"] = $sClass;
 	}
-
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function GetClass()
+	{
+		$sClass = PWL_EMPTY_STRING;
+	
+		if (array_key_exists("class", $this->_hsAttrs2))
+			$sClass = $this->_hsAttrs2["class"];
+		
+		return $sClass;
+	}
+	
 
 	/**
 	 *	Sets the title of the entity
