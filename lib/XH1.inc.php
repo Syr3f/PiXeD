@@ -204,6 +204,17 @@ class CXHDoc extends CXHDocument
 	
 	
 	/**
+	 *	Appends content to the body
+	 *
+	 *	@param mixed $vContent Content to be appended
+	 */
+	public function AppendContent($vContent)
+	{
+		$this->_oBody->AppendContent($vContent);
+	}
+	
+	
+	/**
 	 *	Appends elements and strings at the end of the body
 	 *
 	 *	@param mixed $vContent Content to be appended
