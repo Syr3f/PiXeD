@@ -466,6 +466,8 @@ class CXHHTML extends CXHEntityIntl
 		$this->AddAttr("xmlns", "http://www.w3.org/1999/xhtml");
 	}
 }
+
+
 # <!--================ Document Head =======================================-->
 
 ##

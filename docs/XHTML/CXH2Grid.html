@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+			<!-- template designed by Marco Von Ballmoos -->
+			<title>Docs For Class CXH2Grid</title>
+			<link rel="stylesheet" href="../media/stylesheet.css" />
+			<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+		</head>
+		<body>
+			<div class="page-body">			
+<h2 class="class-name">Class CXH2Grid</h2>
+
+<a name="sec-description"></a>
+<div class="info-box">
+	<div class="info-box-title">Description</div>
+	<div class="nav-bar">
+					<span class="disabled">Description</span> |
+													<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+						|											<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+						
+											<a href="#sec-consts">Constants</a>
+						
+			</div>
+	<div class="info-box-body">
+        		<!-- ========== Info from phpDoc block ========= -->
+		<p class="notes">
+			Located in <a class="field" href="_XH2.inc.php.html">/XH2.inc.php</a> (line <span class="field"><a href="../__filesource/fsource_XHTML__XH2.inc.php.html#a254">254</a></span>)
+		</p>
+		
+				
+		<pre><a href="../Markup/CMLEntity.html">CMLEntity</a>
+   |
+   --<a href="../XHTML/CXHEntityIntl.html">CXHEntityIntl</a>
+      |
+      --<a href="../XHTML/CXHEntityAttrs.html">CXHEntityAttrs</a>
+         |
+         --<a href="../XHTML/CXHTable.html">CXHTable</a>
+            |
+            --CXH2Grid</pre>
+	
+			</div>
+</div>
+
+
+
+	<a name="sec-var-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variable Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+						<span class="disabled">Vars</span> (<a href="#sec-vars">details</a>)
+							| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+															<a href="#sec-consts">Constants</a>
+							
+					</div>
+		<div class="info-box-body">
+			<div class="var-summary">
+																																																																								<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_aaCellClasses" title="details" class="var-name">$_aaCellClasses</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_aaCellIds" title="details" class="var-name">$_aaCellIds</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_aaRows" title="details" class="var-name">$_aaRows</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_aRowClasses" title="details" class="var-name">$_aRowClasses</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_aRowIds" title="details" class="var-name">$_aRowIds</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_iNbColumns" title="details" class="var-name">$_iNbColumns</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$_iNbRows" title="details" class="var-name">$_iNbRows</a>
+				</div>
+											</div>
+		</div>
+	</div>
+
+	<a name="sec-method-summary"></a>
+	<div class="info-box">
+		<div class="info-box-title">Method Summary</span></div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-consts">Constants</a>
+							
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+				 
+				|
+						<span class="disabled">Methods</span> (<a href="#sec-methods">details</a>)
+		</div>
+		<div class="info-box-body">			
+			<div class="method-summary">
+																																																												
+												<div class="method-definition">
+											<span class="method-result">CXH2Grid</span>
+										<a href="#__construct" title="details" class="method-name">__construct</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$iNbRows</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iNbColumns</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#AppendContent" title="details" class="method-name">AppendContent</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$vContent</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iRow</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iColumn</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#SetCellClass" title="details" class="method-name">SetCellClass</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$sClass</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iRow</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iColumn</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#SetCellId" title="details" class="method-name">SetCellId</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$sId</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iRow</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iColumn</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#SetRowClass" title="details" class="method-name">SetRowClass</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$sClass</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iRow</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#SetRowId" title="details" class="method-name">SetRowId</a>
+											(<span class="var-type"></span>&nbsp;<span class="var-name">$sId</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iRow</span>)
+									</div>
+																<div class="method-definition">
+											<span class="method-result">void</span>
+										<a href="#__toString" title="details" class="method-name">__toString</a>
+										()
+									</div>
+								</div>
+		</div>
+	</div>		
+
+	<a name="sec-vars"></a>
+	<div class="info-box">
+		<div class="info-box-title">Variables</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Vars</a> (<span class="disabled">details</span>)
+						
+			
+												<a href="#sec-consts">Constants</a>
+							
+										| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+			<a name="var$_aaCellClasses" id="$_aaCellClasses"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_aaCellClasses</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_XHTML__XH2.inc.php.html#a262">262</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> private</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_aaCellIds" id="$_aaCellIds"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_aaCellIds</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_XHTML__XH2.inc.php.html#a261">261</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> private</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_aaRows" id="$_aaRows"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_aaRows</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_XHTML__XH2.inc.php.html#a258">258</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> private</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_aRowClasses" id="$_aRowClasses"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_aRowClasses</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_XHTML__XH2.inc.php.html#a260">260</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> private</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_aRowIds" id="$_aRowIds"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_aRowIds</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_XHTML__XH2.inc.php.html#a259">259</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> private</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_iNbColumns" id="$_iNbColumns"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_iNbColumns</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_XHTML__XH2.inc.php.html#a256">256</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> private</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$_iNbRows" id="$_iNbRows"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$_iNbRows</span>
+						(line <span class="line-number"><a href="../__filesource/fsource_XHTML__XH2.inc.php.html#a257">257</a></span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> private</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+							<h4>Inherited Variables</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../XHTML/CXHEntityAttrs.html">CXHEntityAttrs</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../XHTML/CXHEntityAttrs.html#var$_asStyles">CXHEntityAttrs::$_asStyles</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../XHTML/CXHEntityAttrs.html#var$_hsAttrs2">CXHEntityAttrs::$_hsAttrs2</a></span><br>
+							</span>
+											</blockquote> 
+									<p>Inherited from <span class="classname"><a href="../XHTML/CXHEntityIntl.html">CXHEntityIntl</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../XHTML/CXHEntityIntl.html#var$_hAttrs1">CXHEntityIntl::$_hAttrs1</a></span><br>
+							</span>
+											</blockquote> 
+									<p>Inherited from <span class="classname"><a href="../Markup/CMLEntity.html">CMLEntity</a></span></p>
+					<blockquote>
+													<span class="var-title">
+								<span class="var-name"><a href="../Markup/CMLEntity.html#var$sNL">CMLEntity::$sNL</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../Markup/CMLEntity.html#var$sTAB">CMLEntity::$sTAB</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../Markup/CMLEntity.html#var$_bHasEnd">CMLEntity::$_bHasEnd</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../Markup/CMLEntity.html#var$_hsAttrs0">CMLEntity::$_hsAttrs0</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../Markup/CMLEntity.html#var$_sContent">CMLEntity::$_sContent</a></span><br>
+							</span>
+													<span class="var-title">
+								<span class="var-name"><a href="../Markup/CMLEntity.html#var$_sName">CMLEntity::$_sName</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+	
+	<a name="sec-methods"></a>
+	<div class="info-box">
+		<div class="info-box-title">Methods</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+															<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+																			<a href="#sec-consts">Constants</a>
+							
+										<a href="#sec-method-summary">Methods</a> (<span class="disabled">details</span>)
+						
+		</div>
+		<div class="info-box-body">
+			<A NAME='method_detail'></A>
+
+<a name="method__construct" id="__construct"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number"><a href="../__filesource/fsource_XHTML__XH2.inc.php.html#a264">264</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">CXH2Grid</span>
+		<span class="method-name">
+			__construct
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$iNbRows</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iNbColumns</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$iNbRows</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$iNbColumns</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../XHTML/CXHTable.html#method__construct">CXHTable::__construct()</a></dt>
+					</dl>
+			
+	</div>
+<a name="methodAppendContent" id="AppendContent"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">AppendContent</span> (line <span class="line-number"><a href="../__filesource/fsource_XHTML__XH2.inc.php.html#a310">310</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			AppendContent
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$vContent</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iRow</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iColumn</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$vContent</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$iRow</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$iColumn</span>			</li>
+				</ul>
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../XHTML/CXHTable.html#methodAppendContent">CXHTable::AppendContent()</a></dt>
+					</dl>
+			
+	</div>
+<a name="methodSetCellClass" id="SetCellClass"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">SetCellClass</span> (line <span class="line-number"><a href="../__filesource/fsource_XHTML__XH2.inc.php.html#a295">295</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			SetCellClass
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$sClass</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iRow</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iColumn</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$sClass</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$iRow</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$iColumn</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodSetCellId" id="SetCellId"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">SetCellId</span> (line <span class="line-number"><a href="../__filesource/fsource_XHTML__XH2.inc.php.html#a290">290</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			SetCellId
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$sId</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iRow</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iColumn</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$sId</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$iRow</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$iColumn</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodSetRowClass" id="SetRowClass"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">SetRowClass</span> (line <span class="line-number"><a href="../__filesource/fsource_XHTML__XH2.inc.php.html#a305">305</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			SetRowClass
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$sClass</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iRow</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$sClass</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$iRow</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="methodSetRowId" id="SetRowId"><!-- --></a>
+<div class="evenrow">
+	
+	<div class="method-header">
+		<span class="method-title">SetRowId</span> (line <span class="line-number"><a href="../__filesource/fsource_XHTML__XH2.inc.php.html#a300">300</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			SetRowId
+		</span>
+					(<span class="var-type"></span>&nbsp;<span class="var-name">$sId</span>, <span class="var-type"></span>&nbsp;<span class="var-name">$iRow</span>)
+			</div>
+	
+			<ul class="parameters">
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$sId</span>			</li>
+					<li>
+				<span class="var-type"></span>
+				<span class="var-name">$iRow</span>			</li>
+				</ul>
+		
+			
+	</div>
+<a name="method__toString" id="__toString"><!-- --></a>
+<div class="oddrow">
+	
+	<div class="method-header">
+		<span class="method-title">__toString</span> (line <span class="line-number"><a href="../__filesource/fsource_XHTML__XH2.inc.php.html#a315">315</a></span>)
+	</div> 
+	
+	<!-- ========== Info from phpDoc block ========= -->
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	<div class="method-signature">
+		<span class="method-result">void</span>
+		<span class="method-name">
+			__toString
+		</span>
+				()
+			</div>
+	
+		
+			<hr class="separator" />
+		<div class="notes">Redefinition of:</div>
+		<dl>
+			<dt><a href="../XHTML/CXHEntityAttrs.html#method__toString">CXHEntityAttrs::__toString()</a></dt>
+					</dl>
+			
+	</div>
+							<h4>Inherited Methods</h4>
+				<a name='inherited_methods'><!-- --></a>	
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../XHTML/CXHTable.html">CXHTable</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../XHTML/CXHTable.html#method__construct">CXHTable::__construct()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHTable.html#methodAppendBody">CXHTable::AppendBody()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHTable.html#methodAppendCols">CXHTable::AppendCols()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHTable.html#methodAppendContent">CXHTable::AppendContent()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHTable.html#methodReplaceCaption">CXHTable::ReplaceCaption()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHTable.html#methodReplaceFoot">CXHTable::ReplaceFoot()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHTable.html#methodReplaceHead">CXHTable::ReplaceHead()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHTable.html#methodSetCellpadding">CXHTable::SetCellpadding()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHTable.html#methodSetCellspacing">CXHTable::SetCellspacing()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../XHTML/CXHEntityAttrs.html">CXHEntityAttrs</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../XHTML/CXHEntityAttrs.html#method__construct">CXHEntityAttrs::__construct()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHEntityAttrs.html#methodAddEvent">CXHEntityAttrs::AddEvent()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHEntityAttrs.html#methodAddStyle">CXHEntityAttrs::AddStyle()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHEntityAttrs.html#methodSetClass">CXHEntityAttrs::SetClass()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHEntityAttrs.html#methodSetId">CXHEntityAttrs::SetId()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHEntityAttrs.html#methodSetTitle">CXHEntityAttrs::SetTitle()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHEntityAttrs.html#method_generateStylesString">CXHEntityAttrs::_generateStylesString()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHEntityAttrs.html#method_RegisterEvent">CXHEntityAttrs::_RegisterEvent()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHEntityAttrs.html#method__toString">CXHEntityAttrs::__toString()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../XHTML/CXHEntityIntl.html">CXHEntityIntl</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../XHTML/CXHEntityIntl.html#method__construct">CXHEntityIntl::__construct()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHEntityIntl.html#methodSetDir">CXHEntityIntl::SetDir()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHEntityIntl.html#methodSetLang">CXHEntityIntl::SetLang()</a></span><br>
+													<span class="method-name"><a href="../XHTML/CXHEntityIntl.html#method__toString">CXHEntityIntl::__toString()</a></span><br>
+											</blockquote>
+									<!-- =========== Summary =========== -->
+					<p>Inherited From <span class="classname"><a href="../Markup/CMLEntity.html">CMLEntity</a></span></p>
+					<blockquote>
+													<span class="method-name"><a href="../Markup/CMLEntity.html#method__construct">CMLEntity::__construct()</a></span><br>
+													<span class="method-name"><a href="../Markup/CMLEntity.html#methodAddAttr">CMLEntity::AddAttr()</a></span><br>
+													<span class="method-name"><a href="../Markup/CMLEntity.html#methodAddAttrs">CMLEntity::AddAttrs()</a></span><br>
+													<span class="method-name"><a href="../Markup/CMLEntity.html#methodAppendContent">CMLEntity::AppendContent()</a></span><br>
+													<span class="method-name"><a href="../Markup/CMLEntity.html#methodGetName">CMLEntity::GetName()</a></span><br>
+													<span class="method-name"><a href="../Markup/CMLEntity.html#methodReplaceContent">CMLEntity::ReplaceContent()</a></span><br>
+													<span class="method-name"><a href="../Markup/CMLEntity.html#method_generateAttrsString">CMLEntity::_generateAttrsString()</a></span><br>
+													<span class="method-name"><a href="../Markup/CMLEntity.html#method__toString">CMLEntity::__toString()</a></span><br>
+											</blockquote>
+										
+		</div>
+	</div>
+
+	<a name="sec-consts"></a>
+	<div class="info-box">
+		<div class="info-box-title">Class Constants</div>
+		<div class="nav-bar">
+			<a href="#sec-description">Description</a> |
+										<a href="#sec-var-summary">Constants</a> (<span class="disabled">details</span>)
+						
+			
+												<a href="#sec-var-summary">Vars</a> (<a href="#sec-vars">details</a>)
+														| 
+									<a href="#sec-method-summary">Methods</a> (<a href="#sec-methods">details</a>)
+							
+					</div>
+		<div class="info-box-body">
+										<h4>Inherited Constants</h4>
+				<A NAME='inherited_vars'><!-- --></A>
+									<p>Inherited from <span class="classname"><a href="../XHTML/CXHEntityIntl.html">CXHEntityIntl</a></span></p>
+					<blockquote>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name"><a href="../XHTML/CXHEntityIntl.html#constsDirLTR">CXHEntityIntl::sDirLTR</a></span><br>
+							</span>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name"><a href="../XHTML/CXHEntityIntl.html#constsDirRTL">CXHEntityIntl::sDirRTL</a></span><br>
+							</span>
+											</blockquote> 
+									<p>Inherited from <span class="classname"><a href="../Markup/CMLEntity.html">CMLEntity</a></span></p>
+					<blockquote>
+													<img src="../media/images/Variable.png" />
+							<span class="const-title">
+								<span class="const-name"><a href="../Markup/CMLEntity.html#constiMAX_APPEND_SIZE_B">CMLEntity::iMAX_APPEND_SIZE_B</a></span><br>
+							</span>
+											</blockquote> 
+										
+		</div>
+	</div>
+
+	<p class="notes" id="credit">
+		Documentation generated on Sat, 13 Mar 2010 03:57:23 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+	</p>
+	</div></body>
+</html>
