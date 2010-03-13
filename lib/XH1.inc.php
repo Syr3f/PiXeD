@@ -75,8 +75,6 @@ class CXHDocument extends CXHHTML
 	 */
 	public function ReplaceHead($vHead)
 	{
-		echo 1;
-		
 		switch (getType($vHead))
 		{
 			case "object":
@@ -102,8 +100,6 @@ class CXHDocument extends CXHHTML
 	 */
 	public function ReplaceBody($vBody)
 	{
-		echo 2;
-	
 		switch (getType($vBody))
 		{
 			case "object":

@@ -148,16 +148,12 @@ abstract class CMLEntity
 	 */
 	public function AppendContent($vContent)
 	{
-		echo "A";
-	
 		if ($this->_iSizeCount < self::iMAX_APPEND_SIZE_B)
 		{
 			if ($this->_bHasEnd)
 			{
 				if (is_string($vContent) || _io($vContent, 'CMLEntity'))
 				{
-					echo "Z";
-					
 					$this->_sContent .= $vContent;
 					$this->_iSizeCount += _sl(utf8_decode($vContent));
 				}
