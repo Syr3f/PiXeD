@@ -629,6 +629,8 @@ class CXHLink extends CXHEntityAttrs
  *
  *	The link element conveys relationship information that can be used by Web browsers and search engines. You can have multiple link elements that link to different resources or describe different relationships. The link elements can be contained in the head element.
  *	The style element can contain CSS rules (called embedded CSS) or a URL that leads to a file containing CSS rules (called external CSS).
+ *	
+ *	@todo Put this class in H2 and create element style
  */
 class CXHCSS extends CXHEntityIntl
 {

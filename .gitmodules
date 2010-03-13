@@ -1,0 +1,3 @@
+[submodule "lib/Blueprint"]
+	path = lib/Blueprint
+	url = git://github.com/Montoya/blueprint-plugin---liquidgrid.git
