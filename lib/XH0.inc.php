@@ -2131,7 +2131,7 @@ class CXHFieldText extends CXHFieldAttrs
 	public function AppendContent($sContent)
 	{
 		if ($this->_bIsMultiline)
-			$this->_oText->AppendContent($sContent);
+			parent::AppendContent($sContent);
 		else
 			throw new XHExcception("Cannot append content in non full ended input text");
 	}

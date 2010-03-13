@@ -14,7 +14,7 @@
  *	@package XHTML
  */
 
-include("XH0.inc.php");
+require_once("XH0.inc.php");
 
 
 class CXH2Script
