@@ -2,21 +2,31 @@
 
 
 /**
- *	Second level abstraction of the PHPWebLib.
- *	
- *	This file contains the code elements of the second level abstraction of the PHPWebLib.
  *
- *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
- *	@copyright Copyright (c) 2010 Serafim Junior Dos Santos Fagundes Cyb3r Networks
- *	@license http://creativecommons.org/licenses/by/3.0/ cc by
- *  
+ *	@package XHTML[5]
  *	@version 0.0
+ *	@license http://creativecommons.org/licenses/by/3.0/ cc by
  *
- *	@package XHTML-Level3
+ *	@copyright Copyright (c) 2010 Serafim Junior Dos Santos Fagundes Cyb3r Networks
+ *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
+ *  
+ *
+ *	The fifth level of abstraction of the XPiD Library.
+ *	
+ *	This file contains the code elements of the fifth level of abstraction of the XPiD Library.
+ *
+ *	The idea of this level is to extend the 4th level, .
+ *
+ *
+ *	The XPiD Document.
+ *	***
+ ** XPiDDoc
+ *	***
+ *
  */
+ 
 
-
-include("XH1.inc.php");
+include("XH4.inc.php");
 
 
 /**
@@ -29,7 +39,7 @@ class XPiDDoc extends CXHDoc
 	 */
 	const iClassSpan = 'span';
 
-	
+
 	/**
 	 *	@todo To document
 	 */

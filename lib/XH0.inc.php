@@ -2931,10 +2931,10 @@ class CXHTable extends CXHEntityAttrs
 	{
 		parent::__construct("table");
 
-		if (!_nv($oCXHTableContent))
+		if (!_in($oCXHTableContent))
 			$this->AppendContent($oCXHTableContent);
 
-		if (!_nv($oCXHCaption))
+		if (!_in($oCXHCaption))
 			$this->AppendContent($oCXHCaption);
 	}
 	
@@ -3084,7 +3084,7 @@ class CXHTableHead extends CXHTableAlignAttrs
 	{
 		parent::__construct("thead");
 		
-		if (!_nv($oCXHRow))
+		if (!_in($oCXHRow))
 		{
 			$this->AppendContent($oCXHRow);
 		}
@@ -3135,7 +3135,7 @@ class CXHTableFoot extends CXHTableAlignAttrs
 	{
 		parent::__construct("tfoot");
 		
-		if (!_nv($oCXHRow))
+		if (!_in($oCXHRow))
 		{
 			$this->AppendContent($oCXHRow);
 		}
@@ -3186,7 +3186,7 @@ class CXHTableBody extends CXHTableAlignAttrs
 	{
 		parent::__construct("tbody");
 		
-		if (!_nv($oCXHRow))
+		if (!_in($oCXHRow))
 		{
 			$this->AppendContent($oCXHRow);
 		}
@@ -3346,7 +3346,7 @@ class CXHRow extends CXHEntityAttrs
 	{
 		parent::__construct("tr");
 		
-		if (!_nv($oCXHCell))
+		if (!_in($oCXHCell))
 		{
 			$this->AppendContent($oCXHCell);
 		}

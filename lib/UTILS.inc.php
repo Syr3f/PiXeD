@@ -79,7 +79,7 @@ function _es($sString)
  *
  *	@return bool
  */
-function _nv($vObject)
+function _in($vObject)
 {
 	return is_null($vObject);
 }

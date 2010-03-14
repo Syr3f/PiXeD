@@ -1,15 +1,34 @@
 <?php
 
 /**
- *	The XHTML 1.0 PHPWebLib document generator classes.
  *
- *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
- *	@copyright Copyright (c) 2010 Serafim Junior Dos Santos Fagundes Cyb3r Networks
+ *	@package [1]XHTMLDocs
+ *	@version 0.0
  *	@license http://creativecommons.org/licenses/by/3.0/ cc by
- *  
- *	@version 1.0
  *
- *	@package XHTML
+ *	@copyright Copyright (c) 2010 Serafim Junior Dos Santos Fagundes Cyb3r Networks
+ *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
+ *  
+ *
+ *
+ *	The fourth level of abstraction of the XPiD Library.
+ *	
+ *	This file contains the code elements of the fourth level of abstraction of the XPiD Library.
+ *
+ *	The idea of this level is to extend the 3th level, .
+ *
+ *
+ *	The Script Block.
+ *	***
+ ** CXH2Script
+ *	***
+ *
+ *
+ *
+ *	The Image Map Block
+ *	***
+ ** CXH2ImageMap
+ *	***
  */
 
 require_once("XH0.inc.php");

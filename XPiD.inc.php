@@ -39,9 +39,15 @@ define("CSS_BLUEPRINT_IE",		LIBBASEURL."/lib/css/blueprint/ie.css");
 define("CSS_BLUEPRINT_LIQUID",	LIBBASEURL."/lib/css/blueprint/plugins/liquid/liquid.css");
 
 
+##	Paternal CSS Framework
+##
+define("CSS_LOTUS_TYPO",	LIBBASEURL."/lib/css/lotus/typography.css");
+
+
 #include(LIBBASEURL."/lib/XH1.inc.php");
 #include("XH2.inc.php");
-include("lib/XH3.inc.php");
+//include("lib/XH3.inc.php");
+//include("lib/XH4.inc.php");
 
 
 ?>

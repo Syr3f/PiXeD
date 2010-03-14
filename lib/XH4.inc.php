@@ -2,25 +2,73 @@
 
 
 /**
- *	Second level abstraction of the PHPWebLib.
- *	
- *	This file contains the code elements of the second level abstraction of the PHPWebLib.
  *
- *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
- *	@copyright Copyright (c) 2010 Serafim Junior Dos Santos Fagundes Cyb3r Networks
- *	@license http://creativecommons.org/licenses/by/3.0/ cc by
- *  
+ *	@package [4]Blocks
  *	@version 0.0
+ *	@license http://creativecommons.org/licenses/by/3.0/ cc by
  *
- *	@package XHTML
+ *	@copyright Copyright (c) 2010 Serafim Junior Dos Santos Fagundes Cyb3r Networks
+ *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
+ *  
+ *
+ *
+ *	The fourth level of abstraction of the XPiD Library.
+ *	
+ *	This file contains the code elements of the fourth level of abstraction of the XPiD Library.
+ *
+ *	The idea of this level is to extend the 3th level, .
+ *
+ *
+ *	The Script Block.
+ *	***
+ ** CXH2ScriptBlock
+ *	***
+ *
+ *
+ *	The Image Map Block
+ *	***
+ ** CXH2ImageMapBlock
+ *	***
+ *
+ *
+ *	The Hotzones View Block
+ *	***
+ ** CXH2HotzonesViewBlock
+ *	***
+ *
+ *
+ *	The Panel Block
+ *	***
+ ** CXH2PanelBlock
+ *	***
+ *
+ *
+ *	The Grid Block
+ *	***
+ ** CXH2GridBlock
+ *	***
+ *
+ *
+ *	The Image Map Block
+ *	***
+ ** CXH2ImageMap
+ *	***
+ *
+ *
  */
-
  
-require_once("lib/XH0.inc.php");
+ 
+require_once("lib/XH3.inc.php");
 
 
-class CXH2Script
+/**
+ *	@todo To document
+ */
+class CXH2ScriptBlock
 {
+	/**
+	 *	@todo To document
+	 */
 	public function __construct($sLanguage, $sScriptURL = PWL_EMPTY_STRING, $sNoScriptContent = PWL_EMPTY_STRING)
 	{
 		$this->_sLanguage = $sLanguage;
@@ -31,16 +79,28 @@ class CXH2Script
 		$this->_oNoScript = new CXHNoScript($sNoScriptContent);
 	}
 	
+
+	/**
+	 *	@todo To document
+	 */
 	public function AppendFileContent($sFilePath)
 	{
 		$this->_oScript->AppendFileContent($sFilePath);
 	}
 	
+
+	/**
+	 *	@todo To document
+	 */
 	public function AppendNoScriptContent($sContent)
 	{
 		$this->_oNoScript->AppendContent($sContent);
 	}
 	
+
+	/**
+	 *	@todo To document
+	 */
 	public function __toString()
 	{
 		return $this->_oScript."".$this->_oNoScript;
@@ -48,12 +108,26 @@ class CXH2Script
 }
 
 
-
-class CXH2ImageMap extends CXHDiv
+/**
+ *	@todo To document
+ */
+class CXH2ImageBlock extends CXHDiv
 {
+	/**
+	 *	@todo To document
+	 */
 	private $_oImage;
+
+
+	/**
+	 *	@todo To document
+	 */
 	private $_oMap;
 
+
+	/**
+	 *	@todo To document
+	 */
 	public function __construct($sImgSrc, $sImgAlt, $sCommonId)
 	{
 		parent::__construct("div");
@@ -64,16 +138,27 @@ class CXH2ImageMap extends CXHDiv
 		$this->_oMap = new CXHMap($sCommonId);
 	}
 	
+
+	/**
+	 *	@todo To document
+	 */
 	public function AddArea($sHRef, $sAlt, $sShape, $sCoords)
 	{
 		$this->_oMap->AddArea($sHRef, $sAlt, $sShape, $sCoords);
 	}
 	
+	/**
+	 *	@todo To document
+	 */
 	public function InsertArea($oCXHArea)
 	{
 		$this->_oMap->InsertArea($oCXHArea);
 	}
 	
+
+	/**
+	 *	@todo To document
+	 */
 	public function AppendContent($vContent)
 	{
 			$this->_oMap->AppendContent($vContent);
@@ -81,13 +166,32 @@ class CXH2ImageMap extends CXHDiv
 }
 
 
-
-class CXH2HotzonesView extends CXHTable
+/**
+ *	@todo To document
+ */
+class CXH2HotzonesBlock extends CXHTable
 {
+	/**
+	 *	@todo To document
+	 */
 	private $_sHeader;
+
+
+	/**
+	 *	@todo To document
+	 */
 	private $_sContent;
+
+
+	/**
+	 *	@todo To document
+	 */
 	private $_sFooter;
 
+
+	/**
+	 *	@todo To document
+	 */
 	public function __construct()
 	{
 		parent::__constrct();
@@ -96,6 +200,24 @@ class CXH2HotzonesView extends CXHTable
 		$this->SetCellpadding("0");
 	}
 	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function _generateRow($oTBody, $oRow, $oCell)
+	{
+			$oRow->AppendContent($oCell);
+
+		$oTBody->AppendContent($oRow);
+
+			// BOTTOM ROW
+			$oRow = new CHTMLTableRow();	
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
 	public function __toString()
 	{
 		$oTBody = new CHTMLTableBody();
@@ -118,25 +240,17 @@ class CXH2HotzonesView extends CXHTable
 				$oCell = new CHTMLTableCell();
 				
 				$oCell->AppendContent("&nbsp;");
-			
-			$oRow->AppendContent($oCell);
-		
-		$oTBody->AppendContent($oRow);
 
-			// NAVIGATION ROW
-			$oRow = new CHTMLTableRow();
+		// NAVIGATION ROW
+		$this->_generateRow($oTBody, $oRow, $oCell);
 			
 				$oCell = new CHTMLTableCell();
 				$oCell->SetColspan("3");
 				
 				$oCell->AppendContent("&nbsp;");
 			
-			$oRow->AppendContent($oCell);
-		
-		$oTBody->AppendContent($oRow);
-
-			// TOP MIDDLE ROW
-			$oRow = new CHTMLTableRow();
+		// TOP MIDDLE ROW
+		$this->_generateRow($oTBody, $oRow, $oCell);
 			
 				$oCell = new CHTMLTableCell();
 				$oCell->SetRowspan("2");
@@ -158,12 +272,8 @@ class CXH2HotzonesView extends CXHTable
 				
 				$oCell->AppendContent("&nbsp;");
 			
-			$oRow->AppendContent($oCell);
-		
-		$oTBody->AppendContent($oRow);
-
-			// SUB TOP MIDDLE ROW
-			$oRow = new CHTMLTableRow();
+		// SUB TOP MIDDLE ROW
+		$this->_generateRow($oTBody, $oRow, $oCell);
 			
 				$oCell = new CHTMLTableCell();
 				$oCell->SetRowspan("2");
@@ -171,20 +281,8 @@ class CXH2HotzonesView extends CXHTable
 				
 				$oCell->AppendContent("&nbsp;");
 			
-			$oRow->AppendContent($oCell);
-
-		$oTBody->AppendContent($oRow);
-
-			// BOTTOM MIDDLE ROW
-			$oRow = new CHTMLTableRow();
-			
-				$oCell = new CHTMLTableCell();
-				$oCell->SetRowspan("2");
-				$oCell->AddStyle("height", "25%");
-				
-				$oCell->AppendContent("&nbsp;");
-			
-			$oRow->AppendContent($oCell);
+		// BOTTOM MIDDLE ROW
+		$this->_generateRow($oTBody, $oRow, $oCell);			
 
 				$oCell = new CHTMLTableCell();
 				$oCell->SetRowspan("2");
@@ -193,34 +291,30 @@ class CXH2HotzonesView extends CXHTable
 				$oCell->AppendContent("&nbsp;");
 			
 			$oRow->AppendContent($oCell);
-		
-		$oTBody->AppendContent($oRow);
 
-			// SUB BOTTOM MIDDLE ROW
-			$oRow = new CHTMLTableRow();
+				$oCell = new CHTMLTableCell();
+				$oCell->SetRowspan("2");
+				$oCell->AddStyle("height", "25%");
+				
+				$oCell->AppendContent("&nbsp;");
+			
+		// SUB BOTTOM MIDDLE ROW
+		$this->_generateRow($oTBody, $oRow, $oCell);
 			
 				$oCell = new CHTMLTableCell();
 				
 				$oCell->AppendContent("&nbsp;");
 			
-			$oRow->AppendContent($oCell);
-		
-		$oTBody->AppendContent($oRow);
-
 			// FOOTER ROW
-			$oRow = new CHTMLTableRow();
+		$this->_generateRow($oTBody, $oRow, $oCell);
 			
 				$oCell = new CHTMLTableCell();
 				$oCell->SetColspan("3");
 				
 				$oCell->AppendContent("&nbsp;");
 			
-			$oRow->AppendContent($oCell);
-
-		$oTBody->AppendContent($oRow);
-
 			// BOTTOM ROW
-			$oRow = new CHTMLTableRow();
+		$this->_generateRow($oTBody, $oRow, $oCell);
 			
 				$oCell = new CHTMLTableCell();
 				$oCell->SetColspan("3");
@@ -237,11 +331,20 @@ class CXH2HotzonesView extends CXHTable
 	}
 }
 
-
-class CXH2Panel extends CXHDiv
+/**
+ *	@todo To document
+ */
+class CXH2PanelBlock extends CXHDiv
 {
+	/**
+	 *	@todo To document
+	 */
 	private $_iId;
 
+
+	/**
+	 *	@todo To document
+	 */
 	public function __construct($iId)
 	{
 		$this->_iId = $iId;
@@ -253,16 +356,127 @@ class CXH2Panel extends CXHDiv
 }
 
 
-class CXH2Grid extends CXHTable
-{
-	private $_iNbColumns;
-	private $_iNbRows;
-	private $_aaRows;
-	private $_aRowIds;
-	private $_aRowClasses;
-	private $_aaCellIds;
-	private $_aaCellClasses;
 
+/**
+ *	@todo To document
+ */
+class CXH2Table extends CXHTable
+{
+	/**
+	 *	@var int Head part of the table
+	 */
+	const iHead = 1;
+
+
+	/**
+	 *	@var int Body part of the table
+	 */
+	const iBody = 2;
+
+
+	/**
+	 *	@var int Foot part of the table
+	 */
+	const iFoot = 3;
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		
+		$this->_oTHead = new CXHTableHead();
+		$this->_oTBody = new CHXTableBody();
+		$this->_oTFoot = new CXHTableFoor();
+	}
+
+	
+	/**
+	 *	@todo To document
+	 */
+	public function GenerateRow($cPart, $oCell)
+	{
+		if (!_in($this->_oCurrentRow))
+			if (!_in($oCell))
+				$this->_oCurrentRow->AppendContent($oCell);
+			
+		switch ($cPart)
+		{
+			case self::iHead:
+				$this->_oTHead->AppendContent($oCell);
+			break;
+			case self::iBody:
+				$this->_oTBody->AppendContent($oCell);
+			break;
+			case self::iFoot:
+				$this->_oTFoot->AppendContent($oCell);
+			break;
+			default:
+		}
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function __toString()
+	{
+		
+	}
+}
+
+/**
+ *	@todo To document
+ */
+class CXH2GridBlock extends CXHTable
+{
+	/**
+	 *	@todo To document
+	 */
+	private $_iNbColumns;
+
+
+	/**
+	 *	@todo To document
+	 */
+	private $_iNbRows;
+
+
+	/**
+	 *	@todo To document
+	 */
+	private $_aaRows;
+
+
+	/**
+	 *	@todo To document
+	 */
+	private $_aRowIds;
+
+
+	/**
+	 *	@todo To document
+	 */
+	private $_aRowClasses;
+
+
+	/**
+	 *	@todo To document
+	 */
+	private $_aaCellIds;
+
+
+	/**
+	 *	@todo To document
+	 */
+	private $_aaCellClasses;
+	
+	
+	/**
+	 *	@todo To document
+	 */
 	public function __construct($iNbRows, $iNbColumns)
 	{
 		parent::__construct();
@@ -289,31 +503,55 @@ class CXH2Grid extends CXHTable
 		}
 	}
 	
+
+	/**
+	 *	@todo To document
+	 */
 	public function SetCellId($sId, $iRow, $iColumn)
 	{
 		$this->_aaCellIds[$iRow][$iColumn] = $sId;
 	}
 
+
+	/**
+	 *	@todo To document
+	 */
 	public function SetCellClass($sClass, $iRow, $iColumn)
 	{
 		$this->_aaCellClasses[$iRow][$iColumn] = $sClass;
 	}
 	
+
+	/**
+	 *	@todo To document
+	 */
 	public function SetRowId($sId, $iRow)
 	{
 		$this->_aRowIds[$iRow] = $sId;
 	}
 
+
+	/**
+	 *	@todo To document
+	 */
 	public function SetRowClass($sClass, $iRow)
 	{
 		$this->_aRowClasses[$iRow] = $sClass;
 	}
 	
+
+	/**
+	 *	@todo To document
+	 */
 	public function AppendContent($vContent, $iRow, $iColumn)
 	{
 		$this->_aaRows[$iRow][$iColumn][] = $vContent;
 	}
 
+
+	/**
+	 *	@todo To document
+	 */
 	public function __toString()
 	{
 		$oTBody = new CHTMLTableBody();
