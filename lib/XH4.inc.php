@@ -9,7 +9,6 @@
  *
  *	@copyright Copyright (c) 2010 Serafim Junior Dos Santos Fagundes Cyb3r Networks
  *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
- *  
  *
  *
  *	The fourth level of abstraction of the XPiD Library.
@@ -17,48 +16,10 @@
  *	This file contains the code elements of the fourth level of abstraction of the XPiD Library.
  *
  *	The idea of this level is to extend the 3th level, .
- *
- *
- *	The Script Block.
- *	***
- ** CXH2ScriptBlock
- *	***
- *
- *
- *	The Image Map Block
- *	***
- ** CXH2ImageMapBlock
- *	***
- *
- *
- *	The Hotzones View Block
- *	***
- ** CXH2HotzonesViewBlock
- *	***
- *
- *
- *	The Panel Block
- *	***
- ** CXH2PanelBlock
- *	***
- *
- *
- *	The Grid Block
- *	***
- ** CXH2GridBlock
- *	***
- *
- *
- *	The Image Map Block
- *	***
- ** CXH2ImageMap
- *	***
- *
- *
  */
  
  
-require_once("lib/XH3.inc.php");
+require_once("XH3.inc.php");
 
 
 /**
@@ -360,7 +321,7 @@ class CXH2PanelBlock extends CXHDiv
 /**
  *	@todo To document
  */
-class CXH2Table extends CXHTable
+class CXH2TableBlock extends CXHTable
 {
 	/**
 	 *	@var int Head part of the table
@@ -383,37 +344,122 @@ class CXH2Table extends CXHTable
 	/**
 	 *	@todo To document
 	 */
+	private $_aTBody;
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	private $_iCurrentBody;
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	private $_oTHead;
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	private $_oTFoot;
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	private $_oCurrentRow;
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	private $_oCurrentCell;
+	
+	
+	/**
+	 *	@todo To document
+	 */
 	public function __construct()
 	{
 		parent::__construct();
 		
+		$this->_aTBody = array()
+		
+		$this->_iCurrentBody = 0;
+		
 		$this->_oTHead = new CXHTableHead();
-		$this->_oTBody = new CHXTableBody();
+		$this->_aTBody[] = new CHXTableBody();
 		$this->_oTFoot = new CXHTableFoor();
+		
+		$this->_oCurrentRow = new CHXRow();
+		
+		$this->_oCurrentCell = new CXHCell();
 	}
 
 	
 	/**
 	 *	@todo To document
 	 */
-	public function GenerateRow($cPart, $oCell)
+	public function NewBody()
 	{
-		if (!_in($this->_oCurrentRow))
-			if (!_in($oCell))
-				$this->_oCurrentRow->AppendContent($oCell);
+		$this->_aTBody[] = new CXHTableBody();
+		
+		$this->_iCurrentBody++;
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function GenerateRow($cPart, $oCell = PWL_NULL_OBJECT)
+	{
+		if (!_in($oCell))
+			$this->AppendToRow($oCell);
+		else
+			$this->AppendToRow($this->_oCurrentCell);
+			
+		$this->AppendRowToPart($cPart, $this->_oCurrentRow);
+		
+		$this->_oCurrentRow = new CXHRow();
+		
+		$this->_oCurrentCell = new CXHCell();
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function AppendToRow($oCell = PWL_NULL_OBJECT)
+	{
+		if (!_in($oCell))
+			$this->_oCurrentCell = $oCell;
+	
+		$this->_oCurrentRow->AppendContent($this->_oCurrentCell);
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function AppendRowToPart($cPart, $oRow = PWL_NULL_OBJECT)
+	{
+		if (!_in($oRow))
+			$this->_oCurrentRow = $oRow;
 			
 		switch ($cPart)
 		{
 			case self::iHead:
-				$this->_oTHead->AppendContent($oCell);
+				$this->_oTHead->AppendContent($this->_oCurrentRow);
 			break;
 			case self::iBody:
-				$this->_oTBody->AppendContent($oCell);
+				$this->_aTBody[$this->_iCurrentBody]->AppendContent($this->_oCurrentRow);
 			break;
 			case self::iFoot:
-				$this->_oTFoot->AppendContent($oCell);
+				$this->_oTFoot->AppendContent($this->_oCurrentRow);
 			break;
 			default:
+				throw new XHException("Part value is not valid");
 		}
 	}
 	
@@ -421,11 +467,31 @@ class CXH2Table extends CXHTable
 	/**
 	 *	@todo To document
 	 */
+	 public function AppendContent($vContent)
+	 {
+		if (_io($vContent, 'CXHCell'))
+			$this->_oCurrentRow->AppendContent($oCell);
+		else
+			parent::AppendContent($vContent);
+	 }
+	 
+	
+	/**
+	 *	@todo To document
+	 */
 	public function __toString()
 	{
-		
+		parent::ReplaceHead($this->_oTHead);
+
+		foreach ($this->_aTBody as $oTBody)
+			parent::AppendBody($oTBody);
+	
+		parent::ReplaceFoot($this->_oTFoot);
+	
+		parent::__toString();
 	}
 }
+
 
 /**
  *	@todo To document

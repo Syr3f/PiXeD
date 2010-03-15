@@ -1,10 +1,9 @@
 <?php
 
 
-
 /**
  *
- *	@package XHTML[6]
+ *	@package [6]Templates
  *	@version 0.0
  *	@license http://creativecommons.org/licenses/by/3.0/ cc by
  *
@@ -12,26 +11,16 @@
  *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
  *  
  *
- *
  *	The sixth level of abstraction of the XPiD Library.
  *	
  *	This file contains the code elements of the sixth level of abstraction of the XPiD Library.
  *
  *	The idea of this level is to extend the 5nd level, .
- *
- *
- *	The Paternal Document.
- *	***
- ** Paternal
- *	***
- *
  */
 
-
  
-include("XH5.inc.php");
+require_once("XH5.inc.php");
  
-
  
 /**
  *	@todo To document

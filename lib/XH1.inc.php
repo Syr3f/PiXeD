@@ -1,308 +1,232 @@
 <?php
 
+
 /**
  *
- *	@package [1]XHTMLDocs
+ *	@package [1]Markup
  *	@version 0.0
  *	@license http://creativecommons.org/licenses/by/3.0/ cc by
  *
  *	@copyright Copyright (c) 2010 Serafim Junior Dos Santos Fagundes Cyb3r Networks
  *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
- *  
  *
  *
- *	The fourth level of abstraction of the XPiD Library.
+ *	The first level of abstraction of the XPiD Library.
  *	
- *	This file contains the code elements of the fourth level of abstraction of the XPiD Library.
+ *	This file contains the code elements of the first level of abstraction of the XPiD Library.
  *
- *	The idea of this level is to extend the 3th level, .
- *
- *
- *	The Script Block.
- *	***
- ** CXH2Script
- *	***
- *
- *
- *
- *	The Image Map Block
- *	***
- ** CXH2ImageMap
- *	***
+ *	
  */
 
+ 
 require_once("XH0.inc.php");
 
 
-define("XHTYPE_XHTML_1_0_STRICT",1);
-define("XHTYPE_XHTML_1_0_TRANS", 2);
-define("XHTYPE_XHTML_1_0_FRAMS", 3);
-
 /**
- *	Creates a XHTML document structure
+ *	Exception class for CMLEntity
  */
-class CXHDocument extends CXHHTML
+class MLException extends Exception
 {
 	/**
-	 *	@var string String holding the head of the document
+	 *	@param string $sMessage Message of the exception
 	 */
-	private $_sHead;
-	
-	
-	/**
-	 *	@var string String holding the body of the document
-	 */
-	private $_sBody;
-	
-	
-	/**
-	 *	@var string String holding the doctype of the document
-	 */
-	private $_sDoctype;
-
-	
-	/**
-	 *	@param string $sLanguage Language abbreviation used in document
-	 */
-	public function __construct($sLanguage, $iType = XHTYPE_XHTML_1_0_STRICT)
+	public function __construct($sMessage)
 	{
-		parent::__construct($sLanguage);
-
-		$this->_sHead = "";
-		$this->_sBody = "";
-
-		switch ($iType)
-		{
-			case XHTYPE_XHTML_1_0_FRAMS:
-			//break;
-			case XHTYPE_XHTML_1_0_TRANS:
-			//	$this->_sDoctype = "<!DOCTYPE html PUBLIC ".chr(13).chr(10).chr(9).chr(34)."-//W3C//DTD XHTML 1.0 Transitional//EN".chr(34).chr(13).chr(10).chr(9).chr(34)."http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd".chr(34).">";
-			//break;
-			case XHTYPE_XHTML_1_0_STRICT:
-			//break;
-			default:
-				$this->_sDoctype = "<!DOCTYPE html PUBLIC ".chr(13).chr(10).chr(9).chr(34)."-//W3C//DTD XHTML 1.0 Strict//EN".chr(34).chr(13).chr(10).chr(9).chr(34)."http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd".chr(34).">";
-		}
-	}
-
-
-	/**
-	 *	Sets the head of the XHTML document
-	 *
-	 *	@param mixed $vHead Head string or object for the XHTML document
-	 */
-	public function ReplaceHead($vHead)
-	{
-		switch (getType($vHead))
-		{
-			case "object":
-				if (_io($vHead, 'CXHHead'))
-				{
-					$this->_sHead = (string) $vHead;
-				}
-				break;
-			case "string":
-				$this->_sHead = $vHead;
-				break;
-			default:
-				throw new XHException("\$vHead is not of type CXHHead");
-
-		}
-	}
-
-
-	/**
-	 *	Sets the body to the XHTML document
-	 *
-	 *	@param mixed $vBody Body string or object for the XHTML document
-	 */
-	public function ReplaceBody($vBody)
-	{
-		switch (getType($vBody))
-		{
-			case "object":
-
-				if (_io($vBody, 'CXHBody'))
-				{
-					$this->_sBody = (string) $vBody;
-				}
-
-				break;
-			case "string":
-				$this->_sBody = $vBody;
-				break;
-			default:
-				throw new XHException("\$vBody is not of type CXHBody");
-
-		}
-	}
-
-
-	/**
-	 *	@return string
-	 */
-	public function __toString()
-	{
-		if (!_sl($this->_sHead))
-			throw new XHException("Document has no head");
-			
-		parent::AppendContent($this->_sHead);
-
-		if (!_sl($this->_sBody))
-			throw new XHException("Document has no body");
-
-		parent::AppendContent($this->_sBody);
-
-		return $this->_sDoctype.chr(13).chr(10).parent::__toString();
+		parent::__construct($sMessage);
 	}
 }
 
 
-
-
 /**
- *	Creates an XHTML document
+ *  Markup entity abstraction class
  */
-class CXHDoc extends CXHDocument
+abstract class CMLEntity
 {
 	/**
-	 *	@var object Holds the XHTML document head object
+	 *	@var string Name of the entity tag
 	 */
-	private $_oHeader;
+	private $_sName;
 
 
 	/**
-	 *	@var object Holds the XHTML document body object
+	 *	@var bool Defines the ending of the entity; true is full markup ending, false is self ending
 	 */
-	private $_oBody;
-	
-	
+	private $_bHasEnd;
+
+
 	/**
-	 *	@var string Holds the content to be appended at the end of the body content
+	 *	@var string Variable holding the string content
 	 */
-	private $_sAfterBody;
-	
-	
+	private $_sContent;
+
+
 	/**
-	 *	@param string $sTitle Title of the document
-	 *	@param string $sEncoding Encoding of the document; defaults to UTF-8
-	 *	@param string $sLanguage Language used in the document; defaults to en: English
+	 *	@var array Hash array holding the entity's attributes; keys are the attribute names, items are the values
 	 */
-	public function __construct($sTitle = "My PWL Doc", $sEncoding = "UTF-8", $sLanguage = "en")
-	{
-		parent::__construct($sLanguage);
+	private $_hsAttrs0;
+
+
+	/**
+	 *	@var string String defining the end of line caracters
+	 */
+	protected $sNL;
+
+
+	/**
+	 *	@var string String defining the tab caracter
+	 */
+	protected $sTAB;
+
+
+	/**
+	 *	@var string Constant of maximum size of the content of a CMLEntity in bytes
+	 */
+	const iMAX_APPEND_SIZE_B = 2097152;
+
+
+	/**
+	 *	@param string $sName Name of the entity tag
+	 *	@param bool $bHasEnd Value indicating if entity has an explicit end; if full closed; defaults to true
+	 *	@param string $sContent Initial content to add to the entity; defaults to empty string
+	 */
+	public function __construct($sName, $bHasEnd = true, $sContent = PWL_EMPTY_STRING)
+	{	
+		$this->_sName = $sName;
+		$this->_bHasEnd = $bHasEnd;
+		$this->_sContent = $sContent;
+
+		$this->_hsAttrs0 = array();
+
+		$this->sNL = chr(13).chr(10);
+		$this->sTAB = chr(9);
 		
-		$this->_oHeader = new CXHHead($sEncoding, $sTitle);
-		$this->_oBody = new CXHBody();
-		
-		$this->_sAfterBody = "";
+		$this->_iSizeCount = 0;
 	}
-	
-	
+
+
 	/**
-	 *	Appends an XHTML element to the head of the document
+	 *	Returns the name of the entity
 	 *
-	 *	@param object $oElement Element to be appended to the head document
+	 *	@return string
 	 */
-	public function AppendToHeader($oElement)
+	public function GetName()
 	{
-		$this->_oHeader->AppendContent($oElement);
+		return $this->_sName;
 	}
-	
-	
+
+
 	/**
-	 *	Appends content in the body
+	 *	Adds an attribute to the entity
 	 *
-	 *	@param mixed $vContent Content to be appended
+	 *	@param string $sName Name of the attribute
+	 *	@param string $sValue Value of the entity
 	 */
-	public function AppendToBody($vContent)
+	public function AddAttr($sName, $sValue)
 	{
-		$this->_oBody->AppendContent($vContent);
+		if (_sl($sValue))
+		{
+			$this->_hsAttrs0[$sName] = $sValue;
+		}
 	}
-	
-	
+
+
 	/**
-	 *	@todo To document
+	 *	Adds a set of attributes to the entity
+	 *	
+	 *	@param array $hArray Hash value array containing attribute names and values as keys and values respectively
 	 */
-	public function AddStyle($sName, $sStyle)
+	public function AddAttrs($hAttrs)
 	{
-		$this->_oBody->AddStyle($sName, $sStyle);
+		foreach ($hAttrs as $sKey => $sVal)
+		{
+			$this->AddAttr($sKey, $sVal);
+		}
 	}
-	
-	
+
+
 	/**
-	 *	@todo To document
-	 */
-	public function SetClass($sClass)
-	{
-		$this->_oBody->SetClass($sClass);
-	}
-	
-	
-	/**
-	 *	@todo To document
-	 */
-	public function SetId($sId)
-	{
-		$this->_oBody->SetId($sId);
-	}
-	
-	
-	/**
-	 *	Appends content to the body
+	 *	Appends content to the entity
 	 *
-	 *	@param mixed $vContent Content to be appended
+	 *	@param mixed $vContent Content to be appended inside the entity
 	 */
 	public function AppendContent($vContent)
 	{
-		$this->_oBody->AppendContent($vContent);
-	}
-	
-	
-	/**
-	 *	Appends elements and strings at the end of the body
-	 *
-	 *	@param mixed $vContent Content to be appended
-	 */
-	public function AppendAtEnd($vContent)
-	{
-		switch (getType($vContent))
+		if ($this->_iSizeCount < self::iMAX_APPEND_SIZE_B)
 		{
-			case "object":
-				if (_io($vContent, 'CXHEntityAttrs'))
+			if ($this->_bHasEnd)
+			{
+				if (is_string($vContent) || _io($vContent, 'CMLEntity'))
 				{
-					$this->_sAfterBody .= (string) $vContent;
+					$this->_sContent .= $vContent;
+					$this->_iSizeCount += _sl(utf8_decode($vContent));
 				}
-				break;
-			case "string":
-				$this->_sAfterBody .= $vContent;
-				break;
+				else
+				{
+					throw new MLException("Content to append $sContent is not explicitly passed as string or not an instance of CMLEntity");
+				}
+			}
+			else
+			{
+				throw new MLException("Cannot append to closed end element.");
+			}
+		}
+		else
+		{
+			throw new MLException("Size above the limit of ".self::iMAX_APPEND_SIZE_B);
 		}
 	}
-	
+
+
 	/**
-	 *	Sets the document onload event
+	 *	Replaces the content of the entity
 	 *
-	 *	@param string $sEvent Event to be called on document load
+	 *	@param mixed $vContent Content to replace the entity inner content
 	 */
-	public function SetOnloadEvent($sEvent)
+	public function ReplaceContent($vContent)
 	{
-		$this->_oBody->AddEvent("onload", $sEvent);
+		$this->_sContent = "";
+
+		$this->AppendContent($vContent);
 	}
-	
-	
+
+
+	/**
+	 *	Method to generate the entity's attributes string
+	 *
+	 *	@return string
+	 */
+	private function _generateAttrsString()
+	{
+		$sAttrs = PWL_EMPTY_STRING;
+
+		foreach ($this->_hsAttrs0 as $sName => $sValue)
+		{
+			$sAttrs .= ' '.$sName.'='.chr(34).$sValue.chr(34);
+		}
+
+		return $sAttrs;
+	}
+
+
 	/**
 	 *	@return string
 	 */
 	public function __toString()
 	{
-		$this->ReplaceHead($this->_oHeader);
-		
-		$sBody = (string) $this->_oBody;
-		
-		$this->ReplaceBody($sBody.$this->_sAfterBody);
-	
-		return parent::__toString();
+		$sML = '<'.$this->_sName.$this->_generateAttrsString();
+
+		if (!$this->_bHasEnd)
+			$sML .= ' /';
+
+		$sML .= '>';
+
+		if ($this->_bHasEnd)
+		{
+			$sML .= $this->_sContent;
+			$sML .= '</'.$this->_sName.'>';
+		}
+
+		return $sML;
 	}
 }
 

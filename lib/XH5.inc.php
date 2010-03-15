@@ -3,7 +3,7 @@
 
 /**
  *
- *	@package XHTML[5]
+ *	@package [5]Documents
  *	@version 0.0
  *	@license http://creativecommons.org/licenses/by/3.0/ cc by
  *
@@ -16,17 +16,10 @@
  *	This file contains the code elements of the fifth level of abstraction of the XPiD Library.
  *
  *	The idea of this level is to extend the 4th level, .
- *
- *
- *	The XPiD Document.
- *	***
- ** XPiDDoc
- *	***
- *
  */
  
 
-include("XH4.inc.php");
+require_once("XH4.inc.php");
 
 
 /**
