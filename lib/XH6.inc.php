@@ -41,6 +41,9 @@ class Paternal extends XPiDDoc
 	
 	const sDefTitleColor = "white";
 	
+	const sDefEvenContentBgColor = "#666";
+	
+	const sDefOddContentBgColor = "#999";
 	
 	private $_bHeaderBandSet;
 	
@@ -48,8 +51,9 @@ class Paternal extends XPiDDoc
 	
 	private $_bFooterSet;
 	
+	private $_iContentCount;
 
-	public function __construct($sTitle, $sLanguage = "en")
+	public function __construct($sTitle = "XPiD Library - Paternal Template", $sLanguage = "en")
 	{
 		parent::__construct($sTitle, self::sDefEncoding, $sLanguage);
 		
@@ -58,6 +62,8 @@ class Paternal extends XPiDDoc
 		$this->_bTitleHeaderSet = false;
 		
 		$this->_bFooterSet = false;
+		
+		$this->_iContentCount = 0;
 		
 		$this->_setDefaultStyles();
 	}
@@ -115,7 +121,23 @@ class Paternal extends XPiDDoc
 	}
 	
 	
-	public function SetTitleHeader($sTitle1 = "XPiD Framework", $sColor1 = sDefTitleColor, $sTitle2 = "Paternal Template", $sColor2 = sDefTitleColor)
+	public function AddContentSpace($vContent)
+	{
+		if ($this->_iContentCount % 2 == 0)
+			$sColor = self::sDefEvenContentBgColor;
+		else
+			$sColor = self::sDefOddContentBgColor;
+	
+			$oDiv = new CXHDiv($vContent);
+			$oDiv->AddStyle("background-color", $sColor);
+			$oDiv->AddStyle("height", "587px");
+
+		$this->IntegrateObject($oDiv, XPiDDoc::iClassSpan, 24, false, true);
+		
+		$this->_iContentCount++;
+	}
+	
+	public function SetTitleHeader($sTitle1 = "XPiD Library", $sColor1 = sDefTitleColor, $sTitle2 = "Paternal Template", $sColor2 = sDefTitleColor)
 	{
 			$oDiv = new CXHDiv();
 			$oDiv->AddStyle("padding", "25px");
@@ -149,7 +171,7 @@ class Paternal extends XPiDDoc
 			$oBand->AddStyle("background-color", "#222");
 			$oBand->AddStyle("height", "50px");
 
-		$oDoc->IntegrateObject($oBand, XPiDDoc::iClassSpan, 24, false, true);
+		$this->IntegrateObject($oBand, XPiDDoc::iClassSpan, 24, false, true);
 
 			$oDiv = new CXHDiv();
 			$oDiv->AddStyle("background-color", "white");
@@ -178,7 +200,7 @@ class Paternal extends XPiDDoc
 			else
 				$oDiv->AppendContent($vContent);
 
-		$oDoc->IntegrateObject($oDiv, XPiDDoc::iClassSpan, 24, false, true);
+		$this->IntegrateObject($oDiv, XPiDDoc::iClassSpan, 24, false, true);
 		
 		$this->_bFooterSet = true;
 	}
@@ -191,7 +213,10 @@ class Paternal extends XPiDDoc
 			
 		if (!$this->_bTitleHeaderSet)
 			$this->SetTitleHeader();
-			
+	
+		if ($this->_iContentCount == 0)
+			$this->AddContentSpace("XPiD Library - Paternal Template");
+	
 		if (!$this->_bFooterSet)
 			$this->SetFooter();
 	
