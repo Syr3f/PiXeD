@@ -57,7 +57,7 @@ class Paternal extends XPiDDoc
 		
 		$this->_bTitleHeaderSet = false;
 		
-		$this->_bFooterSet = true;
+		$this->_bFooterSet = false;
 		
 		$this->_setDefaultStyles();
 	}
