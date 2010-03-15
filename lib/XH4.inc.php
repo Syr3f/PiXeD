@@ -384,7 +384,7 @@ class CXH2TableBlock extends CXHTable
 	{
 		parent::__construct();
 		
-		$this->_aTBody = array()
+		$this->_aTBody = array();
 		
 		$this->_iCurrentBody = 0;
 		

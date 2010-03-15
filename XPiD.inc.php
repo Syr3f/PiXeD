@@ -6,7 +6,7 @@
 define("LIBBASEURL", "");
 
 
-##	EDIT BASE URL RELATIVE TO THE XDiP LIBRARY
+##	EDIT ABSOLUT PATH TO THE XDiP LIBRARY
 ##
 define("INCLUDEPATH", "");
 
@@ -44,10 +44,7 @@ define("CSS_BLUEPRINT_LIQUID",	LIBBASEURL."/lib/css/blueprint/plugins/liquid/liq
 define("CSS_LOTUS_TYPO",	LIBBASEURL."/lib/css/lotus/typography.css");
 
 
-#include(LIBBASEURL."/lib/XH1.inc.php");
-#include("XH2.inc.php");
-//include("lib/XH3.inc.php");
-//include("lib/XH4.inc.php");
+require_once("lib/XH6.inc.php");
 
 
 ?>
