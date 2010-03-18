@@ -30,7 +30,7 @@ class CXH2ScriptBlock
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sLanguage, $sScriptURL = PWL_EMPTY_STRING, $sNoScriptContent = PWL_EMPTY_STRING)
+	public function __construct($sLanguage, $sScriptURL = PXH_EMPTY_STRING, $sNoScriptContent = PXH_EMPTY_STRING)
 	{
 		$this->_sLanguage = $sLanguage;
 		$this->_sScriptURL = $sScriptURL;
@@ -412,7 +412,7 @@ class CXH2TableBlock extends CXHTable
 	/**
 	 *	@todo To document
 	 */
-	public function GenerateRow($cPart, $oCell = PWL_NULL_OBJECT)
+	public function GenerateRow($cPart, $oCell = PXH_NULL_OBJECT)
 	{
 		if (!_in($oCell))
 			$this->AppendToRow($oCell);
@@ -430,7 +430,7 @@ class CXH2TableBlock extends CXHTable
 	/**
 	 *	@todo To document
 	 */
-	public function AppendToRow($oCell = PWL_NULL_OBJECT)
+	public function AppendToRow($oCell = PXH_NULL_OBJECT)
 	{
 		if (!_in($oCell))
 			$this->_oCurrentCell = $oCell;
@@ -442,7 +442,7 @@ class CXH2TableBlock extends CXHTable
 	/**
 	 *	@todo To document
 	 */
-	public function AppendRowToPart($cPart, $oRow = PWL_NULL_OBJECT)
+	public function AppendRowToPart($cPart, $oRow = PXH_NULL_OBJECT)
 	{
 		if (!_in($oRow))
 			$this->_oCurrentRow = $oRow;

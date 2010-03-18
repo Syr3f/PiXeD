@@ -20,15 +20,15 @@
 /**
  *	Simple constant defining an empty string
  */
-define("PWL_EMPTY_STRING","");
+define("PXH_EMPTY_STRING","");
 
 
 /**
  *	Simple constant defining a null object
  *
- *	@name PWL_NULL_OBJECT
+ *	@name PXH_NULL_OBJECT
  */
-define("PWL_NULL_OBJECT", null);
+define("PXH_NULL_OBJECT", null);
 
 
 /**

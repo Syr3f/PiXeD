@@ -131,7 +131,7 @@ abstract class CXHEntityIntl extends CMLEntity
 	 *	@param bool $bHasEnd Variable defining if the entity has a full end or a self closed end
 	 *	@param string $sContent Variable for the initial entity content
 	 */
-	public function __construct($sTagName, $bHasEnd = true, $sContent = PWL_EMPTY_STRING)
+	public function __construct($sTagName, $bHasEnd = true, $sContent = PXH_EMPTY_STRING)
 	{	
 		parent::__construct($sTagName, $bHasEnd, $sContent);
 		
@@ -198,7 +198,7 @@ abstract class CXHEntityCoreAttrs extends CMLEntity
 	 *	@param bool $bHasEnd Variable defining if the entity has a full end or a self closed end
 	 *	@param string $sContent Variable for the initial entity content
 	 */
-	public function __construct($sTagName, $bHasEnd = true, $sContent = PWL_EMPTY_STRING)
+	public function __construct($sTagName, $bHasEnd = true, $sContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct($sTagName, $bHasEnd, $sContent);
 		
@@ -235,7 +235,7 @@ abstract class CXHEntityCoreAttrs extends CMLEntity
 	 */
 	public function GetId()
 	{
-		$sId = PWL_EMPTY_STRING;
+		$sId = PXH_EMPTY_STRING;
 		
 		if (array_key_exists("id", $this->_hsAttrs3))
 			$sId = $this->_hsAttrs3["id"];
@@ -260,7 +260,7 @@ abstract class CXHEntityCoreAttrs extends CMLEntity
 	 */
 	public function GetClass()
 	{
-		$sClass = PWL_EMPTY_STRING;
+		$sClass = PXH_EMPTY_STRING;
 	
 		if (array_key_exists("class", $this->_hsAttrs3))
 			$sClass = $this->_hsAttrs3["class"];
@@ -285,7 +285,7 @@ abstract class CXHEntityCoreAttrs extends CMLEntity
 	 */
 	private function _generateStylesString()
 	{
-		$sTemp = PWL_EMPTY_STRING;
+		$sTemp = PXH_EMPTY_STRING;
 
 		foreach ($this->_asStyles1 as $sN => $sV)
 		{
@@ -353,7 +353,7 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
 	 *	@param bool $bHasEnd Variable defining if the entity has a full end or a self closed end
 	 *	@param string $sContent Variable for the initial entity content
 	 */
-	public function __construct($sTagName, $bHasEnd = true, $sContent = PWL_EMPTY_STRING)
+	public function __construct($sTagName, $bHasEnd = true, $sContent = PXH_EMPTY_STRING)
 	{	
 		parent::__construct($sTagName, $bHasEnd, $sContent);
 		
@@ -420,7 +420,7 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
 	 */
 	public function GetId()
 	{
-		$sId = PWL_EMPTY_STRING;
+		$sId = PXH_EMPTY_STRING;
 		
 		if (array_key_exists("id", $this->_hsAttrs2))
 			$sId = $this->_hsAttrs2["id"];
@@ -445,7 +445,7 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
 	 */
 	public function GetClass()
 	{
-		$sClass = PWL_EMPTY_STRING;
+		$sClass = PXH_EMPTY_STRING;
 	
 		if (array_key_exists("class", $this->_hsAttrs2))
 			$sClass = $this->_hsAttrs2["class"];
@@ -470,7 +470,7 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
 	 */
 	private function _generateStylesString()
 	{
-		$sTemp = PWL_EMPTY_STRING;
+		$sTemp = PXH_EMPTY_STRING;
 
 		foreach ($this->_asStyles as $sN => $sV)
 		{
@@ -562,7 +562,7 @@ class CXHHTML extends CXHEntityIntl
  */
 class CXHTitle extends CMLEntity
 {
-	public function __construct($sTitle = PWL_EMPTY_STRING)
+	public function __construct($sTitle = PXH_EMPTY_STRING)
 	{
 		parent::__construct("title", true, $sTitle);
 	}
@@ -589,7 +589,7 @@ class CXHHead extends CXHEntityIntl
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sEncoding, $sTitle = PWL_EMPTY_STRING, $sBaseHref = PWL_EMPTY_STRING)
+	public function __construct($sEncoding, $sTitle = PXH_EMPTY_STRING, $sBaseHref = PXH_EMPTY_STRING)
 	{
 		parent::__construct("head");
 
@@ -605,7 +605,7 @@ class CXHHead extends CXHEntityIntl
 			$this->AppendContent($oBase);
 		}
 		
-		$oEncoding = new CXHMeta("Content-Type", PWL_EMPTY_STRING, "text/html;charset=".$sEncoding);		
+		$oEncoding = new CXHMeta("Content-Type", PXH_EMPTY_STRING, "text/html;charset=".$sEncoding);		
 		
 		$this->AppendContent($oEncoding);
 	}
@@ -632,7 +632,7 @@ class CXHMeta extends CXHEntityIntl
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sHttpEquiv = PWL_EMPTY_STRING, $sName = PWL_EMPTY_STRING, $sContent = PWL_EMPTY_STRING)
+	public function __construct($sHttpEquiv = PXH_EMPTY_STRING, $sName = PXH_EMPTY_STRING, $sContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct("meta", false);
 		
@@ -700,7 +700,7 @@ class CXHCSS extends CXHEntityIntl
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sFileURL = PWL_EMPTY_STRING, $sMedia = "screen")
+	public function __construct($sFileURL = PXH_EMPTY_STRING, $sMedia = "screen")
 	{
 		if (_sl($sFileURL))
 		{
@@ -760,7 +760,7 @@ class CXHScript extends CMLEntity
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sScriptLanguage, $sFileURL = PWL_EMPTY_STRING)
+	public function __construct($sScriptLanguage, $sFileURL = PXH_EMPTY_STRING)
 	{
 		parent::__construct("script");
 		
@@ -814,7 +814,7 @@ class CXHNoScript extends CXHEntityAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sContent = PWL_EMPTY_STRING)
+	public function __construct($sContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct("noscript");
 		
@@ -874,7 +874,7 @@ class CXHDiv extends CXHEntityAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($vContent = PWL_EMPTY_STRING)
+	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct("div");
 		
@@ -901,7 +901,7 @@ class CXHParagraph extends CXHEntityAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sContent = PWL_EMPTY_STRING)
+	public function __construct($sContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct("p");
 		
@@ -994,7 +994,7 @@ class CXHHeading extends CXHEntityAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($iLevel = self::iLvl1, $sContent = PWL_EMPTY_STRING)
+	public function __construct($iLevel = self::iLvl1, $sContent = PXH_EMPTY_STRING)
 	{
 		if ($iLevel >= self::iLvl1 && $iLevel <= self::iLvl6)
 		{
@@ -1145,7 +1145,7 @@ class CXHItem extends CXHEntityAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($vContent = PWL_EMPTY_STRING)
+	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct("li");
 		
@@ -1251,7 +1251,7 @@ class CXHTerm extends CXHEntityAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($vContent = PWL_EMPTY_STRING)
+	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct("dt");
 		
@@ -1277,7 +1277,7 @@ class CXHDef extends CXHEntityAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($vContent = PWL_EMPTY_STRING)
+	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct("dd");
 		
@@ -1350,7 +1350,7 @@ class CXHPre extends CXHEntityAttrs
 	/**
 	 *	@param bool $bPreserve Indicates space is preserved when true; defaults to false
 	 */
-	public function __construct($vContent = PWL_EMPTY_STRING, $bPreserve = false)
+	public function __construct($vContent = PXH_EMPTY_STRING, $bPreserve = false)
 	{
 		parent::__construct("pre");
 
@@ -1427,7 +1427,7 @@ class CXHAnchor extends CXHEntityAttrs
 	 *	@param string $sTitle Title of the element
 	 *	@param string $sTarget Target of the hyperlink
 	 */
-	public function __construct($sHRef, $vContent = PWL_EMPTY_STRING, $sTitle = PWL_EMPTY_STRING, $sTarget = PWL_EMPTY_STRING)
+	public function __construct($sHRef, $vContent = PXH_EMPTY_STRING, $sTitle = PXH_EMPTY_STRING, $sTarget = PXH_EMPTY_STRING)
 	{
 		parent::__construct("a");
 		
@@ -1762,7 +1762,7 @@ class CXHImage extends CXHEntityAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sSrc, $sDesc, $sWidth = PWL_EMPTY_STRING, $sHeight = PWL_EMPTY_STRING)
+	public function __construct($sSrc, $sDesc, $sWidth = PXH_EMPTY_STRING, $sHeight = PXH_EMPTY_STRING)
 	{
 		parent::__construct("img", false);
 		
@@ -1933,7 +1933,7 @@ class CXHArea extends CXHEntityAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sHRef = PWL_EMPTY_STRING, $sAlt = PWL_EMPTY_STRING, $sShape = PWL_EMPTY_STRING, $sCoords = PWL_EMPTY_STRING)
+	public function __construct($sHRef = PXH_EMPTY_STRING, $sAlt = PXH_EMPTY_STRING, $sShape = PXH_EMPTY_STRING, $sCoords = PXH_EMPTY_STRING)
 	{
 		parent::__construct("area", false);
 		
@@ -2034,7 +2034,7 @@ class CXHForm extends CXHEntityAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sAction, $sMethod, $sName = PWL_EMPTY_STRING, $sEnctype = "application/x-www-form-urlencoded")
+	public function __construct($sAction, $sMethod, $sName = PXH_EMPTY_STRING, $sEnctype = "application/x-www-form-urlencoded")
 	{
 		parent::__construct("form");
 		
@@ -2069,7 +2069,7 @@ class CXHLabel extends CXHEntityAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sForId, $sContent = PWL_EMPTY_STRING)
+	public function __construct($sForId, $sContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct("label");
 		
@@ -2162,13 +2162,13 @@ class CXHFieldText extends CXHFieldAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sIdName, $sValue = PWL_EMPTY_STRING, $bIsDisabled = false, $bMultiline = false, $sRows = "5", $sCols = "10")
+	public function __construct($sIdName, $sValue = PXH_EMPTY_STRING, $bIsDisabled = false, $bMultiline = false, $sRows = "5", $sCols = "10")
 	{
 		$this->_bIsMultiline = $bMultiline;
 	
 		if ($bMultiline == false)
 		{
-			parent::__construct("input", false, PWL_EMPTY_STRING, $bIsDisabled);	
+			parent::__construct("input", false, PXH_EMPTY_STRING, $bIsDisabled);	
 			
 			parent::AddAttr("type", "text");
 
@@ -2176,7 +2176,7 @@ class CXHFieldText extends CXHFieldAttrs
 		}
 		else
 		{
-			parent::__construct("textarea", true, PWL_EMPTY_STRING, $bIsDisabled);
+			parent::__construct("textarea", true, PXH_EMPTY_STRING, $bIsDisabled);
 			
 			parent::AddAttr("rows", $sRows);
 			parent::AddAttr("cols", $sCols);
@@ -2225,9 +2225,9 @@ class CXHFieldPassword extends CXHFieldInput
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sIdName, $sValue = PWL_EMPTY_STRING, $bIsDisabled = false)
+	public function __construct($sIdName, $sValue = PXH_EMPTY_STRING, $bIsDisabled = false)
 	{
-		parent::__construct($sIdName, $sValue, "input", PWL_EMPTY_STRING, $bIsDisabled);
+		parent::__construct($sIdName, $sValue, "input", PXH_EMPTY_STRING, $bIsDisabled);
 		
 		$this->AddAttr("type", "password");
 	}
@@ -2242,9 +2242,9 @@ class CXHFieldCheckbox extends CXHFieldInput
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sName, $sId, $sValue = PWL_EMPTY_STRING, $bChecked = false, $bIsDisabled = false)
+	public function __construct($sName, $sId, $sValue = PXH_EMPTY_STRING, $bChecked = false, $bIsDisabled = false)
 	{
-		parent::__construct($sName, $sValue, "input", PWL_EMPTY_STRING, $bIsDisabled);
+		parent::__construct($sName, $sValue, "input", PXH_EMPTY_STRING, $bIsDisabled);
 		
 		parent::SetId($sId);
 		
@@ -2263,9 +2263,9 @@ class CXHFieldRadio extends CXHFieldInput
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sName, $sId, $sValue = PWL_EMPTY_STRING, $bChecked = false, $bIsDisabled = false)
+	public function __construct($sName, $sId, $sValue = PXH_EMPTY_STRING, $bChecked = false, $bIsDisabled = false)
 	{
-		parent::__construct($sName, $sValue, "input", PWL_EMPTY_STRING, $bIsDisabled);
+		parent::__construct($sName, $sValue, "input", PXH_EMPTY_STRING, $bIsDisabled);
 		
 		parent::SetId($sId);
 		
@@ -2287,7 +2287,7 @@ class CXHButtonSubmit extends CXHFieldInput
 	 */
 	public function __construct($sIdName, $sValue = "Submit", $bIsDisabled = false)
 	{
-		parent::__construct($sIdName, $sValue, "input", PWL_EMPTY_STRING, $bIsDisabled);
+		parent::__construct($sIdName, $sValue, "input", PXH_EMPTY_STRING, $bIsDisabled);
 		
 		$this->AddAttr("type", "submit");
 	}
@@ -2305,7 +2305,7 @@ class CXHButtonReset extends CXHFieldInput
 	 */
 	public function __construct($sIdName, $sValue = "Reset", $bIsDisabled = false)
 	{
-		parent::__construct($sIdName, $sValue, "input", PWL_EMPTY_STRING, $bIsDisabled);
+		parent::__construct($sIdName, $sValue, "input", PXH_EMPTY_STRING, $bIsDisabled);
 		
 		$this->AddAttr("type", "reset");
 	}
@@ -2322,7 +2322,7 @@ class CXHFieldFile extends CXHFieldInput
 	 */
 	public function __construct($sIdName, $bIsDisabled = false)
 	{
-		parent::__construct($sIdName, PWL_EMPTY_STRING, "input", PWL_EMPTY_STRING, $bIsDisabled);
+		parent::__construct($sIdName, PXH_EMPTY_STRING, "input", PXH_EMPTY_STRING, $bIsDisabled);
 		
 		$this->AddAttr("type", "file");
 	}
@@ -2337,9 +2337,9 @@ class CXHFieldHidden extends CXHFieldInput
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sIdName, $sValue = PWL_EMPTY_STRING, $bIsDisabled = false)
+	public function __construct($sIdName, $sValue = PXH_EMPTY_STRING, $bIsDisabled = false)
 	{
-		parent::__construct($sIdName, $sValue, "input", PWL_EMPTY_STRING, $bIsDisabled);
+		parent::__construct($sIdName, $sValue, "input", PXH_EMPTY_STRING, $bIsDisabled);
 		
 		$this->AddAttr("type", "hidden");
 	}
@@ -2356,7 +2356,7 @@ class CXHFieldImage extends CXHFieldInput
 	 */
 	public function __construct($sImageURL, $sAltText, $sIdName, $sValue, $bIsDisabled = false)
 	{
-		parent::__construct($sIdName, $sValue, "input", PWL_EMPTY_STRING, $bIsDisabled);
+		parent::__construct($sIdName, $sValue, "input", PXH_EMPTY_STRING, $bIsDisabled);
 		
 		$this->AddAttr("type", "image");
 		$this->AddAttr("src", $sImageURL);
@@ -2374,9 +2374,9 @@ class CXHButton extends CXHFieldInput
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sIdName, $sValue = PWL_EMPTY_STRING, $bIsDisabled = false)
+	public function __construct($sIdName, $sValue = PXH_EMPTY_STRING, $bIsDisabled = false)
 	{
-		parent::__construct($sIdName, $sValue, "input", PWL_EMPTY_STRING, $bIsDisabled);
+		parent::__construct($sIdName, $sValue, "input", PXH_EMPTY_STRING, $bIsDisabled);
 		
 		$this->AddAttr("type", "button");
 	}
@@ -2413,7 +2413,7 @@ class CXHOptionsInsertions extends CXHFieldAttrs
 	 */
 	public function __construct($sTagName, $bIsDisabled = false)
 	{
-		parent::__construct($sTagName, true, PWL_EMPTY_STRING, $bIsDisabled);
+		parent::__construct($sTagName, true, PXH_EMPTY_STRING, $bIsDisabled);
 		
 		$this->_iNumSelected = 0;
 	}
@@ -2665,7 +2665,7 @@ class CXHFieldSet extends CXHEntityAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sLegend = PWL_EMPTY_STRING)
+	public function __construct($sLegend = PXH_EMPTY_STRING)
 	{
 		parent::__construct("fieldset");
 		
@@ -2697,7 +2697,7 @@ class CXHFieldSet extends CXHEntityAttrs
  */
 class CXHLegend extends CXHEntityAttrs
 {
-	public function __construct($vLegend = PWL_EMPTY_STRING)
+	public function __construct($vLegend = PXH_EMPTY_STRING)
 	{
 		parent::__construct("legend", true, $vLegend);
 	}
@@ -2763,7 +2763,7 @@ class CXHPushButton extends CXHFieldAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sType, $sIdName, $sValue, $bIsDisabled = false, $sContent = PWL_EMPTY_STRING)
+	public function __construct($sType, $sIdName, $sValue, $bIsDisabled = false, $sContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct("button", true, $sContent, $bIsDisabled);
 		
@@ -2934,14 +2934,14 @@ class CXHTable extends CXHEntityAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($oCXHTableContent = PWL_NULL_OBJECT, $oCXHCaption = PWL_NULL_OBJECT)
+	public function __construct($oCXHTableContent = PXH_NULL_OBJECT, $oCXHCaption = PXH_NULL_OBJECT)
 	{
 		parent::__construct("table");
 
-		$this->_oCaption = PWL_NULL_OBJECT;
+		$this->_oCaption = PXH_NULL_OBJECT;
 		$this->_aCols = array();
-		$this->_oTHead = PWL_NULL_OBJECT;
-		$this->_oTFoot = PWL_NULL_OBJECT;
+		$this->_oTHead = PXH_NULL_OBJECT;
+		$this->_oTFoot = PXH_NULL_OBJECT;
 		$this->_aTBody = array();
 		
 		if (!_in($oCXHTableContent))
@@ -3097,7 +3097,7 @@ class CXHCaption extends CXHEntityAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sContent = PWL_EMPTY_STRING)
+	public function __construct($sContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct("caption", true, $sContent);
 	}
@@ -3120,7 +3120,7 @@ class CXHTableHead extends CXHTableAlignAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($oCXHRow = PWL_NULL_OBJECT)
+	public function __construct($oCXHRow = PXH_NULL_OBJECT)
 	{
 		parent::__construct("thead");
 		
@@ -3171,7 +3171,7 @@ class CXHTableFoot extends CXHTableAlignAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($oCXHRow = PWL_NULL_OBJECT)
+	public function __construct($oCXHRow = PXH_NULL_OBJECT)
 	{
 		parent::__construct("tfoot");
 		
@@ -3222,7 +3222,7 @@ class CXHTableBody extends CXHTableAlignAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($oCXHRow = PWL_NULL_OBJECT)
+	public function __construct($oCXHRow = PXH_NULL_OBJECT)
 	{
 		parent::__construct("tbody");
 		
@@ -3354,7 +3354,7 @@ class CXHCol extends CXHColAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sHAlign = CXHTableAlignAttrs::sHALeft, $sVAlign = CXHTableAlignAttrs::sVAMiddle, $vWidth = PWL_EMPTY_STRING, $iSpan = 1)
+	public function __construct($sHAlign = CXHTableAlignAttrs::sHALeft, $sVAlign = CXHTableAlignAttrs::sVAMiddle, $vWidth = PXH_EMPTY_STRING, $iSpan = 1)
 	{
 		parent::__construct("col", false);
 		
@@ -3382,7 +3382,7 @@ class CXHRow extends CXHEntityAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($oCXHCell = PWL_NULL_OBJECT)
+	public function __construct($oCXHCell = PXH_NULL_OBJECT)
 	{
 		parent::__construct("tr");
 		
@@ -3439,7 +3439,7 @@ class CXHCellHead extends CXHEntityAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($vContent = PWL_EMPTY_STRING)
+	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct("th");
 		
@@ -3488,7 +3488,7 @@ class CXHCell extends CXHEntityAttrs
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($vContent = PWL_EMPTY_STRING)
+	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct("td");
 		

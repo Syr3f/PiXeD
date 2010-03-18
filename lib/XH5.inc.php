@@ -30,31 +30,31 @@ class XPiDDoc extends CXHDoc
 	/**
 	 *	@todo To document
 	 */
-	const iClassSpan = 'span';
+	const sClassSpan = 'span';
 
 
 	/**
 	 *	@todo To document
 	 */
-	const iClassAppend = 'append';
+	const sClassAppend = 'append';
 
 
 	/**
 	 *	@todo To document
 	 */
-	const iClassPrepend = 'prepend';
+	const sClassPrepend = 'prepend';
 
 	
 	/**
 	 *	@todo To document
 	 */
-	const iClassPull = 'pull';
+	const sClassPull = 'pull';
 
 
 	/**
 	 *	@todo To document
 	 */
-	const iClassPush = 'push';
+	const sClassPush = 'push';
 
 
 	/**
@@ -156,17 +156,17 @@ class XPiDDoc extends CXHDoc
 	
 		switch ($csClassType)
 		{
-			case self::iClassSpan:
-			case self::iClassAppend:
-			case self::iClassPrepend:
+			case self::sClassSpan:
+			case self::sClassAppend:
+			case self::sClassPrepend:
 				if ($this->_iRowColCount > self::iMaxCols)
 					throw new XHException("Column ".$csClassType." is above the grid limit of ".self::iMaxCols." (".$this->iRowColCount.")");
 			break;
-			case self::iClassPull:
+			case self::sClassPull:
 				if ($iCols > self::iMaxPull)
 					throw new XHException("Column pull is above the limit of ".self::iMaxPull." (".$iCols.")");
 			break;
-			case self::iClassPush:
+			case self::sClassPush:
 				if ($iCols > self::iMaxPush)
 					throw new XHException("Column push is above the limit of ".self::iMaxPush." (".$iCols.")");
 			break;

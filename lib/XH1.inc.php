@@ -89,7 +89,7 @@ abstract class CMLEntity
 	 *	@param bool $bHasEnd Value indicating if entity has an explicit end; if full closed; defaults to true
 	 *	@param string $sContent Initial content to add to the entity; defaults to empty string
 	 */
-	public function __construct($sName, $bHasEnd = true, $sContent = PWL_EMPTY_STRING)
+	public function __construct($sName, $bHasEnd = true, $sContent = PXH_EMPTY_STRING)
 	{	
 		$this->_sName = $sName;
 		$this->_bHasEnd = $bHasEnd;
@@ -162,7 +162,7 @@ abstract class CMLEntity
 				}
 				else
 				{
-					throw new MLException("Content to append $sContent is not explicitly passed as string or not an instance of CMLEntity");
+					throw new MLException("Content to append is not explicitly passed as string or not an instance of CMLEntity");
 				}
 			}
 			else
@@ -197,7 +197,7 @@ abstract class CMLEntity
 	 */
 	private function _generateAttrsString()
 	{
-		$sAttrs = PWL_EMPTY_STRING;
+		$sAttrs = PXH_EMPTY_STRING;
 
 		foreach ($this->_hsAttrs0 as $sName => $sValue)
 		{
