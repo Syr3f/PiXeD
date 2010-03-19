@@ -1,4 +1,8 @@
-
+0.0.1
+	Added license - MIT License
+	Library elaborated from the previous version to abstraction 6
+	Tested at abstraction 3
+	Code documentation up to abstraction 3
 0.0
 	Rework of initial project
 	Base files for XHTML document generation
