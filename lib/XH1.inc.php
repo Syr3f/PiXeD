@@ -15,7 +15,7 @@
  *	
  *	This file contains the code elements of the first level of abstraction of the XPiD Library.
  *
- *	
+ *	The first level of abstraction defines the concept of markup identification as used in the XHTML documentation. Only classes and relative Exceptions refered to basic markup creation are defined in this file.
  */
 
  

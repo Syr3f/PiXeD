@@ -210,7 +210,10 @@ class CXHDoc extends CXHDocument
 	
 	
 	/**
-	 *	@todo To document
+	 *	Add a style to the document body
+	 *
+	 *	@param string $sName Style name to be attributed to the document body
+	 *	@param string $sStyle Style value to be attributed to the document body
 	 */
 	public function AddStyle($sName, $sStyle)
 	{
@@ -219,7 +222,9 @@ class CXHDoc extends CXHDocument
 	
 	
 	/**
-	 *	@todo To document
+	 *	Sets the class value of the document body
+	 *
+	 *	@param string $sClass Class string to be attributed to the document body
 	 */
 	public function SetClass($sClass)
 	{
@@ -228,7 +233,9 @@ class CXHDoc extends CXHDocument
 	
 	
 	/**
-	 *	@todo To document
+	 *	Sets the id of the document body
+	 *
+	 *	@param string $sId Id value to be attributed to the document body
 	 */
 	public function SetId($sId)
 	{

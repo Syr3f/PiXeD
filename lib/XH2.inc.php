@@ -15,7 +15,11 @@
  *	
  *	This file contains the code elements of the second level of abstraction of the XPiD Library.
  *
- *	The idea of this level is to extend the 1st level, .
+ *	The idea of this level is to extend the 1st level, Markup Identification, and extend its use in XHTML markup entities as defined in the strict DTD of the XHTML specification of the W3C recommendation available at the http://www.w3.org/TR/xhtml1/.
+ *
+ *	The terms element and entity are interchangibly used to mean a DTD declared entity for the XHTML document.
+ *
+ *	Some of the class documentation is taken from the xhtml.com website: http://xhtml.com/.
  */
 
  
@@ -150,11 +154,11 @@ abstract class CXHEntityIntl extends CMLEntity
 	
 	
 	/**
-	 *	@param string $csDir String constant defining the text direction
+	 *	@param string $csDir Class constant defining the text direction
 	 */
 	 public function SetDir($csDir)
 	 {
-		$this->_hAttrs1["dir"] = $cDir;
+		$this->_hAttrs1["dir"] = $csDir;
 	 }
 	
 	
@@ -231,7 +235,9 @@ abstract class CXHEntityCoreAttrs extends CMLEntity
 	
 	
 	/**
-	 *	@todo To document
+	 *	Returns the id value of the entity
+	 *
+	 *	@return string
 	 */
 	public function GetId()
 	{
@@ -256,7 +262,9 @@ abstract class CXHEntityCoreAttrs extends CMLEntity
 	
 	
 	/**
-	 *	@todo To document
+	 *	Returns the class value of the entity
+	 *
+	 *	@return string
 	 */
 	public function GetClass()
 	{
@@ -282,6 +290,7 @@ abstract class CXHEntityCoreAttrs extends CMLEntity
 
 	/**
 	 *	Assembles the style attribute and adds the attribute to the attribute array $_hsAttrs2
+	 *	@access private
 	 */
 	private function _generateStylesString()
 	{
@@ -368,6 +377,8 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
 	 *	Registers an event for late validation
 	 *
 	 *	@param string Event name
+	 *
+	 *	@access private
 	 */
 	protected function _RegisterEvent($sEventName)
 	{
@@ -416,7 +427,9 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
 	
 	
 	/**
-	 *	@todo To document
+	 *	Returns the id value of the entity
+	 *
+	 *	@return string
 	 */
 	public function GetId()
 	{
@@ -441,7 +454,9 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
 	
 	
 	/**
-	 *	@todo To document
+	 *	Returns the class value of the entity
+	 *
+	 *	@return string
 	 */
 	public function GetClass()
 	{
@@ -467,6 +482,8 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
 
 	/**
 	 *	Assembles the style attribute and adds the attribute to the attribute array $_hsAttrs2
+	 *
+	 *	@access private
 	 */
 	private function _generateStylesString()
 	{
@@ -518,7 +535,7 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
 class CXHHTML extends CXHEntityIntl
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sLang Language of the html entity content
 	 */
 	public function __construct($sLang)
 	{
@@ -559,14 +576,23 @@ class CXHHTML extends CXHEntityIntl
 ##
 /**
  *	Creates a title element.
+ *
+ *	The title element is used to identify the document.
  */
 class CXHTitle extends CMLEntity
 {
+	/**
+	 *	@param string $sTitle Title of the document
+	 */
 	public function __construct($sTitle = PXH_EMPTY_STRING)
 	{
 		parent::__construct("title", true, $sTitle);
 	}
 	
+	
+	/**
+	 *	@param string $sContent Content of the title entity; Title of the document
+	 */
 	public function AppendContent($sContent)
 	{
 		parent::ReplaceContent($sContent);
@@ -587,7 +613,9 @@ class CXHTitle extends CMLEntity
 class CXHHead extends CXHEntityIntl
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sEncoding Encoding of the document
+	 *	@param string $sTitle Title of the document
+	 *	@param string $sBaseHref Base URI of the document
 	 */
 	public function __construct($sEncoding, $sTitle = PXH_EMPTY_STRING, $sBaseHref = PXH_EMPTY_STRING)
 	{
@@ -630,7 +658,9 @@ class CXHHead extends CXHEntityIntl
 class CXHMeta extends CXHEntityIntl
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sHttpEquiv HTTP header name; Used in place of the $sName parameter
+	 *	@param string $sName Name of the meta information
+	 *	@param string $sContent Value of the HTTP-quiv or name parameter
 	 */
 	public function __construct($sHttpEquiv = PXH_EMPTY_STRING, $sName = PXH_EMPTY_STRING, $sContent = PXH_EMPTY_STRING)
 	{
@@ -664,7 +694,9 @@ class CXHMeta extends CXHEntityIntl
 class CXHLink extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sHref Location of a Web ressource
+	 *	@param string $sType Type of the link
+	 *	@param string $sRel Relationship of the Web ressource to the document
 	 */
 	public function __construct($sHref, $sType, $sRel)
 	{
@@ -698,7 +730,8 @@ class CXHLink extends CXHEntityAttrs
 class CXHCSS extends CXHEntityIntl
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sFileURL URL reference of the style sheet
+	 *	@param string $sMedia Intended destination of the referenced link or content
 	 */
 	public function __construct($sFileURL = PXH_EMPTY_STRING, $sMedia = "screen")
 	{
@@ -723,7 +756,9 @@ class CXHCSS extends CXHEntityIntl
 
 
 	/**
-	 *	@todo To document
+	 *	Adds the content of the referenced file in the style entity content
+	 *
+	 *	@param string $sFileName File reference of the style content
 	 */
 	public function AddFileContent($sFileName)
 	{
@@ -758,7 +793,8 @@ class CXHCSS extends CXHEntityIntl
 class CXHScript extends CMLEntity
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sScriptLanguage Language of the script entity
+	 *	@param string $sFileURL File reference of the script entity
 	 */
 	public function __construct($sScriptLanguage, $sFileURL = PXH_EMPTY_STRING)
 	{
@@ -775,9 +811,11 @@ class CXHScript extends CMLEntity
 
 
 	/**
-	 *	@todo To document
+	 *	Adds the file content to the script entity
+	 *
+	 *	@param string $sFileName File reference of the script
 	 */
-	public function AppendFileContent($sFileName)
+	public function AddFileContent($sFileName)
 	{
 		ob_start();
 
@@ -806,31 +844,16 @@ class CXHScript extends CMLEntity
 class CXHNoScript extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param mixed $vContent Content of the noscript entity
 	 */
-	private $_sContent;
-
-
-	/**
-	 *	@todo To document
-	 */
-	public function __construct($sContent = PXH_EMPTY_STRING)
+	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct("noscript");
 		
-		if (_sl((string) $sContent))
-			parent::AppendContent($sContent);
+		if (_sl((string) $vContent))
+			parent::AppendContent($vContent);
 		else
 			parent::AppendContent("This document uses a script. If you see this message it means that your user agent/browser doesn't run scripts and this document may not render as appropriate. Please enable scripts or use a user agent/browser that has scripting functionality enabled.");
-	}
-	
-
-	/**
-	 *	@todo To document
-	 */
-	public function AppendContent($sContent)
-	{
-		throw new XHException("Cannot use AppendContent with CXHNoScript");
 	}
 }
 # <!--=================== Document Body ====================================-->
@@ -850,9 +873,6 @@ class CXHNoScript extends CXHEntityAttrs
  */
 class CXHBody extends CXHEntityAttrs
 {
-	/**
-	 *	@todo To document
-	 */
 	public function __construct()
 	{
 		parent::__construct("body");
@@ -872,7 +892,7 @@ class CXHBody extends CXHEntityAttrs
 class CXHDiv extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param mixed $vContent Content of the div entity
 	 */
 	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
@@ -899,14 +919,14 @@ class CXHDiv extends CXHEntityAttrs
 class CXHParagraph extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param mixed $vContent Content of the p entity
 	 */
-	public function __construct($sContent = PXH_EMPTY_STRING)
+	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct("p");
 		
-		if (_sl((string) $sContent))
-			$this->AppendContent($sContent);
+		if (_sl((string) $vContent))
+			parent::AppendContent($vContent);
 	}
 }
 
@@ -956,85 +976,90 @@ class CXHParagraph extends CXHEntityAttrs
 class CXHHeading extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@var int Constant for the first level of document heading
 	 */
 	const iLvl1 = 1;
 
 
 	/**
-	 *	@todo To document
+	 *	@var int Constant for the second level of document heading
 	 */
 	const iLvl2 = 2;
 
 
 	/**
-	 *	@todo To document
+	 *	@var int Constant for the third level of document heading
 	 */
 	const iLvl3 = 3;
 
 
 	/**
-	 *	@todo To document
+	 *	@var int Constant for the fourth level of document heading
 	 */
 	const iLvl4 = 4;
 
 
 	/**
-	 *	@todo To document
+	 *	@var int Constant for the fifth level of document heading
 	 */
 	const iLvl5 = 5;
 
 
 	/**
-	 *	@todo To document
+	 *	@var int Constant for the sixth level of document heading
 	 */
 	const iLvl6 = 6;
 	
 
 	/**
-	 *	@todo To document
+	 *	@param int $ciLevel Class constant value of the heading level
+	 *	@param mixed $vContent Content of the heading
 	 */
-	public function __construct($iLevel = self::iLvl1, $sContent = PXH_EMPTY_STRING)
+	public function __construct($ciLevel = self::iLvl1, $vContent = PXH_EMPTY_STRING)
 	{
-		if ($iLevel >= self::iLvl1 && $iLevel <= self::iLvl6)
+		if ($ciLevel >= self::iLvl1 && $ciLevel <= self::iLvl6)
 		{
-			switch ($iLevel)
+			switch ($ciLevel)
 			{
 				case self::iLvl1:
-					parent::__construct("h1", true, $sContent);
+					parent::__construct("h1", true, $vContent);
 				break;
 				case self::iLvl2:
-					parent::__construct("h2", true, $sContent);
+					parent::__construct("h2", true, $vContent);
 				break;
 				case self::iLvl3:
-					parent::__construct("h3", true, $sContent);
+					parent::__construct("h3", true, $vContent);
 				break;
 				case self::iLvl4:
-					parent::__construct("h4", true, $sContent);
+					parent::__construct("h4", true, $vContent);
 				break;
 				case self::iLvl5:
-					parent::__construct("h5", true, $sContent);
+					parent::__construct("h5", true, $vContent);
 				break;
 				case self::iLvl6:
-					parent::__construct("h6", true, $sContent);
+					parent::__construct("h6", true, $vContent);
 				break;
 			}
 		}
 		else
-			throw new XHException("\$iLevel of CXHHeading is not an inner constant");
+			throw new XHException("\$ciLevel of CXHHeading is not an inner constant");
 	}
 }
 
 
 # <!--=================== Lists ============================================-->
 /**
- *	@todo To document
+ *	Abstract class for the list elements ul and ol
+ *
+ *	Defines the base methods to be used by the ordered and unordered list elements
+ *	@abstract
+ *
  *	@todo To test
  */
 abstract class CXHList extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sTagName Name of the entity
 	 */
 	public function __construct($sTagName)
 	{
@@ -1043,7 +1068,9 @@ abstract class CXHList extends CXHEntityAttrs
 	
 	
 	/**
-	 *	@todo To document
+	 *	Adds content to a li element
+	 *
+	 *	@param mixed $vContent Content of the entity
 	 */
 	public function AddItem($vContent)
 	{
@@ -1054,7 +1081,7 @@ abstract class CXHList extends CXHEntityAttrs
 	
 	
 	/**
-	 *	@todo To document
+	 *	@param object $oCXHItem Inserts a li element
 	 */
 	public function InsertItem($oCXHItem)
 	{
@@ -1063,12 +1090,12 @@ abstract class CXHList extends CXHEntityAttrs
 	
 	
 	/**
-	 *	@todo To document
+	 *	@param object $oCXHItem Inserts a li element
 	 */
-	public function AppendContent($vContent)
+	public function AppendContent($oCXHItem)
 	{
-		if (_io($vContent, 'CXHItem'))
-			parent::AppendContent($vContent);
+		if (_io($oCXHItem, 'CXHItem'))
+			parent::AppendContent($oCXHItem);
 		else
 			throw new XHException("Parameter is not an instance of CXHItem");
 	}
@@ -1091,9 +1118,6 @@ abstract class CXHList extends CXHEntityAttrs
  */
 class CXHUnorderedList extends CXHList
 {
-	/**
-	 *	@todo To document
-	 */
 	public function __construct()
 	{
 		parent::__construct("ul");
@@ -1117,9 +1141,6 @@ class CXHUnorderedList extends CXHList
  */
 class CXHOrderedList extends CXHList
 {
-	/**
-	 *	@todo To document
-	 */
 	public function __construct()
 	{
 		parent::__construct("ol");
@@ -1143,7 +1164,7 @@ class CXHOrderedList extends CXHList
 class CXHItem extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param mixed $vContent Content of the li element
 	 */
 	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
@@ -1170,9 +1191,6 @@ class CXHItem extends CXHEntityAttrs
  */
 class CXHDefList extends CXHEntityAttrs
 {
-	/**
-	 *	@todo To document
-	 */
 	public function __construct()
 	{
 		parent::__construct("dl");
@@ -1180,7 +1198,9 @@ class CXHDefList extends CXHEntityAttrs
 
 
 	/**
-	 *	@todo To document
+	 *	Adds a dt element
+	 *
+	 *	@param mixed $vContent Content of the dt element
 	 */
 	public function AddTerm($vContent)
 	{
@@ -1191,7 +1211,9 @@ class CXHDefList extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Inserts a dt element
+	 *
+	 *	@param object $oCXHTerm A dt element
 	 */
 	public function InsertTerm($oCXHTerm)
 	{
@@ -1200,7 +1222,9 @@ class CXHDefList extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Adds a dd element
+	 *
+	 *	@param mixed $vContent Content of the dd element
 	 */
 	public function AddDef($vContent)
 	{
@@ -1211,7 +1235,9 @@ class CXHDefList extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Inserts 
+	 *
+	 *	@param object $oCXHDef A dd element
 	 */
 	public function InsertDef($oCXHDef)
 	{
@@ -1220,15 +1246,17 @@ class CXHDefList extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Appends a dt or a dd element
+	 *
+	 *	@param mixed $oContent A dt or dd element
 	 */
-	public function AppendContent($vContent)
+	public function AppendContent($oContent)
 	{
-		if (_io($vContent, 'CXHTerm'))
-			parent::AppendContent($vContent);
+		if (_io($oContent, 'CXHTerm'))
+			parent::AppendContent($oContent);
 		else
-			if (_io($vContent, 'CXHDef'))
-				parent::AppendContent($vContent);
+			if (_io($oContent, 'CXHDef'))
+				parent::AppendContent($oContent);
 			else
 				throw new XHException("Parameter is not an instance of CXHTerm or CXHDef");
 	}
@@ -1249,7 +1277,7 @@ class CXHDefList extends CXHEntityAttrs
 class CXHTerm extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param mixed $vContent Content of the dt element
 	 */
 	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
@@ -1275,7 +1303,7 @@ class CXHTerm extends CXHEntityAttrs
 class CXHDef extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param mixed $vContent Content of the dd element
 	 */
 	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
@@ -1348,6 +1376,7 @@ class CXHSep extends CXHEntityAttrs
 class CXHPre extends CXHEntityAttrs
 {
 	/**
+	 *	@param mixed $vContent Content of the pre element
 	 *	@param bool $bPreserve Indicates space is preserved when true; defaults to false
 	 */
 	public function __construct($vContent = PXH_EMPTY_STRING, $bPreserve = false)
@@ -1465,9 +1494,15 @@ class CXHAnchor extends CXHEntityAttrs
  */
 class CXHSpan extends CXHEntityAttrs
 {
-	public function __construct()
+	/**
+	 *	@param mixed $vContent Content of the element
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct("span");
+		
+		if (_sl($vContent))
+			parent::AppendContent($vContent);
 	}
 }
 
@@ -1499,11 +1534,13 @@ class CXHBDO extends CXHEntityAttrs
 
 
 	/**
-	 *	@param string $sDir One of the constants indicating the direction of text
+	 *	@param string $csDir Class constant indicating the direction of text
 	 */
-	public function __construct($sDir)
+	public function __construct($csDir)
 	{
 		parent::__construct("bdo");
+		
+		parent::AddAttr("dir", $csDir);
 	}
 }
 
@@ -1536,12 +1573,20 @@ class CXHBreak extends CXHEntityCoreAttrs
  *	Creates a em element
  *
  *	The em element is used to indicate emphasis.
+ *
+ *	@todo To test
  */
 class CXHEmphasis extends CXHEntityAttrs
 {
-	public function __construct($vContent)
+	/**
+	 *	@param mixed $vContent Content of the element
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
-		parent::__construct("em", true, $vContent);
+		parent::__construct("em");
+		
+		if (_sl($vContent))
+			parent::AppendContent($vContent);
 	}
 }
 
@@ -1554,12 +1599,20 @@ class CXHEmphasis extends CXHEntityAttrs
  *	Creates a strong element
  *
  *	The strong element is used to indicate stronger emphasis.
+ *
+ *	@todo To test
  */
 class CXHStrong extends CXHEntityAttrs
 {
-	public function __construct($vContent)
+	/**
+	 *	@param mixed $vContent Initial content of the element
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
-		parent::__construct("strong", true, $vContent);
+		parent::__construct("strong");
+		
+		if (_sl($vContent))
+			parent::AppendContent($vContent);
 	}
 }
 
@@ -1635,9 +1688,15 @@ class CXHStrong extends CXHEntityAttrs
  */
 class CXHTeletype extends CXHEntityAttrs
 {
-	public function __construct()
+	/**
+	 *	@param mixed $vContent Initial content of the element
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct("tt");
+		
+		if (_sl($vContent))
+			parent::AppendContent($vContent);
 	}
 }
 
@@ -1755,12 +1814,17 @@ class CXHParam extends CXHEntityAttrs
 #   ismap       (ismap)        #IMPLIED
 #   >
 /**
- *	@todo To document
+ *	Creates a img element
+ *
+ *	The img element is used to define an image.
  */
 class CXHImage extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sSrc URI reference of the image
+	 *	@param string $sDesc Alternate text of the element
+	 *	@param string $sWidth Width of the image
+	 *	@param string $sHeight Height of the image
 	 */
 	public function __construct($sSrc, $sDesc, $sWidth = PXH_EMPTY_STRING, $sHeight = PXH_EMPTY_STRING)
 	{
@@ -1775,25 +1839,30 @@ class CXHImage extends CXHEntityAttrs
 
 
 	/**
-	 *	@todo To document
+	 *	Sets the width of the image
+	 *
+	 *	@param string $sWidth Width of the image
 	 */
-	public function SetWidth($iWidth)
+	public function SetWidth($sWidth)
 	{
-		$this->AddAttr("width",$iWidth);
+		$this->AddAttr("width",$sWidth);
 	}
 
 
 	/**
-	 *	@todo To document
+	 *	Sets the height of the image
+	 *	@param string $sHeight Height of the image
 	 */
-	public function SetHeight($iHeight)
+	public function SetHeight($sHeight)
 	{
-		$this->AddAttr("height",$iHeight);
+		$this->AddAttr("height",$sHeight);
 	}
 	
 
 	/**
-	 *	@todo To document
+	 *	Sets the id reference of a map element
+	 *
+	 *	@param string $sMapId Id of the map element
 	 */
 	public function SetUseMap($sMapId)
 	{
@@ -1812,14 +1881,17 @@ class CXHImage extends CXHEntityAttrs
 #   name        NMTOKEN        #IMPLIED
 #   >
 /**
- *	@todo To document
+ *	Creates a map element
+ *
+ *	The map element specifies a client-side image map that may be referenced by elements such as img, select and object.
+ *
  *	@todo Watch the usage of the class through the interactivity of the base class; technicaly it shouldn't inherit from CXHEntityAttrs
  *	@todo Retest and find the bug and reason for not working
  */
 class CXHMap extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sId Id of the element
 	 */
 	public function __construct($sId)
 	{
@@ -1830,18 +1902,25 @@ class CXHMap extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Adds an area element
+	 *
+	 *	@param string $sHRef URI reference of the area
+	 *	@param string $sAlt Description of the area
+	 *	@param string $sShape CXHArea class constant defining the shape of the area
+	 *	@param string $sCoords Coordinates of the area
 	 */
-	public function AddArea($sHRef, $sAlt, $sShape, $sCoords)
+	public function AddArea($sHRef, $sAlt, $csShape, $sCoords)
 	{
-		$oCXHArea = new CXHArea($sHRef, $sAlt, $sShape, $sCoords);
+		$oCXHArea = new CXHArea($sHRef, $sAlt, $csShape, $sCoords);
 	
 		$this->AppendContent($oCXHArea);
 	}
 	
 
 	/**
-	 *	@todo To document
+	 *	Inserts an area element
+	 *
+	 *	@param object $oCXHArea An area object
 	 */
 	public function InsertArea($oCXHArea)
 	{
@@ -1850,12 +1929,14 @@ class CXHMap extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Inserts an object in the element
+	 *
+	 *	@param object $oContent Content of the map
 	 */
-	public function AppendContent($vContent)
+	public function AppendContent($oContent)
 	{
-		if (_io($vContent, 'CMLEntity'))
-			parent::AppendContent($vContent);
+		if (_io($oContent, 'CMLEntity'))
+			parent::AppendContent($oContent);
 		else
 			throw new XHException("Parameter is not an instance of CMLEntity");
 	}
@@ -1878,69 +1959,74 @@ class CXHMap extends CXHEntityAttrs
 #   onblur      CDATA       #IMPLIED
 #   >
 /**
- *	@todo To document
+ *	Creates an area element
+ *
+ *	The area element identifies geometric regions of a client-side image map, and provides a hyperlink for each region.
  */
 class CXHArea extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@var string URI reference of the area
 	 */
 	private $_sHRef;
 
 
 	/**
-	 *	@todo To document
+	 *	@var string Alternate text of the area
 	 */
 	private $_sAlt;
 
 
 	/**
-	 *	@todo To document
+	 *	@var string Shape of the area
 	 */
 	private $_sShape;
 
 
 	/**
-	 *	@todo To document
+	 *	@var string Coordinates of the area
 	 */
 	private $_sCoords;
 
 
 	/**
-	 *	@todo To document
+	 *	@var string Defines the rectangle shape
 	 */
 	const sShapeRect =		'rect';
 
 
 	/**
-	 *	@todo To document
+	 *	@var string Defines the circle shape
 	 */
 	const sShapeCircle =	'circle';
 
 
 	/**
-	 *	@todo To document
+	 *	@var string Defines the polyline shape
 	 */
 	const sShapePoly =		'poly';
 
 
 	/**
-	 *	@todo To document
+	 *	@var string Defines the default shape; 'rect' as defined in the XHTML DTD specification
 	 */
 	const sShapeDefault =	'default';
 
 
 	/**
-	 *	@todo To document
+	 *	@param string $sHRef URI reference of the area
+	 *	@param string $sAlt Alternate text of the area
+	 *	@param string $sShape Class constant value of the shape of the area
+	 *	@param string $sCoords Coordinates of the area
 	 */
-	public function __construct($sHRef = PXH_EMPTY_STRING, $sAlt = PXH_EMPTY_STRING, $sShape = PXH_EMPTY_STRING, $sCoords = PXH_EMPTY_STRING)
+	public function __construct($sHRef = PXH_EMPTY_STRING, $sAlt = PXH_EMPTY_STRING, $csShape = PXH_EMPTY_STRING, $sCoords = PXH_EMPTY_STRING)
 	{
 		parent::__construct("area", false);
 		
-		if (_sl($sHRef)) $this->SetHRef($sHRef);
-		if (_sl($sAlt)) $this->SetAlt($sAlt);
-		if (_sl($sShape)) $this->SetShape($sShape);
-		if (_sl($sCoords)) $this->SetCoords($sCoords);
+		if (_sl($sHRef)) parent::SetHRef($sHRef);
+		if (_sl($sAlt)) parent::SetAlt($sAlt);
+		if (_sl($sShape)) parent::SetShape($csShape);
+		if (_sl($sCoords)) parent::SetCoords($sCoords);
 		
 		parent::_RegisterEvent("onfocus");
 		parent::_RegisterEvent("onblur");
@@ -1948,7 +2034,9 @@ class CXHArea extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Sets the URI reference of the element
+	 *
+	 *	@param string $sHRef URI reference of the element
 	 */
 	public function SetHRef($sHRef)
 	{
@@ -1959,7 +2047,9 @@ class CXHArea extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Sets the alternate text of the element
+	 *
+	 *	@param string $sAlt Alternate text of the element
 	 */
 	public function SetAlt($sAlt)
 	{
@@ -1970,18 +2060,22 @@ class CXHArea extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Sets the shape of the element
+	 *
+	 *	@param string $csShape Class constant value of the shape of the element
 	 */
-	public function SetShape($sShape)
+	public function SetShape($csShape)
 	{
-		$this->_sShape = $sShape;
+		$this->_sShape = $csShape;
 		
-		parent::AddAttr("shape", $sShape);
+		parent::AddAttr("shape", $csShape);
 	}
 	
 
 	/**
-	 *	@todo To document
+	 *	Sets the coordinates of the element
+	 *
+	 *	@param string $sCoords Coordinates of the element
 	 */
 	public function SetCoords($sCoords)
 	{
@@ -1994,16 +2088,20 @@ class CXHArea extends CXHEntityAttrs
 
 # <!--================ Forms ===============================================-->
 /**
- *	@todo To document
+ *	Defines the base class of the form fields
+ *	@abstract
  */
-class CXHFieldAttrs extends CXHEntityAttrs
+abstract class CXHFieldAttrs extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sTagName Name of the element
+	 *	@param mixed $vContent Initial content of the element
+	 *	@param bool $bHasEnd If element has end; true for full end, false for self closed
+	 *	@param bool $bIsDisabled indicates if element is disabled
 	 */
-	public function __construct($sTagName, $bHasEnd, $sContent, $bIsDisabled)
+	public function __construct($sTagName, $vContent, $bIsDisabled, $bHasEnd)
 	{
-		parent::__construct($sTagName, $bHasEnd, $sContent);
+		parent::__construct($sTagName, $bHasEnd, $vContent);
 		
 		parent::_RegisterEvent("onfocus");
 		parent::_RegisterEvent("onblur");
@@ -2027,14 +2125,19 @@ class CXHFieldAttrs extends CXHEntityAttrs
 #   accept-charset CDATA  #IMPLIED
 #   >
 /**
- *	@todo To document
+ *	Creates a form element
+ *
+ *	The form element is used to create data entry forms. Data collected in the form is sent to the server for processing by server-side scripts such as PHP, ASP, etc.
  */
 class CXHForm extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sAction URI reference for form processing
+	 *	@param string $sMethod Method used for data processing
+	 *	@param string $sName Name of the element
+	 *	@param string $sEnctype Encryption type of the submitted data
 	 */
-	public function __construct($sAction, $sMethod, $sName = PXH_EMPTY_STRING, $sEnctype = "application/x-www-form-urlencoded")
+	public function __construct($sAction, $sMethod = "get", $sName = PXH_EMPTY_STRING, $sEnctype = "application/x-www-form-urlencoded")
 	{
 		parent::__construct("form");
 		
@@ -2062,21 +2165,24 @@ class CXHForm extends CXHEntityAttrs
 #   onblur      CDATA          #IMPLIED
 #   >
 /**
- *	@todo To document
+ *	Creates a label element
+ *
+ *	The label element associates a label with form controls such as input, textarea, select and object. This association enhances the usability of forms. For example, when users of visual Web browsers click in a label, focus is automatically set in the associated form control. For users of assistive technology, establishing associations between labels and controls helps clarify the spatial relationships found in forms and makes them easier to navigate.
  */
 class CXHLabel extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sForId Id of the input referenced
+	 *	@param string $vContent Initial content io the element
 	 */
-	public function __construct($sForId, $sContent = PXH_EMPTY_STRING)
+	public function __construct($sForId, $vContent = PXH_EMPTY_STRING)
 	{
 		parent::__construct("label");
 		
 		$this->AddAttr("for", $sForId);
 		
-		if (_sl($sContent))
-			$this->AppendContent($sContent);
+		if (_sl($vContent))
+			$this->AppendContent($vContent);
 		
 		parent::_RegisterEvent("onfocus");
 		parent::_RegisterEvent("onblur");
@@ -2109,16 +2215,25 @@ class CXHLabel extends CXHEntityAttrs
 #   accept      CDATA          #IMPLIED
 #   >
 /**
- *	@todo To document
+ *	Defines the base class of the input elements
+ *
+ *	The input element is a multi-purpose form control. The type attribute specifies the type of form control to be created.
+ *
+ *	@abstract
  */
-class CXHFieldInput extends CXHFieldAttrs
+abstract class CXHFieldInput extends CXHFieldAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sIdName Id and name of the input element
+	 *	@param string $sValue Initial value of the input element
+	 *	@param string $sType Type of the input element
+	 *	@param bool $bIsDisabled Indicates if element is disabled
 	 */
-	public function __construct($sIdName, $sValue, $sTagName, $bIsDisabled = false)
+	public function __construct($sIdName, $sValue, $sType, $bIsDisabled = false)
 	{
-		parent::__construct($sTagName, false, "", $bIsDisabled);
+		parent::__construct("input", PXH_EMPTY_STRING, $bIsDisabled, false);
+
+		parent::AddAttr("type", $sType);
 
 		parent::AddAttr("name", $sIdName);
 		parent::AddAttr("value", $sValue);
@@ -2149,18 +2264,26 @@ class CXHFieldInput extends CXHFieldAttrs
 #   onchange    CDATA          #IMPLIED
 #   >
 /**
- *	@todo To document
+ *	Creates a text type input or a textarea
+ *
+ *	Text type input: Creates a single-line text input control.
+ *	Textarea: The textarea element is used to create a multi-line text input form control.
  */
 class CXHFieldText extends CXHFieldAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@var bool Defines if it's an text type input or textarea
 	 */
 	private $_bIsMultiline;
 
 
 	/**
-	 *	@todo To document
+	 *	@param string $sIdName Id and name of the element
+	 *	@param string $sValue Initial value or content of the element
+	 *	@param bool $bIsDisabled Indicates if element is disabled
+	 *	@param bool $bMultiline If element is a text type input or textarea
+	 *	@param string $sRows Number of rows of the textarea
+	 *	@param string $sCols Number of columns of the textarea
 	 */
 	public function __construct($sIdName, $sValue = PXH_EMPTY_STRING, $bIsDisabled = false, $bMultiline = false, $sRows = "5", $sCols = "10")
 	{
@@ -2168,7 +2291,7 @@ class CXHFieldText extends CXHFieldAttrs
 	
 		if ($bMultiline == false)
 		{
-			parent::__construct("input", false, PXH_EMPTY_STRING, $bIsDisabled);	
+			parent::__construct("input", PXH_EMPTY_STRING, $bIsDisabled, false);	
 			
 			parent::AddAttr("type", "text");
 
@@ -2176,12 +2299,10 @@ class CXHFieldText extends CXHFieldAttrs
 		}
 		else
 		{
-			parent::__construct("textarea", true, PXH_EMPTY_STRING, $bIsDisabled);
+			parent::__construct("textarea", $sValue, $bIsDisabled, true);
 			
 			parent::AddAttr("rows", $sRows);
 			parent::AddAttr("cols", $sCols);
-			
-			if (_sl($sValue)) parent::AppendContent($sValue);
 		}
 
 		parent::AddAttr("name", $sIdName);
@@ -2193,24 +2314,28 @@ class CXHFieldText extends CXHFieldAttrs
 
 
 	/**
-	 *	@todo To document
+	 *	Append content to the element
+	 *
+	 *	@param mixed $vContent Content of the element
 	 */
-	public function AppendContent($sContent)
+	public function AppendContent($vContent)
 	{
 		if ($this->_bIsMultiline)
-			parent::AppendContent($sContent);
+			parent::AppendContent($vContent);
 		else
 			throw new XHExcception("Cannot append content in non full ended input text");
 	}
 
 
 	/**
-	 *	@todo To document
+	 *	Replaces the element content
+	 *
+	 *	@param mixed $vContent Content of the element
 	 */
-	public function ReplaceContent()
+	public function ReplaceContent($vContent)
 	{
 		if ($this->_bIsMultiline)
-			$this->_oText->AppendContent($sContent);
+			parent::ReplaceContent($vContent);
 		else
 			throw new XHExcception("Cannot replace content in non full ended input text");
 	}
@@ -2218,37 +2343,41 @@ class CXHFieldText extends CXHFieldAttrs
 
 
 /**
- *	@todo To document
+ *	Creates a password input type element
+ *
+ *	Creates a single-line text input control with masked input (characters appear as asterisks). Note, this control hides what the user is typing from casual observers (someone looking over your shoulder) but provides no more security than any other form control.
  */
 class CXHFieldPassword extends CXHFieldInput
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sIdName Id and name of the element
+	 *	@param string $sValue Initial value of the element
+	 *	@param bool $bIsDisabled Indicates if element is disabled
 	 */
 	public function __construct($sIdName, $sValue = PXH_EMPTY_STRING, $bIsDisabled = false)
 	{
-		parent::__construct($sIdName, $sValue, "input", PXH_EMPTY_STRING, $bIsDisabled);
-		
-		$this->AddAttr("type", "password");
+		parent::__construct($sIdName, $sValue, "password", PXH_EMPTY_STRING, $bIsDisabled);
 	}
 }
 
 
 /**
- *	@todo To document
+ *	Creates a checkbox input type element
  */
 class CXHFieldCheckbox extends CXHFieldInput
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sName Name of the element
+	 *	@param string $sId Id of the element
+	 *	@param string $sValue Initial value of the element
+	 *	@param bool $bChecked Indicates if input is checked
+	 *	@param bool $bIsDisabled Indicates if element is disabled
 	 */
 	public function __construct($sName, $sId, $sValue = PXH_EMPTY_STRING, $bChecked = false, $bIsDisabled = false)
 	{
-		parent::__construct($sName, $sValue, "input", PXH_EMPTY_STRING, $bIsDisabled);
+		parent::__construct($sName, $sValue, "checkbox", PXH_EMPTY_STRING, $bIsDisabled);
 		
 		parent::SetId($sId);
-		
-		$this->AddAttr("type", "checkbox");
 		
 		if ($bChecked) $this->AddAttr("checked", "checked");
 	}
@@ -2256,20 +2385,22 @@ class CXHFieldCheckbox extends CXHFieldInput
 
 
 /**
- *	@todo To document
+ *	Creates a radio input type element
  */
 class CXHFieldRadio extends CXHFieldInput
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sName Name of the element
+	 *	@param string $sId Id of the element
+	 *	@param string $sValue Initial value of the element
+	 *	@param bool $bChecked Indicates if input is checked
+	 *	@param bool $bIsDisabled Indicates if element is disabled
 	 */
 	public function __construct($sName, $sId, $sValue = PXH_EMPTY_STRING, $bChecked = false, $bIsDisabled = false)
 	{
-		parent::__construct($sName, $sValue, "input", PXH_EMPTY_STRING, $bIsDisabled);
+		parent::__construct($sName, $sValue, "radio", PXH_EMPTY_STRING, $bIsDisabled);
 		
 		parent::SetId($sId);
-		
-		$this->AddAttr("type", "radio");
 		
 		if ($bChecked) $this->AddAttr("checked", "checked");
 	}
@@ -2277,88 +2408,94 @@ class CXHFieldRadio extends CXHFieldInput
 
 
 /**
- *	@deprecated
- *	@todo To document
+ *	Creates a submit button input type element
+ *	@todo To test
  */
 class CXHButtonSubmit extends CXHFieldInput
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sIdName Id and name of the element
+	 *	@param string $sValue Value display of the button
+	 *	@param bool $bIsDisabled Indicates if element is disabled
 	 */
 	public function __construct($sIdName, $sValue = "Submit", $bIsDisabled = false)
 	{
-		parent::__construct($sIdName, $sValue, "input", PXH_EMPTY_STRING, $bIsDisabled);
-		
-		$this->AddAttr("type", "submit");
+		parent::__construct($sIdName, $sValue, "submit", PXH_EMPTY_STRING, $bIsDisabled);
 	}
 }
 
 
 /**
- *	@deprecated
- *	@todo To document
+ *	Creates a reset button input type element
+ *
+ *	Restores the value of all controls on the form to their initial state.
+ *	@todo To test
  */
 class CXHButtonReset extends CXHFieldInput
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sIdName Id and name of the element
+	 *	@param string $sValue Value display of the element
+	 *	@param bool $bIsDisabled Indicates if element is disabled
 	 */
 	public function __construct($sIdName, $sValue = "Reset", $bIsDisabled = false)
 	{
-		parent::__construct($sIdName, $sValue, "input", PXH_EMPTY_STRING, $bIsDisabled);
-		
-		$this->AddAttr("type", "reset");
+		parent::__construct($sIdName, $sValue, "reset", PXH_EMPTY_STRING, $bIsDisabled);
 	}
 }
 
 
 /**
- *	@todo To document
+ *	Creates a file input type element
  */
 class CXHFieldFile extends CXHFieldInput
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sIdName Id and name of the element
+	 *	@param bool $bIsDisabled Indicates if element is disabled
 	 */
 	public function __construct($sIdName, $bIsDisabled = false)
 	{
-		parent::__construct($sIdName, PXH_EMPTY_STRING, "input", PXH_EMPTY_STRING, $bIsDisabled);
-		
-		$this->AddAttr("type", "file");
+		parent::__construct($sIdName, PXH_EMPTY_STRING, "file", PXH_EMPTY_STRING, $bIsDisabled);
 	}
 }
 
 
 /**
- *	@todo To document
+ *	Creates a hidden input type element
+ *
+ *	Hidden controls are useful for passing additional information back and forth between the server and the Web browser.
  */
 class CXHFieldHidden extends CXHFieldInput
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sIdName Id and name of the element
+	 *	@param string $sValue Initial value of the element
+	 *	@param bool $bIsDisabled Indicates if element is disabled
 	 */
 	public function __construct($sIdName, $sValue = PXH_EMPTY_STRING, $bIsDisabled = false)
 	{
-		parent::__construct($sIdName, $sValue, "input", PXH_EMPTY_STRING, $bIsDisabled);
-		
-		$this->AddAttr("type", "hidden");
+		parent::__construct($sIdName, $sValue, "hidden", PXH_EMPTY_STRING, $bIsDisabled);
 	}
 }
 
 
 /**
- *	@todo To document
+ *	Creates an image input type element
  */
 class CXHFieldImage extends CXHFieldInput
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sImageURL URI reference of the image
+	 *	@param string $sAltText Alternate text of the image
+	 *	@param string $sIdName Id and name of the element
+	 *	@param string $sValue Initial value of the element
+	 *	@param bool $bIsDisabled Indicates if element is disabled
 	 */
 	public function __construct($sImageURL, $sAltText, $sIdName, $sValue, $bIsDisabled = false)
 	{
-		parent::__construct($sIdName, $sValue, "input", PXH_EMPTY_STRING, $bIsDisabled);
-		
-		$this->AddAttr("type", "image");
+		parent::__construct($sIdName, $sValue, "image", PXH_EMPTY_STRING, $bIsDisabled);
+
 		$this->AddAttr("src", $sImageURL);
 		$this->AddAttr("alt", $sAltText);
 	}
@@ -2366,19 +2503,19 @@ class CXHFieldImage extends CXHFieldInput
 
 
 /**
- *	@deprecated
- *	@todo To document
+ *	Creates a button input type element
+ *	@todo To test
  */
 class CXHButton extends CXHFieldInput
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sIdName Id and name of the element
+	 *	@param string $sValue Value display of the button
+	 *	@param bool $bIsDisabled indicates if element is disabled
 	 */
-	public function __construct($sIdName, $sValue = PXH_EMPTY_STRING, $bIsDisabled = false)
+	public function __construct($sIdName, $sValue, $bIsDisabled = false)
 	{
-		parent::__construct($sIdName, $sValue, "input", PXH_EMPTY_STRING, $bIsDisabled);
-		
-		$this->AddAttr("type", "button");
+		parent::__construct($sIdName, $sValue, "button", PXH_EMPTY_STRING, $bIsDisabled);
 	}
 }
 
@@ -2398,50 +2535,59 @@ class CXHButton extends CXHFieldInput
 #   onchange    CDATA       #IMPLIED
 #   >
 /**
- *	@todo To document
+ *	Defines an abstract class for options insertions
+ *	@abstract
  */
-class CXHOptionsInsertions extends CXHFieldAttrs
+abstract class CXHOptionsInsertions extends CXHFieldAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@var int Holds the number of items selected
 	 */
 	private $_iNumSelected;
 
 
 	/**
-	 *	@todo To document
+	 *	@param string $sTagName Name of the entity
+	 *	@param bool $bIsDisabled 
 	 */
 	public function __construct($sTagName, $bIsDisabled = false)
 	{
-		parent::__construct($sTagName, true, PXH_EMPTY_STRING, $bIsDisabled);
+		parent::__construct($sTagName, PXH_EMPTY_STRING, $bIsDisabled, true);
 		
 		$this->_iNumSelected = 0;
 	}
 
 
 	/**
-	 *	@todo To document
+	 *	Adds an option element
+	 *
+	 *	@param string $sValue Value of the option
+	 *	@param string $sDisplay Text display of the option
+	 *	@param bool $bSelected Indicates if option is selected
+	 *	@param bool $bIsDisabled Indicates if option is disabled
 	 */
 	public function AddOption($sValue, $sDisplay, $bSelected = false, $bIsDisabled = false)
 	{
 		$oOption = new CXHOption($sValue,$sDisplay, $bSelected, $bIsDisabled);
 
 		if ($bSelected)
-			$this->_iNumSelected++;
+			$this->IncrementSelections();
 
 		parent::AppendContent($oOption);
 	}
 	
 
 	/**
-	 *	@todo To document
+	 *	Inserts an option element
+	 *
+	 *	@param object $oOption Instance of class CXHOption
 	 */
 	public function InsertOption($oOption)
 	{
 		if (_io($oOption, 'CXHOption'))
 		{
 			if ($oOption->IsSelected())
-				$this->_iNumSelected++;
+				$this->IncrementSelections();
 		
 			parent::AppendContent($oOption);
 		}
@@ -2451,9 +2597,20 @@ class CXHOptionsInsertions extends CXHFieldAttrs
 		}
 	}
 	
+	
+	/**
+	 *	Increments the number of selections
+	 */
+	protected function IncrementSelections()
+	{
+		$this->_iNumSelected++;
+	}
+	
 
 	/**
-	 *	@todo To document
+	 *	Return the number of options selected
+	 *
+	 *	@return int
 	 */
 	public function GetNumSelections()
 	{
@@ -2463,24 +2620,23 @@ class CXHOptionsInsertions extends CXHFieldAttrs
 
 
 /**
- *	@todo To document
+ *	Creates a select element
+ *
+ *	The select element is used to create an option selector form control which most Web browsers render as a listbox control. The list of values for this control is created using option elements. These values can be grouped together using the optgroup element.
  */
 class CXHSelectbox extends CXHOptionsInsertions
 {
 	/**
-	 *	@todo To document
+	 *	@var bool Indicates if multiple options can be selected
 	 */
 	private $_bIsMultiple;
 
 
 	/**
-	 *	@todo To document
-	 */
-	private $_iNumSelected;
-
-
-	/**
-	 *	@todo To document
+	 *	@param string $sIdName Name and id of the element
+	 *	@param int $iSize Number options shown
+	 *	@param bool $bIsMultiple Indicates if multiple options can be selected
+	 *	@param bool $bIsDisabled Indicates if element is disabled
 	 */
 	public function __construct($sIdName, $iSize = 1, $bIsMultiple = false, $bIsDisabled = false)
 	{
@@ -2493,7 +2649,6 @@ class CXHSelectbox extends CXHOptionsInsertions
 			$this->AddAttr("size", "$iSize");
 		
 		$this->_bIsMultiple = $bIsMultiple;
-		$this->_iNumSelected = 0;
 		
 		if ($bIsMultiple)
 			$this->AddAttr("multiple", "multiple");
@@ -2503,7 +2658,7 @@ class CXHSelectbox extends CXHOptionsInsertions
 	
 
 	/**
-	 *	@todo To document
+	 *	@access private
 	 */
 	private function _validateNumSelections()
 	{
@@ -2513,34 +2668,44 @@ class CXHSelectbox extends CXHOptionsInsertions
 	
 
 	/**
-	 *	@todo To document
+	 *	Adds an option to the element
+	 *
+	 *	@param string $sValue Value of the option
+	 *	@param string $sDisplay Text display of the option
+	 *	@param bool $bSelected Indicates if option is selected
+	 *	@param bool $bIsDisabled Indicates if option is disabled
 	 */
 	public function AddOption($sValue, $sDisplay, $bSelected = false, $bIsDisabled = false)
 	{
 		parent::AddOption($sValue, $sDisplay, $bSelected, $bIsDisabled);
 		
 		if ($bSelected)
-			$this->_iNumSelected++;
+			$this->IncrementSelections();
 			
 		$this->_validateNumSelections();
 	}
 	
 
 	/**
-	 *	@todo To document
+	 *	Inserts an option to the element
+	 *
+	 *	@param object $oOption Instance of class CXHOption
 	 */
 	public function InsertOption($oOption)
 	{
 		parent::InsertOption($oOption);
 		
-		$this->_iNumSelected += parent::GetNumSelections();
+		if ($oOption->IsSelected())
+			$this->IncrementSelections();
 		
 		$this->_validateNumSelections();
 	}
 	
 
 	/**
-	 *	@todo To document
+	 *	Inserts an option to the element
+	 *
+	 *	@param object $oOption Instance of class CXHOption
 	 */
 	public function AppendContent($oOption)
 	{
@@ -2549,13 +2714,16 @@ class CXHSelectbox extends CXHOptionsInsertions
 	
 
 	/**
-	 *	@todo To document
+	 *	Inserts an optgroup element
+	 *
+	 *	@param object $oOptionGroup Instance of class CXHOptionGroup
 	 */
 	public function InsertOptionGroup($oOptionGroup)
 	{
 		if (_io($oOptionGroup, 'CXHOptionGroup'))
 		{
-			$this->_iNumSelected += $oOptionGroup->GetNumSelections();
+			for ($i = 0; $i < $oOptionGroup->GetNumSelections(); $i++)
+				$this->IncrementSelections();
 		
 			$this->_validateNumSelections();
 			
@@ -2578,12 +2746,15 @@ class CXHSelectbox extends CXHOptionsInsertions
 #   label       CDATA          #REQUIRED
 #   >
 /**
- *	@todo To document
+ *	Creates a optgroup element
+ *
+ *	The optgroup element is used to group the choices offered in select form controls. Users find it easier to work with long lists if related sections are grouped together.
  */
 class CXHOptionGroup extends CXHOptionsInsertions
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sLabel Label of the element
+	 *	@param bool $bIsDisabled Indicates if the element is disabled
 	 */
 	public function __construct($sLabel, $bIsDisabled = false)
 	{
@@ -2596,7 +2767,9 @@ class CXHOptionGroup extends CXHOptionsInsertions
 	
 
 	/**
-	 *	@todo To document
+	 *	Appends an option element
+	 *
+	 *	@param object $oOption Instance of class CXHOption
 	 */
 	public function AppendContent($oOption)
 	{
@@ -2616,18 +2789,23 @@ class CXHOptionGroup extends CXHOptionsInsertions
 #   value       CDATA          #IMPLIED
 #   >
 /**
- *	@todo To document
+ *	Creates a option element
+ *
+ *	The option element represents a choice offered by select form controls.
  */
 class CXHOption extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@var bool Indicates if element is selected
 	 */
 	private $_bIsSelected;
 	
 
 	/**
-	 *	@todo To document
+	 *	@param string $sValue Value of the option
+	 *	@param string $sDisplay Text display of the option
+	 *	@param bool $bSelected Indicates if option is selected
+	 *	@param bool $bIsDisabled Indicates if option is disabled
 	 */
 	public function __construct($sValue, $sDisplay, $bSelected = false, $bIsDisabled = false)
 	{
@@ -2642,7 +2820,9 @@ class CXHOption extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Tells if element is selected
+	 *
+	 *	@return bool
 	 */
 	public function IsSelected()
 	{
@@ -2658,12 +2838,14 @@ class CXHOption extends CXHEntityAttrs
 #   %attrs
 #   >
 /**
- *	XHTML fieldset element class
+ *	Creates a fieldset element
+ *
+ *	The fieldset element adds structure to forms by grouping together related controls and labels.
  */
 class CXHFieldSet extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sLegend Initial legend element
 	 */
 	public function __construct($sLegend = PXH_EMPTY_STRING)
 	{
@@ -2674,11 +2856,13 @@ class CXHFieldSet extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Adds a legend to the element
+	 *
+	 *	@param mixed $vLegend Legend of the element
 	 */
-	public function AddLegend($sLegend)
+	public function AddLegend($vLegend)
 	{
-		$oLegend = new CXHLegend($sLegend);
+		$oLegend = new CXHLegend($vLegend);
 		
 		parent::AppendContent($oLegend);
 	}
@@ -2694,6 +2878,8 @@ class CXHFieldSet extends CXHEntityAttrs
 #   >
 /**
  *	Creates a legend element
+ *
+ *	The legend element is a caption to a fieldset element.
  */
 class CXHLegend extends CXHEntityAttrs
 {
@@ -2705,8 +2891,6 @@ class CXHLegend extends CXHEntityAttrs
 	
 	/**
 	 *	To insert content in the legend element.
-	 *	
-	 *	Method overloaded for restrictions. Makes a call to the parent's ReplaceContent
 	 *
 	 *	@param mixed $vContent Content of the legend
 	 */
@@ -2732,83 +2916,66 @@ class CXHLegend extends CXHEntityAttrs
 #   onblur      CDATA       #IMPLIED
 #   >
 /**
- *	@todo To document
+ *	Creates a button element
+ *
+ *	The button element is used to create button controls for forms. Buttons created using the button element are similar in functionality to buttons created using the input element, but offer greater rendering options.
+ *	Like other form controls, the button element sends data to the server when a form is submitted. Data is sent as a key-value pair. The key comes from the name attribute and the value comes from the value attribute.
  */
 class CXHPushButton extends CXHFieldAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@var string Holds the value of the default content
 	 */
 	private $_sDefaultContent;
 
 
 	/**
-	 *	@todo To document
+	 *	@var string Class constant defining a generic button
 	 */
 	const sTypeButton = 'button';
 
 
 	/**
-	 *	@todo To document
+	 *	@var string Class constant defining a submit button
 	 */
 	const sTypeSubmit = 'submit';
 
 
 	/**
-	 *	@todo To document
+	 *	@var string Class constant defining a reset button
 	 */
 	const sTypeReset = 'reset';
 	
 
 	/**
-	 *	@todo To document
+	 *	@param string $csType Class constant defining the type of the button
+	 *	@param string $sIdName Id and name of the element
+	 *	@param string $sValue Value of the element
+	 *	@param bool $bIsDisabled Indicates if the element is disabled
+	 *	@param mixed $vContent Initial content of the element
 	 */
-	public function __construct($sType, $sIdName, $sValue, $bIsDisabled = false, $sContent = PXH_EMPTY_STRING)
+	public function __construct($csType, $sIdName, $sValue, $bIsDisabled = false, $vContent = PXH_EMPTY_STRING)
 	{
-		parent::__construct("button", true, $sContent, $bIsDisabled);
+		parent::__construct("button", $vContent, $bIsDisabled, true);
 		
-		$this->_sDefaultContent = $sType;
+		switch ($csType)
+		{
+			case self::sTypeButton:
+			case self::sTypeSubmit:
+			case self::sTypeReset:
+				$this->_sDefaultContent = $csType;
+			default:
+				throw new XHException("Type of button is not one of the class constants");
+		}
 		
-		$this->AddAttr("type", $sType);
-		$this->AddAttr("name", $sIdName);
-		$this->AddAttr("value", $sValue);
+		parent::AddAttr("type", $sType);
+		parent::AddAttr("name", $sIdName);
+		parent::AddAttr("value", $sValue);
 		
-		$this->SetId($sIdName);
+		parent::SetId($sIdName);
 		
-		$this->_sContent = $sContent;
-	}
-	
-
-	/**
-	 *	@todo To document
-	 */
-	public function AppendContent($sContent)
-	{
-		$this->_sContent .= $sContent;
-	}
-	
-
-	/**
-	 *	@todo To document
-	 */
-	public function ReplaceContent($sContent)
-	{
-		$this->_sContent = $sContent;
-	}
-	
-
-	/**
-	 *	@todo To document
-	 */
-	public function __toString()
-	{
-		if (_sl($this->_sContent))
-			parent::AppendContent($this->_sContent);
-		else
-			parent::AppendContent($this->_sDefaultContent);
-		
-		return parent::__toString();
-	}
+		$this->_sContent = $vContent;
+	}	
 }
 
 
@@ -2826,9 +2993,11 @@ class CXHPushButton extends CXHFieldAttrs
 #   "valign     (top|middle|bottom|baseline) #IMPLIED"
 #   >
 /**
- *	@todo To document
+ *	Defines an abstract class for some table content elements
+ *
+ *	@abstract
  */
-class CXHTableAlignAttrs extends CXHEntityAttrs
+abstract class CXHTableAlignAttrs extends CXHEntityAttrs
 {
 	/**
 	 *	@todo To document
@@ -2885,7 +3054,8 @@ class CXHTableAlignAttrs extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	@param string $sTagName Name of the element
+	 *	@param bool $bHasEnd Indicates if element has end; true for foll end, false for self closed
 	 */
 	public function __construct($sTagName, $bHasEnd = true)
 	{
@@ -2894,20 +3064,43 @@ class CXHTableAlignAttrs extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Sets the horizontal alignment
+	 *
+	 *	@param string $csHAlign Class constant defining an horizontal alignment
 	 */
-	public function SetHAlign($sHAlign)
+	public function SetHAlign($csHAlign)
 	{
-		parent::AddAttr("align", $sHAlign);
+		switch ($csHAlign)
+		{
+			case self::sHALeft:
+			case self::sHACenter:
+			case self::sHARight:
+			case self::sHAJustify:
+			case self::sHAChar:
+				parent::AddAttr("align", $csHAlign);
+			default:
+				throw new XHException("Value is not an horizontal alignment class constant");
+		}
 	}
 	
 
 	/**
-	 *	@todo To document
+	 *	Sets the vertical alignment
+	 *
+	 *	@param string $csVAlign Class constant defining a vertical alignment
 	 */
-	public function SetVAlign($sVAlign)
+	public function SetVAlign($csVAlign)
 	{
-		parent::AddAttr("valign", $sVAlign);
+		switch ($csVAlign)
+		{
+			case self::sVATop:
+			case self::sVAMiddle:
+			case self::sVABottom:
+			case self::sVABaseline:
+				parent::AddAttr("valign", $csVAlign);
+			default:
+				throw new XHException("Value is not a vertical alignment class constant");
+		}
 	}
 }
 
