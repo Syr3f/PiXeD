@@ -205,7 +205,7 @@ class Paternal extends XPiDDoc
 	/**
 	 *	@todo To document
 	 */
-	public function SetTitleHeader($sTitle1 = "XPiD Library", $sColor1 = sDefTitleColor, $sTitle2 = "Paternal Template", $sColor2 = sDefTitleColor)
+	public function SetTitleHeader($sTitle1 = "XPiD Library", $sTitle2 = "Paternal Template", $sColor1 = sDefTitleColor, $sColor2 = sDefTitleColor)
 	{
 			$oDiv = new CXHDiv();
 			$oDiv->AddStyle("padding", "25px");
