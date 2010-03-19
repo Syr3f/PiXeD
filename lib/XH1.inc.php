@@ -132,6 +132,23 @@ abstract class CMLEntity
 			$this->_hsAttrs0[$sName] = $sValue;
 		}
 	}
+	
+	
+	/**
+	 *	Gets the attribute value associated with the name
+	 *
+	 *	@param string $sName Name of the attribute
+	 *	@return string
+	 */
+	public function GetAttr($sName)
+	{
+		if (array_key_exists($sName, $this->_hsAttrs0))
+			$sResult = $this->_hsAttrs0[$sName];
+		else
+			$sResult = "";
+		
+		return $sResult;
+	}
 
 
 	/**

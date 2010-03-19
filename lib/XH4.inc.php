@@ -3,7 +3,7 @@
 
 /**
  *
- *	@package [4]Blocks
+ *	@package [4]Docs&Templates
  *	@version 0.0.1
  *	@license MIT License
  *
@@ -22,667 +22,654 @@
 require_once("XH3.inc.php");
 
 
+
 /**
- *	@todo To document
+ *	Creates an XDiP document with default style and Blueprint grid.
  */
-class CXH2ScriptBlock
+class XH3BlueprintDoc extends CXHDoc
 {
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sLanguage, $sScriptURL = PXH_EMPTY_STRING, $sNoScriptContent = PXH_EMPTY_STRING)
+	const sClassSpan = 'span';
+
+
+	/**
+	 *	@todo To document
+	 */
+	const sClassAppend = 'append';
+
+
+	/**
+	 *	@todo To document
+	 */
+	const sClassPrepend = 'prepend';
+
+	
+	/**
+	 *	@todo To document
+	 */
+	const sClassPull = 'pull';
+
+
+	/**
+	 *	@todo To document
+	 */
+	const sClassPush = 'push';
+
+
+	/**
+	 *	@todo To document
+	 */
+	const iMaxCols = 24;
+
+
+	/**
+	 *	@todo To document
+	 */
+	const iMaxPull = 24;
+
+
+	/**
+	 *	@todo To document
+	 */
+	const iMaxPush = 24;
+
+	
+	/**
+	 *	@todo To document
+	 */
+	private $_oContainer;
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	private $_sClassSet;
+
+	
+	/**
+	 *	@todo To document
+	 */
+	private $_bIsContainerIntegrated;
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function __construct($sTitle = "My XPiD Document", $sEncoding = "UTF-8", $sLanguage = "en")
 	{
-		$this->_sLanguage = $sLanguage;
-		$this->_sScriptURL = $sScriptURL;
-		$this->_sNoScriptContent = $sNoScriptContent;
+		parent::__construct($sTitle, $sEncoding, $sLanguage);
+				
+		$this->_iRowColCount = 0;
+		$this->_sClassSet = "";
 		
-		$this->_oScript = new CXHScript($sLanguage, $sScriptURL);
-		$this->_oNoScript = new CXHNoScript($sNoScriptContent);
+		$this->_oContainer = new CXHDiv();
+		$this->_bIsContainerIntegrated = false;
+		
+		$this->_setCSS();
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function _setCSS()
+	{
+			$oCSS = new CXHCSS(CSS_BLUEPRINT_SCREEN);
+		
+		parent::AppendToHeader($oCSS);
+
+			$oCSS = new CXHCSS(CSS_BLUEPRINT_PRINT, "print");
+		
+		parent::AppendToHeader($oCSS);
+
+		if ($this->_isIE())
+		{
+				$oCSS = new CXHCSS(CSS_BLUEPRINT_IE);
+		
+			parent::AppendToHeader($oCSS);
+		}
+		
+			//$oCSS = new CXHCSS(CSS_BLUEPRINT_LIQUID);
+		
+		//parent::AppendToHeader($oCSS);
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function _isIE()
+	{
+		$sUA = $_SERVER['HTTP_USER_AGENT'];
+		
+		return (preg_match('/msie/', $userAgent) ? true : false);
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function _validateAddition($csClassType, $iCols, $bIsColBordered)
+	{
+		$this->_iRowColCount += $iCols + ($bIsColBordered ? 1 : 0);
+	
+		switch ($csClassType)
+		{
+			case self::sClassSpan:
+			case self::sClassAppend:
+			case self::sClassPrepend:
+				if ($this->_iRowColCount > self::iMaxCols)
+					throw new XHException("Column ".$csClassType." is above the grid limit of ".self::iMaxCols." (".$this->iRowColCount.")");
+			break;
+			case self::sClassPull:
+				if ($iCols > self::iMaxPull)
+					throw new XHException("Column pull is above the limit of ".self::iMaxPull." (".$iCols.")");
+			break;
+			case self::sClassPush:
+				if ($iCols > self::iMaxPush)
+					throw new XHException("Column push is above the limit of ".self::iMaxPush." (".$iCols.")");
+			break;
+		}
+
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function SetContainerClass($sClass)
+	{
+		$this->_sClassSet = $sClass;
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function AddContainerStyle($sName, $sStyle)
+	{
+		$this->_oContainer->AddStyle($sName, $sStyle);
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function AdaptObject($oObject, $csClassType, $iNumCols, $bHasColBorder = false, $bIsLast = true)
+	{
+		if (_io($oObject, 'CXHEntityAttrs'))
+		{
+			$sClass = $oObject->GetClass();
+			
+			if (_sl($sClass))
+				$sClass .= " ";
+			
+			$oObject->SetClass($sClass.$csClassType."-".$iNumCols);
+		}
+		else
+			throw new XHException("Column to be appended is not an instance of CXHEntityAttrs");
+		
+		return $oObject;
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function IntegrateObject($oObject, $csClassType, $iNumCols, $bHasColBorder = false, $bIsLast = true)
+	{
+		$this->_validateAddition($cClassType, $iNumCols, $bHasColBorder);
+	
+		$oObject = $this->AdaptObject($oObject, $csClassType, $iNumCols, $bIsBoxed, $bHasColBorder, $bIsLast);
+
+		$this->ContainerAppend($oObject);
+
+		if ($bIsLast)
+			$this->_iRowColCount = 0;
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function ContainerAppend($oObject)
+	{
+		$this->_oContainer->AppendContent($oObject);
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	private function _setContainerClasses()
+	{
+		$sContainerClass = "container";
+		
+		$sClasses = (_sl($this->_sClassSet) ? $sContainerCLass." ".$this->_sClassSet : $sContainerClass);
+		
+		$this->_oContainer->SetClass($sClasses);
 	}
 	
 
 	/**
 	 *	@todo To document
 	 */
-	public function AppendFileContent($sFilePath)
+	public function IntegrateContainer()
 	{
-		$this->_oScript->AppendFileContent($sFilePath);
+		$this->_bIsContainerIntegrated = true;
+	
+		$this->_setContainerClasses();
+	
+		parent::AppendContent($this->_oContainer);
 	}
 	
-
-	/**
-	 *	@todo To document
-	 */
-	public function AppendNoScriptContent($sContent)
-	{
-		$this->_oNoScript->AppendContent($sContent);
-	}
 	
-
 	/**
 	 *	@todo To document
 	 */
 	public function __toString()
 	{
-		return $this->_oScript."".$this->_oNoScript;
-	}
-}
-
-
-/**
- *	@todo To document
- */
-class CXH2ImageBlock extends CXHDiv
-{
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	private $_oImage;
-
-
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	private $_oMap;
-
-
-	/**
-	 *	@todo To document
-	 */
-	public function __construct($sImgSrc, $sImgAlt, $sCommonId)
-	{
-		parent::__construct("div");
-	
-		$this->_oImage = new CXHImage($sImgSrc, $sImgAlt);
-		$this->_oImage->SetUseMap($sCommonId);
-		
-		$this->_oMap = new CXHMap($sCommonId);
-	}
-	
-
-	/**
-	 *	@todo To document
-	 */
-	public function AddArea($sHRef, $sAlt, $sShape, $sCoords)
-	{
-		$this->_oMap->AddArea($sHRef, $sAlt, $sShape, $sCoords);
-	}
-	
-	/**
-	 *	@todo To document
-	 */
-	public function InsertArea($oCXHArea)
-	{
-		$this->_oMap->InsertArea($oCXHArea);
-	}
-	
-
-	/**
-	 *	@todo To document
-	 */
-	public function AppendContent($vContent)
-	{
-			$this->_oMap->AppendContent($vContent);
-	}
-}
-
-
-/**
- *	@todo To document
- */
-class CXH2HotzonesBlock extends CXHTable
-{
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	private $_sHeader;
-
-
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	private $_sContent;
-
-
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	private $_sFooter;
-
-
-	/**
-	 *	@todo To document
-	 */
-	public function __construct()
-	{
-		parent::__constrct();
-		
-		$this->SetCellspacing("0");
-		$this->SetCellpadding("0");
-	}
-	
-	
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	public function _generateRow($oTBody, $oRow, $oCell)
-	{
-			$oRow->AppendContent($oCell);
-
-		$oTBody->AppendContent($oRow);
-
-			// BOTTOM ROW
-			$oRow = new CHTMLTableRow();	
-	}
-	
-	
-	/**
-	 *	@todo To document
-	 */
-	public function __toString()
-	{
-		$oTBody = new CHTMLTableBody();
-			
-			// TOP ROW
-			$oRow = new CHTMLTableRow();
-			
-				$oCell = new CHTMLTableCell();
-				
-				$oCell->AppendContent("&nbsp;");
-			
-			$oRow->AppendContent($oCell);
-
-				$oCell = new CHTMLTableCell();
-				
-				$oCell->AppendContent("&nbsp;");
-			
-			$oRow->AppendContent($oCell);
-
-				$oCell = new CHTMLTableCell();
-				
-				$oCell->AppendContent("&nbsp;");
-
-		// NAVIGATION ROW
-		$this->_generateRow($oTBody, $oRow, $oCell);
-			
-				$oCell = new CHTMLTableCell();
-				$oCell->SetColspan("3");
-				
-				$oCell->AppendContent("&nbsp;");
-			
-		// TOP MIDDLE ROW
-		$this->_generateRow($oTBody, $oRow, $oCell);
-			
-				$oCell = new CHTMLTableCell();
-				$oCell->SetRowspan("2");
-				$oCell->AddStyle("height", "25%");
-				
-				$oCell->AppendContent("&nbsp;");
-			
-			$oRow->AppendContent($oCell);
-
-				$oCell = new CHTMLTableCell();
-				
-				$oCell->AppendContent("&nbsp;");
-			
-			$oRow->AppendContent($oCell);
-
-				$oCell = new CHTMLTableCell();
-				$oCell->SetRowspan("2");
-				$oCell->AddStyle("height", "25%");
-				
-				$oCell->AppendContent("&nbsp;");
-			
-		// SUB TOP MIDDLE ROW
-		$this->_generateRow($oTBody, $oRow, $oCell);
-			
-				$oCell = new CHTMLTableCell();
-				$oCell->SetRowspan("2");
-				$oCell->AddStyle("height", "50%");
-				
-				$oCell->AppendContent("&nbsp;");
-			
-		// BOTTOM MIDDLE ROW
-		$this->_generateRow($oTBody, $oRow, $oCell);			
-
-				$oCell = new CHTMLTableCell();
-				$oCell->SetRowspan("2");
-				$oCell->AddStyle("height", "25%");
-				
-				$oCell->AppendContent("&nbsp;");
-			
-			$oRow->AppendContent($oCell);
-
-				$oCell = new CHTMLTableCell();
-				$oCell->SetRowspan("2");
-				$oCell->AddStyle("height", "25%");
-				
-				$oCell->AppendContent("&nbsp;");
-			
-		// SUB BOTTOM MIDDLE ROW
-		$this->_generateRow($oTBody, $oRow, $oCell);
-			
-				$oCell = new CHTMLTableCell();
-				
-				$oCell->AppendContent("&nbsp;");
-			
-			// FOOTER ROW
-		$this->_generateRow($oTBody, $oRow, $oCell);
-			
-				$oCell = new CHTMLTableCell();
-				$oCell->SetColspan("3");
-				
-				$oCell->AppendContent("&nbsp;");
-			
-			// BOTTOM ROW
-		$this->_generateRow($oTBody, $oRow, $oCell);
-			
-				$oCell = new CHTMLTableCell();
-				$oCell->SetColspan("3");
-				
-				$oCell->AppendContent("&nbsp;");
-			
-			$oRow->AppendContent($oCell);
-
-		$oTBody->AppendContent($oRow);
-	
-		parent::AppendContent($oTBody);
+		if (!$this->_bIsContainerIntegrated)
+			$this->IntegrateContainer();
 	
 		return parent::__toString();
 	}
 }
 
-/**
- *	@todo To document
- */
-class CXH2PanelBlock extends CXHDiv
-{
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	private $_iId;
-
-
-	/**
-	 *	@todo To document
-	 */
-	public function __construct($iId)
-	{
-		$this->_iId = $iId;
-		
-		parent::__construct();
-		
-		$this->SetId($this->_iId);
-	}
-}
-
-
 
 /**
  *	@todo To document
- *	@todo To tests
  */
-class CXH2TableBlock extends CXHTable
+class Paternal extends XH3BlueprintDoc
 {
 	/**
-	 *	@var int Head part of the table
+	 *	@todo To document
 	 */
-	const iHead = 1;
+	const sDefEncoding = "UTF-8";
+	
+	/**
+	 *	@todo To document
+	 */
+	const sDefBgColor = "#777000";
+	
+	/**
+	 *	@todo To document
+	 */
+	const sDefHeadColor = "#770000";
+	
+	/**
+	 *	@todo To document
+	 */
+	const sDefBorderColor = "white";
+	
+	/**
+	 *	@todo To document
+	 */
+	const sDefWidthBorder = "5px";
+	
+	/**
+	 *	@todo To document
+	 */
+	const sDefHeadBandColor = "#222";
+	
+	/**
+	 *	@todo To document
+	 */
+	const sDefTitleColor = "white";
+	
+	/**
+	 *	@todo To document
+	 */
+	const sDefEvenContentBgColor = "#666";
+	
+	/**
+	 *	@todo To document
+	 */
+	const sDefOddContentBgColor = "#999";
+	
+	/**
+	 *	@todo To document
+	 */
+	private $_bHeaderBandSet;
+	
+	/**
+	 *	@todo To document
+	 */
+	private $_bTitleHeaderSet;
+	
+	/**
+	 *	@todo To document
+	 */
+	private $_bFooterSet;
+	
+	/**
+	 *	@todo To document
+	 */
+	private $_iContentCount;
 
 
 	/**
-	 *	@var int Body part of the table
-	 */
-	const iBody = 2;
-
-
-	/**
-	 *	@var int Foot part of the table
-	 */
-	const iFoot = 3;
-	
-	
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	private $_aTBody;
-	
-	
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	private $_iCurrentBody;
-	
-	
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	private $_oTHead;
-	
-	
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	private $_oTFoot;
-	
-	
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	private $_oCurrentRow;
-	
-	
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	private $_oCurrentCell;
-	
-	
-	/**
 	 *	@todo To document
 	 */
-	public function __construct()
+	public function __construct($sTitle = "XPiD Library - Paternal Template", $sLanguage = "en")
 	{
-		parent::__construct();
+		parent::__construct($sTitle, self::sDefEncoding, $sLanguage);
 		
-		$this->_aTBody = array();
+		$this->_bHeaderBandSet = false;
 		
-		$this->_iCurrentBody = 0;
+		$this->_bTitleHeaderSet = false;
 		
-		$this->_oTHead = new CXHTableHead();
-		$this->_aTBody[] = new CHXTableBody();
-		$this->_oTFoot = new CXHTableFoor();
+		$this->_bFooterSet = false;
 		
-		$this->_oCurrentRow = new CHXRow();
+		$this->_iContentCount = 0;
 		
-		$this->_oCurrentCell = new CXHCell();
-	}
-
-	
-	/**
-	 *	@todo To document
-	 */
-	public function NewBody()
-	{
-		$this->_aTBody[] = new CXHTableBody();
-		
-		$this->_iCurrentBody++;
+		$this->_setDefaultStyles();
 	}
 	
 	
 	/**
 	 *	@todo To document
 	 */
-	public function GenerateRow($cPart, $oCell = PXH_NULL_OBJECT)
+	private function _setDefaultStyles()
 	{
-		if (!_in($oCell))
-			$this->AppendToRow($oCell);
+		$oCSS = new CXHCSS(CSS_LOTUS_TYPO);
+
+		parent::AppendToHeader($oCSS);
+		
+		parent::AddStyle("background-color", self::sDefBgColor);
+		
+		parent::AddContainerStyle("background-color", self::sDefHeadColor);
+		parent::AddContainerStyle("border", "0px solid ".self::sDefBorderColor);
+		parent::AddContainerStyle("border-left-width", self::sDefWidthBorder);
+		parent::AddContainerStyle("border-right-width", self::sDefWidthBorder);
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function SetHeaderBand($vContent = "XPiD Paternal Template", $sColor = self::sDefHeadBandColor)
+	{
+		$oBand = new CXHDiv($vContent);
+		$oBand->AddStyle("background-color", $sColor);
+		$oBand->AddStyle("height", "50px");
+
+		parent::AppendContent($oBand);
+		
+		$this->_bHeaderBandSet = true;
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function SetBgColor($sColor)
+	{
+		$oDoc->AddStyle("background-color", $sColor);
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function SetHeadColor($sColor)
+	{
+		$oDoc->AddContainerStyle("background-color", $sColor);
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function SetBorderColor($sColor)
+	{
+		$oDoc->AddContainerStyle("border-color", $sColor);
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function SetBorderWidth($sWidth)
+	{
+		$oDoc->AddContainerStyle("border-left-width", $sWidth);
+		$oDoc->AddContainerStyle("border-right-width", $sWidth);
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function AddContentSpace($vContent)
+	{
+		if ($this->_iContentCount % 2 == 0)
+			$sColor = self::sDefEvenContentBgColor;
 		else
-			$this->AppendToRow($this->_oCurrentCell);
-			
-		$this->AppendRowToPart($cPart, $this->_oCurrentRow);
+			$sColor = self::sDefOddContentBgColor;
+	
+			$oDiv = new CXHDiv($vContent);
+			$oDiv->AddStyle("background-color", $sColor);
+			$oDiv->AddStyle("height", "587px");
+
+		$this->IntegrateObject($oDiv, XPiDDoc::sClassSpan, 24, false, true);
 		
-		$this->_oCurrentRow = new CXHRow();
-		
-		$this->_oCurrentCell = new CXHCell();
+		$this->_iContentCount++;
 	}
 	
-	
+
 	/**
 	 *	@todo To document
 	 */
-	public function AppendToRow($oCell = PXH_NULL_OBJECT)
+	public function SetTitleHeader($sTitle1 = "XPiD Library", $sTitle2 = "Paternal Template", $sColor1 = sDefTitleColor, $sColor2 = sDefTitleColor)
 	{
-		if (!_in($oCell))
-			$this->_oCurrentCell = $oCell;
-	
-		$this->_oCurrentRow->AppendContent($this->_oCurrentCell);
-	}
-	
-	
-	/**
-	 *	@todo To document
-	 */
-	public function AppendRowToPart($cPart, $oRow = PXH_NULL_OBJECT)
-	{
-		if (!_in($oRow))
-			$this->_oCurrentRow = $oRow;
+			$oDiv = new CXHDiv();
+			$oDiv->AddStyle("padding", "25px");
+
+				$oH = new CXHHeading(CXHHeading::iLvl1);
 			
-		switch ($cPart)
+				$oH->AppendContent($sTitle1);
+				$oH->AddStyle("color", $sColor1);
+
+			$oDiv->AppendContent($oH);
+			
+		if (_sl($sTitle2))
 		{
-			case self::iHead:
-				$this->_oTHead->AppendContent($this->_oCurrentRow);
-			break;
-			case self::iBody:
-				$this->_aTBody[$this->_iCurrentBody]->AppendContent($this->_oCurrentRow);
-			break;
-			case self::iFoot:
-				$this->_oTFoot->AppendContent($this->_oCurrentRow);
-			break;
-			default:
-				throw new XHException("Part value is not valid");
+				$oH = new CXHHeading(CXHHeading::iLvl1);
+			
+				$oH->AppendContent($sTitle2);
+				$oH->AddStyle("color", $sColor2);
+				
+			$oDiv->AppendContent($oH);
 		}
+
+		parent::IntegrateObject($oDiv, XPiDDoc::sClassSpan, 24, false, true);
+		
+		$this->_bTitleHeaderSet = true;
 	}
 	
 	
 	/**
 	 *	@todo To document
 	 */
-	 public function AppendContent($vContent)
-	 {
-		if (_io($vContent, 'CXHCell'))
-			$this->_oCurrentRow->AppendContent($oCell);
-		else
-			parent::AppendContent($vContent);
-	 }
-	 
+	public function SetFooter($vContent = "")
+	{
+			$oBand = new CXHDiv();
+			$oBand->AddStyle("background-color", "#222");
+			$oBand->AddStyle("height", "50px");
+
+		$this->IntegrateObject($oBand, XPiDDoc::sClassSpan, 24, false, true);
+
+			$oDiv = new CXHDiv();
+			$oDiv->AddStyle("background-color", "white");
+			$oDiv->AddStyle("height", "587px");
+			
+			if (!_sl($vContent))
+			{
+					$vContent = new CXHDiv("XPiD Framework");
+				
+					$vContent->SetClass("span-8");
+					
+				$oDiv->AppendContent($vContent);
+
+					$vContent = new CXHDiv("Paternal Template");
+				
+					$vContent->SetClass("span-8");
+					
+				$oDiv->AppendContent($vContent);
+
+					$vContent = new CXHDiv("Cyb3r Network");
+				
+					$vContent->SetClass("span-8 last");
+					
+				$oDiv->AppendContent($vContent);
+			}
+			else
+				$oDiv->AppendContent($vContent);
+
+		$this->IntegrateObject($oDiv, XPiDDoc::sClassSpan, 24, false, true);
+		
+		$this->_bFooterSet = true;
+	}
+	
 	
 	/**
 	 *	@todo To document
 	 */
 	public function __toString()
 	{
-		parent::ReplaceHead($this->_oTHead);
-
-		foreach ($this->_aTBody as $oTBody)
-			parent::AppendBody($oTBody);
+		if (!$this->_bHeaderBandSet)
+			$this->SetHeaderBand();
+			
+		if (!$this->_bTitleHeaderSet)
+			$this->SetTitleHeader();
 	
-		parent::ReplaceFoot($this->_oTFoot);
+		if ($this->_iContentCount == 0)
+			$this->AddContentSpace("XPiD Library - Paternal Template");
 	
-		parent::__toString();
+		if (!$this->_bFooterSet)
+			$this->SetFooter();
+	
+		return parent::__toString();
 	}
 }
 
 
 /**
  *	@todo To document
- *	@todo To test
  */
-class CXH2GridBlock extends CXHTable
+class Natural extends XH3BlueprintDoc
 {
 	/**
 	 *	@todo To document
-	 *	@access private
 	 */
-	private $_iNbColumns;
+	const sEncoding = 'UTF-8';
 
 
 	/**
 	 *	@todo To document
-	 *	@access private
 	 */
-	private $_iNbRows;
-
-
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	private $_aaRows;
-
-
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	private $_aRowIds;
-
-
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	private $_aRowClasses;
-
-
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	private $_aaCellIds;
-
-
-	/**
-	 *	@todo To document
-	 *	@access private
-	 */
-	private $_aaCellClasses;
+	private $_avContent;
 	
 	
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($iNbRows, $iNbColumns)
+	private $_avSbContent;
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	private $_bContentsSet;
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function __construct($sTitle = "XPiD Library - Natural Template", $sLanguage = "en")
 	{
-		parent::__construct();
+		parent::__construct($sTitle, sEncoding, $Language);
 		
-		$this->SetCellpadding("0");
-		$this->SetCellspacing("0");
-			
-		$this->_iNbColumns = $iNbColumns;
-		$this->_iNbRows = $iNbRows;
+		$this->_avContent = array();
+		$this->_avSbContent = array();
 		
-		$this->_aaRows = array();
-		$this->_aRowIds = array();
-		$this->_aRowClasses = array();
-		$this->_aaCellIds = array();
-		$this->_aaCellClasses = array();
+		$this->_bContentsSet = false;
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function SetContent($avContent)
+	{
+		$oDiv = new CXHDiv();
 
-		for ($iR = 0; $iR < $iNbRows; $iR++)
+		foreach ($avContent as $vContent)
 		{
-			array_push($this->_aaRows, array(array()));
-			
-			$this->_aaCellIds[] = array();
-			
-			$this->_aaCellClasses[] = array();
+			$oDiv->AppendContent($vContent);
 		}
+
+		parent::IntegrateObject($oDiv, XPiDDoc::sClassSpan, 15, true, false);
 	}
 	
-
+	
 	/**
-	 *	@todo To document
+	 *	 @todo To document
 	 */
-	public function SetCellId($sId, $iRow, $iColumn)
+	public function SetSidebarContent($avContent)
 	{
-		$this->_aaCellIds[$iRow][$iColumn] = $sId;
-	}
+		$oDiv = new CXHDiv();
 
+		foreach ($avContent as $vContent)
+		{
+			$oDiv->AppendContent($vContent);
+		}
 
-	/**
-	 *	@todo To document
-	 */
-	public function SetCellClass($sClass, $iRow, $iColumn)
-	{
-		$this->_aaCellClasses[$iRow][$iColumn] = $sClass;
+		parent::IntegrateObject($oDiv, XPiDDoc::sClassSpan, 8, false, true);	
 	}
 	
-
+	
 	/**
 	 *	@todo To document
 	 */
-	public function SetRowId($sId, $iRow)
+	public function AppendContent($vContent)
 	{
-		$this->_aRowIds[$iRow] = $sId;
-	}
-
-
-	/**
-	 *	@todo To document
-	 */
-	public function SetRowClass($sClass, $iRow)
-	{
-		$this->_aRowClasses[$iRow] = $sClass;
+		$this->_avContent[] = $vContent;
 	}
 	
-
+	
 	/**
 	 *	@todo To document
 	 */
-	public function AppendContent($vContent, $iRow, $iColumn)
+	public function AppendToSidebar($vContent)
 	{
-		$this->_aaRows[$iRow][$iColumn][] = $vContent;
+		$this->_avSbContent[] = $vContent;
 	}
-
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function SetAppendedContents()
+	{
+		$this->SetContent($this->_avContent);
+		
+		$this->SetSidebarContent($this->_avSbContent);
+		
+		$this->_bContentsSet = true;
+	}
+	
 
 	/**
 	 *	@todo To document
 	 */
 	public function __toString()
 	{
-		$oTBody = new CHTMLTableBody();
+		if (!$this->_bContentsSet)
+			$this->SetAppendedContents();
 	
-		for ($iR = 0; $iR < count($this->_aaRows); $iR++)
-		{
-			$oRow = new CHTMLTableRow();
-
-			if (isset($this->_aRowIds[$iR]))
-			{
-				$oRow->SetId($this->_aRowIds[$iR]);
-			}
-
-			if (isset($this->_aRowClasses[$iR]))
-			{
-				$oRow->SetClass($this->_aRowClasses[$iR]);
-			}
-			
-			for ($iC = 0; $iC < count($this->_aaRows[$iR]); $iC++)
-			{
-				$oCell = new CHTMLTableCell();
-				
-				if (isset($this->_aaCellIds[$iR][$iC]))
-				{
-					$oCell->SetId($this->_aaCellIds[$iR][$iC]);
-				}
-
-				if (isset($this->_aaCellClasses[$iR][$iC]))
-				{
-					$oCell->SetClass($this->_aaCellClasses[$iR][$iC]);
-				}
-				
-				for ($i = 0; $i < count($this->_aaRows[$iR][$iC]); $i++)
-					$oCell->AppendContent($this->_aaRows[$iR][$iC][$i]);
-				
-				$oRow->AppendContent($oCell);
-			}
-			
-			$oTBody->AppendContent($oRow);
-		}
-		
-		parent::AppendContent($oTBody);
-		
 		return parent::__toString();
 	}
 }

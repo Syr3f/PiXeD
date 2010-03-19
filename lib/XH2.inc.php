@@ -3,7 +3,7 @@
 
 /**
  *
- *	@package [2]XHTMLEntities
+ *	@package [2]XHTML
  *	@version 0.0.1
  *	@license MIT License
  *
@@ -2981,6 +2981,7 @@ class CXHPushButton extends CXHFieldAttrs
 			case self::sTypeSubmit:
 			case self::sTypeReset:
 				$this->_sDefaultContent = $csType;
+			break;
 			default:
 				throw new XHException("Type of button is not one of the class constants");
 		}
@@ -3017,55 +3018,55 @@ class CXHPushButton extends CXHFieldAttrs
 abstract class CXHTableAlignAttrs extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@var string Class constant defining a left alignment
 	 */
 	const sHALeft =		'left';
 
 
 	/**
-	 *	@todo To document
+	 *	@var string Class constant defining a center alignment
 	 */
 	const sHACenter =	'center';
 
 
 	/**
-	 *	@todo To document
+	 *	@var string Class constant defining a right alignment
 	 */
 	const sHARight =	'right';
 
 
 	/**
-	 *	@todo To document
+	 *	@var string Class constant defining a justified alignment
 	 */
 	const sHAJustify = 	'justify';
 
 
 	/**
-	 *	@todo To document
+	 *	@var string Class constant defining a character alignment
 	 */
 	const sHAChar =		'char';
 	
 
 	/**
-	 *	@todo To document
+	 *	@var string Class constant defining a top alignment
 	 */
 	const sVATop = 		'top';
 
 
 	/**
-	 *	@todo To document
+	 *	@var string Class constant defining a middle alignment
 	 */
 	const sVAMiddle =	'middle';
 
 
 	/**
-	 *	@todo To document
+	 *	@var string Class constant defining a bottom alignment
 	 */
 	const sVABottom =	'bottom';
 
 
 	/**
-	 *	@todo To document
+	 *	@var string Class constant defining a baseline alignment
 	 */
 	const sVABaseline =	'baseline';
 	
@@ -3095,6 +3096,7 @@ abstract class CXHTableAlignAttrs extends CXHEntityAttrs
 			case self::sHAJustify:
 			case self::sHAChar:
 				parent::AddAttr("align", $csHAlign);
+			break;
 			default:
 				throw new XHException("Value is not an horizontal alignment class constant");
 		}
@@ -3115,6 +3117,7 @@ abstract class CXHTableAlignAttrs extends CXHEntityAttrs
 			case self::sVABottom:
 			case self::sVABaseline:
 				parent::AddAttr("valign", $csVAlign);
+			break;
 			default:
 				throw new XHException("Value is not a vertical alignment class constant");
 		}
@@ -3140,6 +3143,8 @@ abstract class CXHTableAlignAttrs extends CXHEntityAttrs
  *	Creates a table element
  *
  *	The table element is used to define a table. A table is a construct where data is organized into rows and columns of cells.
+ *
+ *	@todo To test
  */
 class CXHTable extends CXHEntityAttrs
 {
@@ -3249,7 +3254,7 @@ class CXHTable extends CXHEntityAttrs
 		}
 		else if (_io($vContent, 'CXHTableBody'))
 		{
-			$this->_oTBody[] = $vContent;
+			$this->_aTBody[] = $vContent;
 		}
 		else if (_io($vContent, 'CXHTableFoot'))
 		{
@@ -3309,7 +3314,7 @@ class CXHTable extends CXHEntityAttrs
 			parent::AppendContent($oBody);
 		}
 		
-		parent::__toString();
+		return parent::__toString();
 	}
 }
 
@@ -3324,6 +3329,8 @@ class CXHTable extends CXHEntityAttrs
  *	Creates a caption element
  *
  *	The caption element creates a caption for a table. If a caption is to be used, it should be the first element after the opening table element.
+ *
+ *	@todo To test
  */
 class CXHCaption extends CXHEntityAttrs
 {
@@ -3349,6 +3356,8 @@ class CXHCaption extends CXHEntityAttrs
  *	Creates a thead element
  *
  *	The thead element can be used to group table rows that contain table header information. This can be useful when printing long tables that span several printed pages, since the data in thead will be repeated on each page.
+ *
+ *	@todo To test
  */
 class CXHTableHead extends CXHTableAlignAttrs
 {
@@ -3406,6 +3415,8 @@ class CXHTableHead extends CXHTableAlignAttrs
  *	Creates a tfoot elelement
  *
  *	The tfoot element can be used to group table rows that contain table footer information. This may be useful when printing longer tables that span several printed pages, since the data in tfoot is repeated on each page. The tfoot element should appear before tbody elements.
+ *
+ *	@todo To test
  */
 class CXHTableFoot extends CXHTableAlignAttrs
 {
@@ -3521,6 +3532,8 @@ class CXHTableBody extends CXHTableAlignAttrs
 /**
  *	Defines an abstract class for the colgroup and col elements
  *	@abstract
+ *
+ *	@todo To test
  */
 abstract class CXHColAttrs extends CXHTableAlignAttrs
 {
@@ -3562,6 +3575,8 @@ abstract class CXHColAttrs extends CXHTableAlignAttrs
  *
  *	The colgroup element provides a mechanism to apply attributes to a logical conception of a column. The colgroup element is most commonly used to apply table cell alignment using the align and valign attributes, to apply column width using the width attribute, and CSS formatting using the class attribute.
  *	The colgroup element contains col elements that represent individual columns.
+ *
+ *	@todo To test
  */
 class CXHColGroup extends CXHColAttrs
 {
@@ -3611,6 +3626,8 @@ class CXHColGroup extends CXHColAttrs
  *	Creates a col element
  *
  *	The col element provides a mechanism to apply attributes to a logical conception of a column. The col element is most commonly used to apply table cell alignment using the align and valign attributes, to apply column width using the width attribute, and CSS formatting using the class attribute.
+ *
+ *	@todo To test
  */
 class CXHCol extends CXHColAttrs
 {
@@ -3707,6 +3724,8 @@ class CXHRow extends CXHEntityAttrs
  *	Creates a th element
  *
  *	The th element defines a table header cell.
+ *
+ *	@todo To test
  */
 class CXHCellHead extends CXHEntityAttrs
 {
@@ -3795,6 +3814,135 @@ class CXHCell extends CXHEntityAttrs
 	public function SetColspan($sValue)
 	{
 		$this->AddAttr("colspan", $sValue);
+	}
+}
+
+
+define("XHTYPE_XHTML_1_0_STRICT",1);
+define("XHTYPE_XHTML_1_0_TRANS", 2);
+define("XHTYPE_XHTML_1_0_FRAMS", 3);
+
+
+/**
+ *	Creates a XHTML document structure
+ */
+class CXHDocument extends CXHHTML
+{
+	/**
+	 *	@var string String holding the head of the document
+	 *	@access private
+	 */
+	private $_sHead;
+	
+	
+	/**
+	 *	@var string String holding the body of the document
+	 *	@access private
+	 */
+	private $_sBody;
+	
+	
+	/**
+	 *	@var string String holding the doctype of the document
+	 *	@access private
+	 */
+	private $_sDoctype;
+
+	
+	/**
+	 *	@param string $sLanguage Language abbreviation used in document
+	 *	@param int $iType Type of the document; defaults to XHTML strict, only implementation
+	 */
+	public function __construct($sLanguage, $iType = XHTYPE_XHTML_1_0_STRICT)
+	{
+		parent::__construct($sLanguage);
+
+		$this->_sHead = "";
+		$this->_sBody = "";
+
+		switch ($iType)
+		{
+			case XHTYPE_XHTML_1_0_FRAMS:
+			//break;
+			case XHTYPE_XHTML_1_0_TRANS:
+			//	$this->_sDoctype = "<!DOCTYPE html PUBLIC ".chr(13).chr(10).chr(9).chr(34)."-//W3C//DTD XHTML 1.0 Transitional//EN".chr(34).chr(13).chr(10).chr(9).chr(34)."http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd".chr(34).">";
+			//break;
+			case XHTYPE_XHTML_1_0_STRICT:
+			//break;
+			default:
+				$this->_sDoctype = "<!DOCTYPE html PUBLIC ".chr(13).chr(10).chr(9).chr(34)."-//W3C//DTD XHTML 1.0 Strict//EN".chr(34).chr(13).chr(10).chr(9).chr(34)."http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd".chr(34).">";
+		}
+	}
+
+
+	/**
+	 *	Sets the head of the XHTML document
+	 *
+	 *	@param mixed $vHead Head string or object for the XHTML document
+	 */
+	public function ReplaceHead($vHead)
+	{
+		switch (getType($vHead))
+		{
+			case "object":
+				if (_io($vHead, 'CXHHead'))
+				{
+					$this->_sHead = (string) $vHead;
+				}
+				break;
+			case "string":
+				$this->_sHead = $vHead;
+				break;
+			default:
+				throw new XHException("\$vHead is not of type CXHHead");
+
+		}
+	}
+
+
+	/**
+	 *	Sets the body to the XHTML document
+	 *
+	 *	@param mixed $vBody Body string or object for the XHTML document
+	 */
+	public function ReplaceBody($vBody)
+	{
+		switch (getType($vBody))
+		{
+			case "object":
+
+				if (_io($vBody, 'CXHBody'))
+				{
+					$this->_sBody = (string) $vBody;
+				}
+
+				break;
+			case "string":
+				$this->_sBody = $vBody;
+				break;
+			default:
+				throw new XHException("\$vBody is not of type CXHBody");
+
+		}
+	}
+
+
+	/**
+	 *	@return string
+	 */
+	public function __toString()
+	{
+		if (!_sl($this->_sHead))
+			throw new XHException("Document has no head");
+			
+		parent::AppendContent($this->_sHead);
+
+		if (!_sl($this->_sBody))
+			throw new XHException("Document has no body");
+
+		parent::AppendContent($this->_sBody);
+
+		return $this->_sDoctype.chr(13).chr(10).parent::__toString();
 	}
 }
 
