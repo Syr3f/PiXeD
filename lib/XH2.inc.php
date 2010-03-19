@@ -3120,12 +3120,15 @@ abstract class CXHTableAlignAttrs extends CXHEntityAttrs
 #   cellpadding CDATA       #IMPLIED
 #   >
 /**
- *	@todo To document
+ *	Creates a table element
+ *
+ *	The table element is used to define a table. A table is a construct where data is organized into rows and columns of cells.
  */
 class CXHTable extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param object $oCXHTableContent A content of the table
+	 *	@param object $oCXHCaption The table caption
 	 */
 	public function __construct($oCXHTableContent = PXH_NULL_OBJECT, $oCXHCaption = PXH_NULL_OBJECT)
 	{
@@ -3146,7 +3149,9 @@ class CXHTable extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Replaces the table caption
+	 *
+	 *	@param object $oCXHTableCaption The table caption
 	 */
 	public function ReplaceCaption($oCXHTableCaption)
 	{
@@ -3155,16 +3160,20 @@ class CXHTable extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Appends a col element
+	 *
+	 *	@param object $oCXHCol An instance of CXHCol or CXHColGroup
 	 */
-	public function AppendCols($oCXHCols)
+	public function AppendCols($oCXHCol)
 	{
-		$this->AppendContent($oCXHCols);
+		$this->AppendContent($oCXHCol);
 	}
 	
 
 	/**
-	 *	@todo To document
+	 *	Replaces the thead element
+	 *
+	 *	@param object $oCXHTableHead An instance of CXHTableHead
 	 */
 	public function ReplaceHead($oCXHTableHead)
 	{
@@ -3173,7 +3182,9 @@ class CXHTable extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Appends a tbody element
+	 *
+	 *	@param object $oCXHTableBody An instance of CXHTableBody
 	 */
 	public function AppendBody($oCXHTableBody)
 	{
@@ -3182,7 +3193,9 @@ class CXHTable extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Replaces a tfoot element
+	 *
+	 *	@param object $oCXHTableFoot An instance of CXHTableFoot
 	 */
 	public function ReplaceFoot($oCXHTableFoot)
 	{
@@ -3191,7 +3204,9 @@ class CXHTable extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Appends table content elements
+	 *
+	 *	@param mixed $vContent A table content element 
 	 */
 	public function AppendContent($vContent)
 	{
@@ -3231,24 +3246,30 @@ class CXHTable extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Sets table cell spacing
+	 *
+	 *	@param string $sValue Value of spacing
 	 */
-	public function SetCellspacing($vValue)
+	public function SetCellspacing($sValue)
 	{
-		$this->AddAttr("cellspacing", $vValue);
+		$this->AddAttr("cellspacing", $sValue);
 	}
 	
 
 	/**
-	 *	@todo To document
+	 *	Sets table cell padding
+	 *
+	 *	@param string $sValue Value of padding
 	 */
-	public function SetCellpadding($vValue)
+	public function SetCellpadding($sValue)
 	{
-		$this->AddAttr("cellpadding", $vValue);
+		$this->AddAttr("cellpadding", $sValue);
 	}
 	
 	/**
-	 *   (caption?, (col*|colgroup*), thead?, tfoot?, (tbody+|tr+))>
+	 *  (caption?, (col*|colgroup*), thead?, tfoot?, (tbody+|tr+))
+	 *
+	 *	@return string
 	 */
 	public function __toString()
 	{
@@ -3283,16 +3304,18 @@ class CXHTable extends CXHEntityAttrs
 #   %attrs
 #   >
 /**
- *	@todo To document
+ *	Creates a caption element
+ *
+ *	The caption element creates a caption for a table. If a caption is to be used, it should be the first element after the opening table element.
  */
 class CXHCaption extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param mixed $vContent Initial content of the caption element
 	 */
-	public function __construct($sContent = PXH_EMPTY_STRING)
+	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
-		parent::__construct("caption", true, $sContent);
+		parent::__construct("caption", true, $vContent);
 	}
 }
 
@@ -3306,12 +3329,14 @@ class CXHCaption extends CXHEntityAttrs
 #   %cellvalign
 #   >
 /**
- *	@todo To document
+ *	Creates a thead element
+ *
+ *	The thead element can be used to group table rows that contain table header information. This can be useful when printing long tables that span several printed pages, since the data in thead will be repeated on each page.
  */
 class CXHTableHead extends CXHTableAlignAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param object $oCXHRow An instance of CXHRow
 	 */
 	public function __construct($oCXHRow = PXH_NULL_OBJECT)
 	{
@@ -3325,7 +3350,9 @@ class CXHTableHead extends CXHTableAlignAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Appends a tr element
+	 *
+	 *	@param object $oCXHRow An instance of CXHRow
 	 */
 	public function AppendRow($oCXHRow)
 	{
@@ -3334,13 +3361,15 @@ class CXHTableHead extends CXHTableAlignAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Appends a tr element
+	 *
+	 *	@param object $oCXHRow An instance of CXHRow
 	 */
-	public function AppendContent($vContent)
+	public function AppendContent($oContent)
 	{
-		if (_io($vContent, 'CXHRow'))
+		if (_io($oContent, 'CXHRow'))
 		{
-			parent::AppendContent($vContent);
+			parent::AppendContent($oContent);
 		}
 		else
 			throw new XHException("Parameter is not of type CXHRow");
@@ -3357,12 +3386,14 @@ class CXHTableHead extends CXHTableAlignAttrs
 #   %cellvalign
 #   >
 /**
- *	@todo To document
+ *	Creates a tfoot elelement
+ *
+ *	The tfoot element can be used to group table rows that contain table footer information. This may be useful when printing longer tables that span several printed pages, since the data in tfoot is repeated on each page. The tfoot element should appear before tbody elements.
  */
 class CXHTableFoot extends CXHTableAlignAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param object $oCXHRow An instance of CXHRow
 	 */
 	public function __construct($oCXHRow = PXH_NULL_OBJECT)
 	{
@@ -3376,7 +3407,9 @@ class CXHTableFoot extends CXHTableAlignAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Appends a tr element
+	 *
+	 *	@param object $oCXHRow An instance of CXHRow
 	 */
 	public function AppendRow($oCXHRow)
 	{
@@ -3385,7 +3418,9 @@ class CXHTableFoot extends CXHTableAlignAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Appends a tr element
+	 *
+	 *	@param object $oCXHRow An instance of CXHRow
 	 */
 	public function AppendContent($vContent)
 	{
@@ -3408,12 +3443,14 @@ class CXHTableFoot extends CXHTableAlignAttrs
 #   %cellvalign
 #   >
 /**
- *	@todo To document
+ *	Creates a tbody element
+ *
+ *	The tbody element can be used to group table data rows. This can be useful when a Web browser supports scrolling of table rows in longer tables. Multiple tbody elements can be used for independent scrolling.
  */
 class CXHTableBody extends CXHTableAlignAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param object $oCXHRow An instance of CXHRow
 	 */
 	public function __construct($oCXHRow = PXH_NULL_OBJECT)
 	{
@@ -3427,7 +3464,9 @@ class CXHTableBody extends CXHTableAlignAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Appends a tr element
+	 *
+	 *	@param object $oCXHRow An instance of CXHRow
 	 */
 	public function AppendRow($oCXHRow)
 	{
@@ -3436,7 +3475,9 @@ class CXHTableBody extends CXHTableAlignAttrs
 
 
 	/**
-	 *	@todo To document
+	 *	Appends a tr element
+	 *
+	 *	@param object $oCXHRow An instance of CXHRow
 	 */
 	public function AppendContent($vContent)
 	{
@@ -3461,12 +3502,14 @@ class CXHTableBody extends CXHTableAlignAttrs
 #   %cellvalign
 #   >
 /**
- *	@todo To document
+ *	Defines an abstract class for the colgroup and col elements
+ *	@abstract
  */
-class CXHColAttrs extends CXHTableAlignAttrs
+abstract class CXHColAttrs extends CXHTableAlignAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sTagName Name of the entity
+	 *	@param bool $bHasEnd Indicates if element has end; true for full end, false for self closed
 	 */
 	public function __construct($sTagName, $bHasEnd = true)
 	{
@@ -3475,32 +3518,36 @@ class CXHColAttrs extends CXHTableAlignAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Sets the spanning of the column
+	 *
+	 *	@param string $sSpanVal Number indicating the column spanning
 	 */
-	public function SetSpan($iSpanVal)
+	public function SetSpan($sSpanVal)
 	{
-		parent::AddAttr("span", (string) $iSpanVal);
+		parent::AddAttr("span", $sSpanVal);
 	}
 	
 
 	/**
-	 *	@todo To document
+	 *	Sets the width of the column
+	 *
+	 *	@param string $sWidth Width of the column
 	 */
-	public function SetWidth($vWidth)
+	public function SetWidth($sWidth)
 	{
-		parent::AddAttr("width", (string) $vWidth);
+		parent::AddAttr("width", $sWidth);
 	}
 }
 
 
 /**
- *	@todo To document
+ *	Creates a colgroup element
+ *
+ *	The colgroup element provides a mechanism to apply attributes to a logical conception of a column. The colgroup element is most commonly used to apply table cell alignment using the align and valign attributes, to apply column width using the width attribute, and CSS formatting using the class attribute.
+ *	The colgroup element contains col elements that represent individual columns.
  */
 class CXHColGroup extends CXHColAttrs
 {
-	/**
-	 *	@todo To document
-	 */
 	public function __construct()
 	{
 		parent::__construct("colgroup");
@@ -3508,7 +3555,9 @@ class CXHColGroup extends CXHColAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Appends a col element
+	 *
+	 *	@param object $oCXHCol An instance of CXHCol
 	 */
 	public function AppendCol($oCXHCol)
 	{
@@ -3517,12 +3566,14 @@ class CXHColGroup extends CXHColAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Appends a col element
+	 *
+	 *	@param object $oContent An instance of CXHCol
 	 */
-	public function AppendContent($vContent)
+	public function AppendContent($oContent)
 	{
-		if (_io($vContent, 'CXHCol'))
-			parent::AppendContent($vContent);
+		if (_io($oContent, 'CXHCol'))
+			parent::AppendContent($oContent);
 		else
 			throw new XHException("Parameter is not of type CXHCol");
 	}
@@ -3540,14 +3591,19 @@ class CXHColGroup extends CXHColAttrs
 #   %cellvalign
 #   >
 /**
- *	@todo To document
+ *	Creates a col element
+ *
+ *	The col element provides a mechanism to apply attributes to a logical conception of a column. The col element is most commonly used to apply table cell alignment using the align and valign attributes, to apply column width using the width attribute, and CSS formatting using the class attribute.
  */
 class CXHCol extends CXHColAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param string $sHAlign Horizontal alignment value
+	 *	@param string $sVAlign Vertical alignment value
+	 *	@param string $sWidth Column width
+	 *	@param string $sSpan Column spanning value
 	 */
-	public function __construct($sHAlign = CXHTableAlignAttrs::sHALeft, $sVAlign = CXHTableAlignAttrs::sVAMiddle, $vWidth = PXH_EMPTY_STRING, $iSpan = 1)
+	public function __construct($sHAlign = CXHTableAlignAttrs::sHALeft, $sVAlign = CXHTableAlignAttrs::sVAMiddle, $sWidth = PXH_EMPTY_STRING, $sSpan = 1)
 	{
 		parent::__construct("col", false);
 		
@@ -3568,12 +3624,14 @@ class CXHCol extends CXHColAttrs
 #   %cellvalign
 #   >
 /**
- *	@todo To document
+ *	Creates a tr element
+ *
+ *	The tr element defines a table row.
  */
 class CXHRow extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param object $oCXHCell An instance of CXHCell
 	 */
 	public function __construct($oCXHCell = PXH_NULL_OBJECT)
 	{
@@ -3587,7 +3645,9 @@ class CXHRow extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Appends a td element
+	 *
+	 *	@param object $oCXHCell An instance of CXHCell
 	 */
 	public function AppendCell($oCXHCell)
 	{
@@ -3596,13 +3656,15 @@ class CXHRow extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Appends a td element
+	 *
+	 *	@param object $oContent An instance of CXHCell
 	 */
-	public function AppendContent($vContent)
+	public function AppendContent($oContent)
 	{	
-		if (_io($vContent, 'CXHCell') || _io($vContent, 'CXHCellHead'))
+		if (_io($oContent, 'CXHCell') || _io($oContent, 'CXHCellHead'))
 		{
-			parent::AppendContent($vContent);
+			parent::AppendContent($oContent);
 		}
 		else
 			throw new XHExcecption("Parameter is not of type CXHCell or CXHCellHeader");
@@ -3625,12 +3687,14 @@ class CXHRow extends CXHEntityAttrs
 #   %cellvalign
 #   >
 /**
- *	@todo To document
+ *	Creates a th element
+ *
+ *	The th element defines a table header cell.
  */
 class CXHCellHead extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param mixed $vContent Initial content of the element
 	 */
 	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
@@ -3641,20 +3705,24 @@ class CXHCellHead extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Sets the row spanning
+	 *
+	 *	@param string $sValue Row spanning value
 	 */
-	public function SetRowspan($vValue)
+	public function SetRowspan($sValue)
 	{
-		$this->AddAttr("rowspan", $vValue);
+		$this->AddAttr("rowspan", $sValue);
 	}
 	
 
 	/**
-	 *	@todo To document
+	 *	Sets the Column spanning
+	 *
+	 *	@param string $sValue Col spanning value
 	 */
-	public function SetColspan($vValue)
+	public function SetColspan($sValue)
 	{
-		$this->AddAttr("colspan", $vValue);
+		$this->AddAttr("colspan", $sValue);
 	}
 }
 
@@ -3674,12 +3742,14 @@ class CXHCellHead extends CXHEntityAttrs
 #   %cellvalign
 #   >
 /**
- *	@todo To document
+ *	Creates a td element
+ *
+ *	The td element defines a data cell in a table (i.e. cells that are not header cells).
  */
 class CXHCell extends CXHEntityAttrs
 {
 	/**
-	 *	@todo To document
+	 *	@param mixed $vContent Initial content of the element
 	 */
 	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
@@ -3690,20 +3760,24 @@ class CXHCell extends CXHEntityAttrs
 	
 
 	/**
-	 *	@todo To document
+	 *	Sets the row spanning
+	 *
+	 *	@param string $sValue Row spanning value
 	 */
-	public function SetRowspan($vValue)
+	public function SetRowspan($sValue)
 	{
-		$this->AddAttr("rowspan", $vValue);
+		$this->AddAttr("rowspan", $sValue);
 	}
 	
 
 	/**
-	 *	@todo To document
+	 *	Sets the Column spanning
+	 *
+	 *	@param string $sValue Col spanning value
 	 */
-	public function SetColspan($vValue)
+	public function SetColspan($sValue)
 	{
-		$this->AddAttr("colspan", $vValue);
+		$this->AddAttr("colspan", $sValue);
 	}
 }
 
