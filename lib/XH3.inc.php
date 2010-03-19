@@ -176,7 +176,7 @@ class CXHDoc extends CXHDocument
 	 *	@param string $sEncoding Encoding of the document; defaults to UTF-8
 	 *	@param string $sLanguage Language used in the document; defaults to en: English
 	 */
-	public function __construct($sTitle = "My PWL Doc", $sEncoding = "UTF-8", $sLanguage = "en")
+	public function __construct($sTitle = "My XHTML Document", $sEncoding = "UTF-8", $sLanguage = "en")
 	{
 		parent::__construct($sLanguage);
 		
