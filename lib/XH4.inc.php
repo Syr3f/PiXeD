@@ -76,12 +76,14 @@ class CXH2ImageBlock extends CXHDiv
 {
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_oImage;
 
 
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_oMap;
 
@@ -134,18 +136,21 @@ class CXH2HotzonesBlock extends CXHTable
 {
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_sHeader;
 
 
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_sContent;
 
 
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_sFooter;
 
@@ -164,6 +169,7 @@ class CXH2HotzonesBlock extends CXHTable
 	
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	public function _generateRow($oTBody, $oRow, $oCell)
 	{
@@ -299,6 +305,7 @@ class CXH2PanelBlock extends CXHDiv
 {
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_iId;
 
@@ -320,6 +327,7 @@ class CXH2PanelBlock extends CXHDiv
 
 /**
  *	@todo To document
+ *	@todo To tests
  */
 class CXH2TableBlock extends CXHTable
 {
@@ -343,36 +351,42 @@ class CXH2TableBlock extends CXHTable
 	
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_aTBody;
 	
 	
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_iCurrentBody;
 	
 	
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_oTHead;
 	
 	
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_oTFoot;
 	
 	
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_oCurrentRow;
 	
 	
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_oCurrentCell;
 	
@@ -495,47 +509,55 @@ class CXH2TableBlock extends CXHTable
 
 /**
  *	@todo To document
+ *	@todo To test
  */
 class CXH2GridBlock extends CXHTable
 {
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_iNbColumns;
 
 
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_iNbRows;
 
 
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_aaRows;
 
 
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_aRowIds;
 
 
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_aRowClasses;
 
 
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_aaCellIds;
 
 
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
 	private $_aaCellClasses;
 	

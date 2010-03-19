@@ -44,24 +44,28 @@ abstract class CMLEntity
 {
 	/**
 	 *	@var string Name of the entity tag
+	 *	@access private
 	 */
 	private $_sName;
 
 
 	/**
 	 *	@var bool Defines the ending of the entity; true is full markup ending, false is self ending
+	 *	@access private
 	 */
 	private $_bHasEnd;
 
 
 	/**
 	 *	@var string Variable holding the string content
+	 *	@access private
 	 */
 	private $_sContent;
 
 
 	/**
 	 *	@var array Hash array holding the entity's attributes; keys are the attribute names, items are the values
+	 *	@access private
 	 */
 	private $_hsAttrs0;
 
@@ -192,6 +196,7 @@ abstract class CMLEntity
 
 	/**
 	 *	Method to generate the entity's attributes string
+	 *	@access private
 	 *
 	 *	@return string
 	 */

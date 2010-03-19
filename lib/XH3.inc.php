@@ -33,24 +33,28 @@ class CXHDocument extends CXHHTML
 {
 	/**
 	 *	@var string String holding the head of the document
+	 *	@access private
 	 */
 	private $_sHead;
 	
 	
 	/**
 	 *	@var string String holding the body of the document
+	 *	@access private
 	 */
 	private $_sBody;
 	
 	
 	/**
 	 *	@var string String holding the doctype of the document
+	 *	@access private
 	 */
 	private $_sDoctype;
 
 	
 	/**
 	 *	@param string $sLanguage Language abbreviation used in document
+	 *	@param int $iType Type of the document; defaults to XHTML strict, only implementation
 	 */
 	public function __construct($sLanguage, $iType = XHTYPE_XHTML_1_0_STRICT)
 	{
@@ -155,18 +159,21 @@ class CXHDoc extends CXHDocument
 {
 	/**
 	 *	@var object Holds the XHTML document head object
+	 *	@access private
 	 */
 	private $_oHeader;
 
 
 	/**
 	 *	@var object Holds the XHTML document body object
+	 *	@access private
 	 */
 	private $_oBody;
 	
 	
 	/**
 	 *	@var string Holds the content to be appended at the end of the body content
+	 *	@access private
 	 */
 	private $_sAfterBody;
 	

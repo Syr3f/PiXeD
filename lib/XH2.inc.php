@@ -48,18 +48,21 @@ class CXHComment
 {
 	/**
 	 *	@var string Holds the comment content
+	 *	@access private
 	 */
 	private $_sContent;
 	
 	
 	/**
 	 *	@var string Holds the new line caracters
+	 *	@access private
 	 */
 	private $sNL;
 	
 	
 	/**
 	 *	@var string Holds the tab caracter
+	 *	@access private
 	 */
 	private $sTAB;
 
@@ -114,6 +117,7 @@ abstract class CXHEntityIntl extends CMLEntity
 {
 	/**
 	 *	@var array Hash array holding the entity attributes; the keys holds the names and the values the attribute values
+	 *	@access private
 	 */
 	private $_hAttrs1;
 	
@@ -187,12 +191,14 @@ abstract class CXHEntityCoreAttrs extends CMLEntity
 {
 	/**
 	 *	@var array Holds the style list of the entity
+	 *	@access private
 	 */
 	private $_asStyles1;
 
 
 	/**
 	 *	@var array Holds the attributes of the entity
+	 *	@access private
 	 */
 	private $_hsAttrs3;
 
@@ -347,12 +353,14 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
 {
 	/**
 	 *	@var array Holds the style list of the entity
+	 *	@access private
 	 */
 	private $_asStyles;
 
 
 	/**
 	 *	@var array Holds the attributes of the entity
+	 *	@access private
 	 */
 	private $_hsAttrs2;
 
@@ -1967,24 +1975,28 @@ class CXHArea extends CXHEntityAttrs
 {
 	/**
 	 *	@var string URI reference of the area
+	 *	@access private
 	 */
 	private $_sHRef;
 
 
 	/**
 	 *	@var string Alternate text of the area
+	 *	@access private
 	 */
 	private $_sAlt;
 
 
 	/**
 	 *	@var string Shape of the area
+	 *	@access private
 	 */
 	private $_sShape;
 
 
 	/**
 	 *	@var string Coordinates of the area
+	 *	@access private
 	 */
 	private $_sCoords;
 
@@ -2273,6 +2285,7 @@ class CXHFieldText extends CXHFieldAttrs
 {
 	/**
 	 *	@var bool Defines if it's an text type input or textarea
+	 *	@access private
 	 */
 	private $_bIsMultiline;
 
@@ -2542,6 +2555,7 @@ abstract class CXHOptionsInsertions extends CXHFieldAttrs
 {
 	/**
 	 *	@var int Holds the number of items selected
+	 *	@access private
 	 */
 	private $_iNumSelected;
 
@@ -2628,6 +2642,7 @@ class CXHSelectbox extends CXHOptionsInsertions
 {
 	/**
 	 *	@var bool Indicates if multiple options can be selected
+	 *	@access private
 	 */
 	private $_bIsMultiple;
 
@@ -2797,6 +2812,7 @@ class CXHOption extends CXHEntityAttrs
 {
 	/**
 	 *	@var bool Indicates if element is selected
+	 *	@access private
 	 */
 	private $_bIsSelected;
 	
@@ -2925,6 +2941,7 @@ class CXHPushButton extends CXHFieldAttrs
 {
 	/**
 	 *	@var string Holds the value of the default content
+	 *	@access private
 	 */
 	private $_sDefaultContent;
 
