@@ -4,8 +4,8 @@
 /**
  *
  *	@package [0]Utilitaries
- *	@version 0.0
- *	@license http://creativecommons.org/licenses/by/3.0/ cc by
+ *	@version 0.0.1
+ *	@license MIT License
  *
  *	@copyright Copyright (c) 2010 Serafim Junior Dos Santos Fagundes Cyb3r Networks
  *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
