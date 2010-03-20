@@ -19,6 +19,9 @@
  */
 
  
+/**
+ *	Links base utilitaries file
+ */
 require_once("XH0.inc.php");
 
 

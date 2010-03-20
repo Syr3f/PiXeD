@@ -22,7 +22,10 @@
  *	Some of the class documentation is taken from the xhtml.com website: http://xhtml.com/.
  */
 
- 
+
+/**
+ *	Links the first level file
+ */
 require_once("XH1.inc.php");
 
 
@@ -904,10 +907,7 @@ class CXHDiv extends CXHEntityAttrs
 	 */
 	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
-		parent::__construct("div");
-		
-		if (_sl((string) $vContent))
-			$this->AppendContent($vContent);
+		parent::__construct("div", true, $vContent);
 	}
 }
 
@@ -931,10 +931,7 @@ class CXHParagraph extends CXHEntityAttrs
 	 */
 	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
-		parent::__construct("p");
-		
-		if (_sl((string) $vContent))
-			parent::AppendContent($vContent);
+		parent::__construct("p", true, $vContent);
 	}
 }
 
@@ -1062,7 +1059,7 @@ class CXHHeading extends CXHEntityAttrs
  *	Defines the base methods to be used by the ordered and unordered list elements
  *	@abstract
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 abstract class CXHList extends CXHEntityAttrs
 {
@@ -1122,7 +1119,7 @@ abstract class CXHList extends CXHEntityAttrs
  *	The ul element is used to create unordered lists. An unordered list is a grouping of items whose sequence in the list is not important. For example, the order in which ingredients for a recipe are presented will not affect the outcome of the recipe.
  *	The ul element must contain one or more li elements, used to define a list item. To create sublists (ordered or unordered), place ul or ol inside a li element.
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHUnorderedList extends CXHList
 {
@@ -1145,7 +1142,7 @@ class CXHUnorderedList extends CXHList
  *	The ol element is used to create ordered lists. An ordered list is a grouping of items whose sequence in the list is important. For example, the sequence of steps in a recipe is important if the result is to be the intended one.
  *	The ol element must contain one or more li elements, used to define a list item. To create sublists (ordered or unordered), put ol or ul inside a li element.
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHOrderedList extends CXHList
 {
@@ -1167,7 +1164,7 @@ class CXHOrderedList extends CXHList
  *
  *	The li element represents a list item in ordered lists and unordered lists.
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHItem extends CXHEntityAttrs
 {
@@ -1176,10 +1173,7 @@ class CXHItem extends CXHEntityAttrs
 	 */
 	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
-		parent::__construct("li");
-		
-		if (_sl((string) $vContent))
-			parent::AppendContent($vContent);
+		parent::__construct("li", true, $vContent);
 	}
 }
 
@@ -1195,7 +1189,7 @@ class CXHItem extends CXHEntityAttrs
  *
  *	The dl element is used to create a list where each item in the list comprises two parts: a term and a description. A glossary of terms is a typical example of a definition list, where each item consists of the term being defined and a definition of the term.
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHDefList extends CXHEntityAttrs
 {
@@ -1280,7 +1274,7 @@ class CXHDefList extends CXHEntityAttrs
  *
  *	The dt element is a definition term for an item in a definition list.
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHTerm extends CXHEntityAttrs
 {
@@ -1289,10 +1283,7 @@ class CXHTerm extends CXHEntityAttrs
 	 */
 	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
-		parent::__construct("dt");
-		
-		if (_sl((string) $vContent))
-			parent::AppendContent($vContent);
+		parent::__construct("dt", true, $vContent);
 	}
 }
 ##
@@ -1306,7 +1297,7 @@ class CXHTerm extends CXHEntityAttrs
  *
  *	The dd element is a definition description for an item in a definition list.
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHDef extends CXHEntityAttrs
 {
@@ -1315,10 +1306,7 @@ class CXHDef extends CXHEntityAttrs
 	 */
 	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
-		parent::__construct("dd");
-		
-		if (_sl((string) $vContent))
-			parent::AppendContent($vContent);
+		parent::__construct("dd", true, $vContent);
 	}
 }
 # <!--=================== Address ==========================================-->
@@ -1334,7 +1322,7 @@ class CXHDef extends CXHEntityAttrs
  *
  *	The address element is used to supply contact information. This element often appears at the beginning or end of a document.
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHAddress extends CXHEntityAttrs
 {
@@ -1389,10 +1377,7 @@ class CXHPre extends CXHEntityAttrs
 	 */
 	public function __construct($vContent = PXH_EMPTY_STRING, $bPreserve = false)
 	{
-		parent::__construct("pre");
-
-		if (_sl($vContent))
-			parent::AppendContent($vContent);
+		parent::__construct("pre", true, $vContent);
 		
 		if ($bPreserve)
 			parent::AddAttr("preserve", "preserve");
@@ -1409,7 +1394,36 @@ class CXHPre extends CXHEntityAttrs
 #   %attrs
 #   cite        CDATA          #IMPLIED
 #   >
-
+/**
+ *	Creates the blockquote element
+ *
+ *	The blockquote element is used to identify larger amounts of quoted text.
+ *
+ *	@todo To test[2]
+ */
+class CXHBlockquote extends CXHEntityAttrs
+{
+	public function __construct($vContent = PXH_EMPTY_STRING, $sCiteURI = PXH_EMPTY_STRING)
+	{
+		parent::__construct("blockquote", true, $vContent);
+			
+		if (_sl($sCiteURI))
+			$this->SetCite($sCiteURI);
+	}
+	
+	
+	/**
+	 *	Sets the quote URI citation
+	 *
+	 *	@param string $sCiteURI Quote URI source
+	 */
+	public function SetCite($sCiteURI)
+	{
+		parent::AddAttr("cite", $sCiteURI);
+	}
+}
+ 
+ 
 # <!--=================== Inserted/Deleted Text ============================-->
 
 ##
@@ -1420,6 +1434,56 @@ class CXHPre extends CXHEntityAttrs
 #   cite        CDATA          #IMPLIED
 #   datetime    CDATA     #IMPLIED
 #   >
+/**
+ *	Creates a ins element
+ *
+ *	The ins element is used to mark up content that has been inserted into the current version of a document. The ins element indicates that content in the previous version of the document has been changed, and that the changes are found inside the ins element.
+ *	By default, most Web browsers render content found inside the ins element with underline formatting.
+ *	The ins element can be used as either a block element or an inline element. When used as a block element, the ins element can contain block elements, inline elements or text. When used as an inline element, the ins element can only contain inline elements or text.
+ *
+ *	@todo To test[2]
+ */
+class CXHInsertion extends CXHEntityAttrs
+{
+	/**
+	 *	@param string $sCiteURI Insertion URI citation
+	 *	@param string $sDateTime Insertion date/time
+	 *	@param mixed $vContent Content of the insertion
+	 */
+	public function __construct($sCiteURI = PXH_EMPTY_STRING, $sDateTime = PXH_EMPTY_STRING, $vContent = PXH_EMPTY_STRING)
+	{
+		parent::__construct("ins", true, $vContent);
+		
+		if (_sl($sCiteURI))
+			$this->SetCite($sCiteURI);
+			
+		if (_sl($sDateTime))
+			$this->SetDateTime($sDateTime);
+	}
+	
+	
+	/**
+	 *	Sets the insertion URI citation
+	 *
+	 *	@param string $sCiteURI Insertion URI citation
+	 */
+	public function SetCite($sCiteURI)
+	{
+		$this->AddAttr("cite", $sCiteURI);
+	}
+	
+	
+	/**
+	 *	Sets the date/time of the insertion
+	 *
+	 *	@param string $sDateTime Date/time insertion
+	 */
+	public function SetDateTime($sDateTime)
+	{
+		$this->AddAttr("datetime", $sDateTime);
+	}
+}
+
 
 ##
 #
@@ -1429,6 +1493,56 @@ class CXHPre extends CXHEntityAttrs
 #   cite        CDATA          #IMPLIED
 #   datetime    CDATA     #IMPLIED
 #   >
+/**
+ *	Creates a del element
+ *
+ *	The del element is used to mark up modifications made to a document. Specifically, the del element is used to indicate that a section of content has changed and has therefore been removed.
+ *	By default, most Web browsers render content inside the del element with strike-through formatting.
+ *	The del element can be used as either a block element, or as an inline element. When used as a block element, the del element can contain block elements, inline elements, or text. When used as an inline element, the del element can only contain inline elements, or text.
+ *
+ *	@todo To test[2]
+ */
+class CXHDeletion extends CXHEntityAttrs
+{
+	/**
+	 *	@param string $sCiteURI Deletion URI citation
+	 *	@param string $sDateTime Deletion date/time
+	 *	@param mixed $vContent Content of the deletion
+	 */
+	public function __construct($sCiteURI = PXH_EMPTY_STRING, $sDateTime = PXH_EMPTY_STRING, $vContent = PXH_EMPTY_STRING)
+	{
+		parent::__construct("ins", true, $vContent);
+		
+		if (_sl($sCiteURI))
+			$this->SetCite($sCiteURI);
+			
+		if (_sl($sDateTime))
+			$this->SetDateTime($sDateTime);
+	}
+	
+	
+	/**
+	 *	Sets the deletion URI citation
+	 *
+	 *	@param string $sCiteURI Deletion URI citation
+	 */
+	public function SetCite($sCiteURI)
+	{
+		$this->AddAttr("cite", $sCiteURI);
+	}
+	
+	
+	/**
+	 *	Sets the date/time of the deletion
+	 *
+	 *	@param string $sDateTime Date/time deletion
+	 */
+	public function SetDateTime($sDateTime)
+	{
+		$this->AddAttr("datetime", $sDateTime);
+	}
+}
+
 
 # <!--================== The Anchor Element ================================-->
 
@@ -1507,10 +1621,7 @@ class CXHSpan extends CXHEntityAttrs
 	 */
 	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
-		parent::__construct("span");
-		
-		if (_sl($vContent))
-			parent::AppendContent($vContent);
+		parent::__construct("span", true, $vContent);
 	}
 }
 
@@ -1582,7 +1693,7 @@ class CXHBreak extends CXHEntityCoreAttrs
  *
  *	The em element is used to indicate emphasis.
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHEmphasis extends CXHEntityAttrs
 {
@@ -1591,10 +1702,7 @@ class CXHEmphasis extends CXHEntityAttrs
 	 */
 	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
-		parent::__construct("em");
-		
-		if (_sl($vContent))
-			parent::AppendContent($vContent);
+		parent::__construct("em", true, $vContent);
 	}
 }
 
@@ -1608,7 +1716,7 @@ class CXHEmphasis extends CXHEntityAttrs
  *
  *	The strong element is used to indicate stronger emphasis.
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHStrong extends CXHEntityAttrs
 {
@@ -1617,10 +1725,7 @@ class CXHStrong extends CXHEntityAttrs
 	 */
 	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
-		parent::__construct("strong");
-		
-		if (_sl($vContent))
-			parent::AppendContent($vContent);
+		parent::__construct("strong", true, $vContent);
 	}
 }
 
@@ -1629,41 +1734,190 @@ class CXHStrong extends CXHEntityAttrs
 #
 # <!ELEMENT dfn %Inline;>   <!-- definitional -->
 # <!ATTLIST dfn %attrs>
+/**
+ *	Creates a dfn element
+ *
+ *	The dfn element contains the defining instance of the enclosed term.
+ *
+ *	@todo To test[2]
+ */
+class CXHDefining extends CXHEntityAttrs
+{
+	/**
+	 *	@param mixed $vContent Initial defining instance content
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
+	{
+		parent::__construct("dfn", true, $vContent);
+	}
+}
+
 
 ##
 #
 # <!ELEMENT code %Inline;>   <!-- program code -->
 # <!ATTLIST code %attrs>
+/**
+ *	Creates a code element
+ *
+ *	The code element contains a fragment of computer code.
+ *
+ *	@todo To test[2]
+ */
+class CXHCode extends CXHEntityAttrs
+{
+	/**
+	 *	@param mixed $vContent Initial code content
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
+	{
+		parent::__construct("code", true, $vContent);
+	}
+}
+
 
 ##
 #
 # <!ELEMENT samp %Inline;>   <!-- sample -->
 # <!ATTLIST samp %attrs>
+/**
+ *	Creates a samp element
+ *
+ *	The samp element is used to designate sample output from programs, scripts, etc.
+ *
+ *	@todo To test[2]
+ */
+class CXHSample extends CXHEntityAttrs
+{
+	/**
+	 *	@param mixed $vContent Initial sample content
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
+	{
+		parent::__construct("samp", true, $vContent);
+
+	}
+}
+
 
 ##
 #
 # <!ELEMENT kbd %Inline;>  <!-- something user would type -->
 # <!ATTLIST kbd %attrs>
+/**
+ *	Creates a kbd element
+ *
+ *	The kbd element indicates input to be entered by the user.
+ *
+ *	@todo To test[2]
+ */
+class CXHKeyboard extends CXHEntityAttrs
+{
+	/**
+	 *	@param mixed $vContent Initial element content
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
+	{
+		parent::__construct("kbd", true, $vContent);
+	}
+}
+
 
 ##
 #
 # <!ELEMENT var %Inline;>   <!-- variable -->
 # <!ATTLIST var %attrs>
+/**
+ *	Creates a var element
+ *
+ *	The var element is used to indicate an instance of a computer code variable or program argument.
+ *
+ *	@todo To test[2]
+ */
+class CXHVar extends CXHEntityAttrs
+{
+	/**
+	 *	@param mixed $vContent Initial element content
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
+	{
+		parent::__construct("var", true, $vContent);
+	}
+}
+
 
 ##
 #
 # <!ELEMENT cite %Inline;>   <!-- citation -->
 # <!ATTLIST cite %attrs>
+/**
+ *	Creates a cite element
+ *
+ *	The cite element contains a citation or reference to another source.
+ *
+ *	@todo To test[2]
+ */
+class CXHCite extends CXHEntityAttrs
+{
+	/**
+	 *	@param mixed $vContent Initial citation content
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
+	{
+		parent::__construct("cite", true, $vContent);
+	}
+}
+
 
 ##
 #
 # <!ELEMENT abbr %Inline;>   <!-- abbreviation -->
 # <!ATTLIST abbr %attrs>
+/**
+ *	Creates a abbr element
+ *
+ *	An abbreviation is a shortened form of a word or phrase. The abbr element is used to identify an abbreviation, and can help assistive technologies to correctly pronounce abbreviated text.
+ *
+ *	@todo To test[2]
+ */
+class CXHAbbreviation extends CXHEntityAttrs
+{
+	/**
+	 *	@param string $sFullForm Full or expanded form of the abbreviation
+	 *	@param mixed $vContent Initial content of the element
+	 */
+	public function __construct($sFullForm = PXH_EMPTY_STRING, $vContent = PXH_EMPTY_STRING)
+	{
+		parent::__construct("abbr", true, $vContent);
+		
+		if (_sl($sFullForm))
+			parent::SetTitle($sFullForm);
+	}
+}
+
 
 ##
 #
 # <!ELEMENT acronym %Inline;>   <!-- acronym -->
 # <!ATTLIST acronym %attrs>
+/**
+ *	Creates a acronym element
+ *
+ *	An acronym is a word formed from the initial letters of a series of words. The acronym element identifies acronyms, and can help assistive technologies to correctly pronounce the acronym.
+ *
+ *	@todo To test[2]
+ */
+class CXHAcronym extends CXHEntityAttrs
+{
+	/**
+	 *	@param mixed $vContent Initial element content
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
+	{
+		parent::__construct("acronym", true, $vContent);
+	}
+}
+
 
 ##
 #
@@ -1672,16 +1926,70 @@ class CXHStrong extends CXHEntityAttrs
 #   %attrs
 #   cite        CDATA          #IMPLIED
 #   >
+/**
+ *	Creates a q element
+ *
+ *	The q is used to identify short quoted text.
+ *
+ *	@todo To test[2]
+ */
+class CXHQuote extends CXHEntityAttrs
+{
+	/**
+	 *	@param mixed $vContent Initial element content
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
+	{
+		parent::__construct("q", true, $vContent);
+	}
+}
+
 
 ##
 #
 # <!ELEMENT sub %Inline;> <!-- subscript -->
 # <!ATTLIST sub %attrs>
+/**
+ *	Creates a sub element
+ *
+ *	The sub element indicates that its contents should be regarded as a subscript.
+ *
+ *	@todo To test[2]
+ */
+class CXHSubScript extends CXHEntityAttrs
+{
+	/**
+	 *	@param mixed $vContent Initial element content
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
+	{
+		parent::__construct("sub", true, $vContent);
+	}
+}
+
 
 ##
 #
 # <!ELEMENT sup %Inline;> <!-- superscript -->
 # <!ATTLIST sup %attrs>
+/**
+ *	Creates a sup element
+ *
+ *	The sup element indicates that its contents should regarded as superscript.
+ *
+ *	@todo To test[2]
+ */
+class CXHSuperScript extends CXHEntityAttrs
+{
+	/**
+	 *	@param mixed $vContent Initial element content
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
+	{
+		parent::__construct("sup", true, $vContent);
+	}
+}
+
 
 ##
 #
@@ -1713,21 +2021,93 @@ class CXHTeletype extends CXHEntityAttrs
 #
 # <!ELEMENT i %Inline;>   <!-- italic font -->
 # <!ATTLIST i %attrs>
+/**
+ *	Creates a i element
+ *
+ *	The i element renders text in italic style.
+ *
+ *	@todo To test[2]
+ */
+class CXHItalic extends CXHEntityAttrs
+{
+	/**
+	 *	@param mixed $vContent Initial element content
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
+	{
+		parent::__construct("i", true, $vContent);
+	}
+}
+
 
 ##
 #
 # <!ELEMENT b %Inline;>   <!-- bold font -->
 # <!ATTLIST b %attrs>
+/**
+ *	Creates a b element
+ *
+ *	The b element renders text in bold style.
+ *
+ *	@todo To test[2]
+ */
+class CXHBold extends CXHEntityAttrs
+{
+	/**
+	 *	@param mixed $vContent Initial element content
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
+	{
+		parent::__construct("b", true, $vContent);
+	}
+}
+
 
 ##
 #
 # <!ELEMENT big %Inline;>   <!-- bigger font -->
 # <!ATTLIST big %attrs>
+/**
+ *	Creates a big element
+ *
+ *	The big element renders text in a large font.
+ *
+ *	@todo To test[2]
+ */
+class CXHBig extends CXHEntityAttrs
+{
+	/**
+	 *	@param mixed $vContent Initial element content
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
+	{
+		parent::__construct("big", true, $vContent);
+	}
+}
+
 
 ##
 #
 # <!ELEMENT small %Inline;>   <!-- smaller font -->
 # <!ATTLIST small %attrs>
+/**
+ *	Creates a small element
+ *
+ *	The small element renders text in a small font.
+ *
+ *	@todo To test[2]
+ */
+class CXHSmall extends CXHEntityAttrs
+{
+	/**
+	 *	@param mixed $vContent Initial element content
+	 */
+	public function __construct($vContent = PXH_EMPTY_STRING)
+	{
+		parent::__construct("small", true, $vContent);
+	}
+}
+
 
 # <!--==================== Object ======================================-->
 
@@ -1753,7 +2133,7 @@ class CXHTeletype extends CXHEntityAttrs
 /**
  *	@todo To implement
  *	@todo To document
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHObject extends CXHEntityAttrs
 {
@@ -1795,7 +2175,7 @@ class CXHObject extends CXHEntityAttrs
 /**
  *	@todo To implement
  *	@todo To document
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHParam extends CXHEntityAttrs
 {
@@ -2422,7 +2802,7 @@ class CXHFieldRadio extends CXHFieldInput
 
 /**
  *	Creates a submit button input type element
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHButtonSubmit extends CXHFieldInput
 {
@@ -2442,7 +2822,7 @@ class CXHButtonSubmit extends CXHFieldInput
  *	Creates a reset button input type element
  *
  *	Restores the value of all controls on the form to their initial state.
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHButtonReset extends CXHFieldInput
 {
@@ -2517,7 +2897,7 @@ class CXHFieldImage extends CXHFieldInput
 
 /**
  *	Creates a button input type element
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHButton extends CXHFieldInput
 {
@@ -3144,7 +3524,7 @@ abstract class CXHTableAlignAttrs extends CXHEntityAttrs
  *
  *	The table element is used to define a table. A table is a construct where data is organized into rows and columns of cells.
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHTable extends CXHEntityAttrs
 {
@@ -3330,7 +3710,7 @@ class CXHTable extends CXHEntityAttrs
  *
  *	The caption element creates a caption for a table. If a caption is to be used, it should be the first element after the opening table element.
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHCaption extends CXHEntityAttrs
 {
@@ -3357,7 +3737,7 @@ class CXHCaption extends CXHEntityAttrs
  *
  *	The thead element can be used to group table rows that contain table header information. This can be useful when printing long tables that span several printed pages, since the data in thead will be repeated on each page.
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHTableHead extends CXHTableAlignAttrs
 {
@@ -3416,7 +3796,7 @@ class CXHTableHead extends CXHTableAlignAttrs
  *
  *	The tfoot element can be used to group table rows that contain table footer information. This may be useful when printing longer tables that span several printed pages, since the data in tfoot is repeated on each page. The tfoot element should appear before tbody elements.
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHTableFoot extends CXHTableAlignAttrs
 {
@@ -3533,7 +3913,7 @@ class CXHTableBody extends CXHTableAlignAttrs
  *	Defines an abstract class for the colgroup and col elements
  *	@abstract
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 abstract class CXHColAttrs extends CXHTableAlignAttrs
 {
@@ -3576,7 +3956,7 @@ abstract class CXHColAttrs extends CXHTableAlignAttrs
  *	The colgroup element provides a mechanism to apply attributes to a logical conception of a column. The colgroup element is most commonly used to apply table cell alignment using the align and valign attributes, to apply column width using the width attribute, and CSS formatting using the class attribute.
  *	The colgroup element contains col elements that represent individual columns.
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHColGroup extends CXHColAttrs
 {
@@ -3627,7 +4007,7 @@ class CXHColGroup extends CXHColAttrs
  *
  *	The col element provides a mechanism to apply attributes to a logical conception of a column. The col element is most commonly used to apply table cell alignment using the align and valign attributes, to apply column width using the width attribute, and CSS formatting using the class attribute.
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHCol extends CXHColAttrs
 {
@@ -3725,7 +4105,7 @@ class CXHRow extends CXHEntityAttrs
  *
  *	The th element defines a table header cell.
  *
- *	@todo To test
+ *	@todo To test[2]
  */
 class CXHCellHead extends CXHEntityAttrs
 {

@@ -19,6 +19,8 @@
  
 /**
  *	Simple constant defining an empty string
+ *
+ *	@name PXH_EMPTY_STRING
  */
 define("PXH_EMPTY_STRING","");
 
