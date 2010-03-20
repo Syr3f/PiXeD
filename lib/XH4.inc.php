@@ -15,7 +15,7 @@
  *	
  *	This file contains the code elements of the fourth level of abstraction of the XPiD Library.
  *
- *	The idea of this level is to extend the 3th level, .
+ *	The idea of this level is to extend the 3th level, XHTML blocks and components, and builds an higher level of absctraction for component integration within documents and templates.
  */
  
 
@@ -72,7 +72,7 @@ class CXH2Doc extends CXHDocument
 	 *
 	 *	@param object $oElement Element to be appended to the head document
 	 */
-	public function AppendToHeader($oElement)
+	public function AppendToHead($oElement)
 	{
 		$this->_oHeader->AppendContent($oElement);
 	}
@@ -183,9 +183,173 @@ class CXH2Doc extends CXHDocument
 
 
 /**
- *	Creates an XDiP document with default style and Blueprint grid.
+ *	Creates a document with default style and Blueprint grid mechanism
  */
-class XH3BlueprintDoc extends CXH2Doc
+class CBpDoc extends CXH2Doc
+{
+	/**
+	 *	@var array Top band content element array
+	 *	@access private
+	 */
+	private $_avTopBandContents;
+
+
+	/**
+	 *	@var array Header content element array
+	 *	@access private
+	 */
+	private $_avHeaderContents;
+
+
+	/**
+	 *	@var array Main content element array
+	 *	@access private
+	 */
+	private $_avMainContents;
+
+
+	/**
+	 *	@param string $sTitle Title of the document
+	 *	@param string $sLanguage Language of the document
+	 */
+	public function __construct($sTitle = "Blueprint Document", $sLanguage = "en")
+	{
+		parent::__construct($sTitle, "UTF-8", $sLanguage);
+
+		$this->_avTopBandContents = array();
+		$this->_avHeaderContents = array();
+		$this->_avMainContents = array();
+		
+			$oCSS = new CXHCSS(CSS_BLUEPRINT_RESET);
+		
+		parent::AppendToHead($oCSS);
+
+			$oCSS = new CXHCSS(CSS_BLUEPRINT_GRID);
+		
+		parent::AppendToHead($oCSS);
+
+			$oCSS = new CXHCSS(CSS_BLUEPRINT_TYPO);
+		
+		parent::AppendToHead($oCSS);
+
+		if ($this->_isIE())
+		{
+				$oCSS = new CXHCSS(CSS_BLUEPRINT_IE);
+		
+			parent::AppendToHead($oCSS);
+		}
+
+		parent::AddStyle("font-family", "Georgia, serif");
+		
+		parent::AddStyle("background", "#4cd04c url(".LIBBASEURL."/lib/images/bg-g.jpg) repeat-x scroll center top");
+	}
+	
+	
+	/**
+	 *	Tells if browser is Internet Explorer
+	 *	@return bool
+	 *	@access private
+	 */
+	public function _isIE()
+	{
+		$sUA = $_SERVER['HTTP_USER_AGENT'];
+		
+		return (preg_match('/msie/', $userAgent) ? true : false);
+	}
+	
+	
+	/**
+	 *	Appends elements to top band
+	 *
+	 *	Top band height is 50 pixels
+	 *
+	 *	@param mixed $vContent Element to be appended
+	 */
+	public function AppendTopBand($vContent)
+	{
+		$this->_avTopBandContents[] = $vContent;
+	}
+
+
+	/**
+	 *	Appends elements to page header
+	 *
+	 *	Header height is 224 pixels
+	 *
+	 *	@param mixed $vContent Element to be appended
+	 */
+	public function AppendToHeader($vContent)
+	{
+		$this->_avHeaderContents[] = $vContent;
+	}
+	
+	
+	/**
+	 *	Appends elements to page main content container
+	 *
+	 *	@param mixed $vContent Element to be appended
+	 */
+	public function AppendContent($vContent)
+	{
+		$this->_avMainContents[] = $vContent;
+	}
+	
+	
+	/**
+	 *	@return string
+	 */
+	public function __toString()
+	{
+		/*
+		 *	Container class width is 950 pixels
+		 */
+		$oDiv = new CXHDiv();
+		$oDiv->SetClass("container");
+		
+		foreach ($this->_avTopBandContents as $vContent)
+		{
+			$vContent->AddStyle("height", "48px");
+			$oDiv->AppendContent($vContent);
+		}
+
+		foreach ($this->_avHeaderContents as $vContent)
+		{
+			$vContent->AddStyle("height", "218px");
+			$oDiv->AppendContent($vContent);
+		}
+		
+		foreach ($this->_avMainContents as $vContent)
+		{
+			$oDiv->AppendContent($vContent);
+		}
+		
+		parent::AppendContent($oDiv);
+		
+		return parent::__toString();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ *	Creates a document with default style and Blueprint grid.
+ */
+class XH3BpDoc extends CXH2Doc
 {
 	/**
 	 *	@todo To document
@@ -256,7 +420,7 @@ class XH3BlueprintDoc extends CXH2Doc
 	/**
 	 *	@todo To document
 	 */
-	public function __construct($sTitle = "My XPiD Document", $sEncoding = "UTF-8", $sLanguage = "en")
+	public function __construct($sTitle = "My Blueprint Document", $sEncoding = "UTF-8", $sLanguage = "en")
 	{
 		parent::__construct($sTitle, $sEncoding, $sLanguage);
 				
@@ -277,17 +441,17 @@ class XH3BlueprintDoc extends CXH2Doc
 	{
 			$oCSS = new CXHCSS(CSS_BLUEPRINT_SCREEN);
 		
-		parent::AppendToHeader($oCSS);
+		parent::AppendToHead($oCSS);
 
 			$oCSS = new CXHCSS(CSS_BLUEPRINT_PRINT, "print");
 		
-		parent::AppendToHeader($oCSS);
+		parent::AppendToHead($oCSS);
 
 		if ($this->_isIE())
 		{
 				$oCSS = new CXHCSS(CSS_BLUEPRINT_IE);
 		
-			parent::AppendToHeader($oCSS);
+			parent::AppendToHead($oCSS);
 		}
 		
 			//$oCSS = new CXHCSS(CSS_BLUEPRINT_LIQUID);
@@ -441,7 +605,81 @@ class XH3BlueprintDoc extends CXH2Doc
 /**
  *	@todo To document
  */
-class Paternal extends XH3BlueprintDoc
+class Maternal extends XH3BpDoc
+{
+	/**
+	 *	@todo To document
+	 */
+	public function __construct($sTitle = "Maternal Template", $sLanguage = "en")
+	{
+		parent::__construct($sTitle, "UTF-8", $sLanguage);
+		
+		parent::AddStyle("font-family", "Georgia");
+		parent::AddStyle("background", "#4cd04c url(".LIBBASEURL."/lib/images/bg-g.jpg) repeat-x scroll center top");
+
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function SetTopBand($vContent = PXH_EMPTY_STRING)
+	{
+		$oContent = new CXHDiv();
+		$oContent->AddStyle("height", "50px");
+		
+		$oContent->AppendContent($vContent);
+			
+		parent::ContainerAppend($oContent);
+	}
+	
+
+	/**
+	 *	@todo To document
+	 */
+	public function SetHeader($vContent = PXH_EMPTY_STRING)
+	{
+			$oContent = new CXHDiv();
+			$oContent->AddStyle("height", "224px");
+			$oContent->AddStyle("vertical-align", "middle");
+
+				$vContent = parent::AdaptObject($vContent, XH3BpDoc::sClassSpan, 24, false, true);
+			
+			$oContent->AppendContent($vContent);
+		
+		parent::ContainerAppend($oContent);
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function SetContent($vContent)
+	{
+			$oContent = new CXHDiv();
+								
+				$vContent = parent::AdaptObject($vContent, XH3BpDoc::sClassSpan, 24, false, true);
+				
+			$oContent->AppendContent($vContent);
+			
+		parent::ContainerAppend($oContent);
+	}
+	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function __toString()
+	{
+		return parent::__toString();
+	}
+}
+
+
+/**
+ *	@todo To document
+ */
+class Paternal extends XH3BpDoc
 {
 	/**
 	 *	@todo To document
@@ -612,7 +850,7 @@ class Paternal extends XH3BlueprintDoc
 			$oDiv->AddStyle("background-color", $sColor);
 			$oDiv->AddStyle("height", "587px");
 
-		$this->IntegrateObject($oDiv, XPiDDoc::sClassSpan, 24, false, true);
+		$this->IntegrateObject($oDiv, XH3BpDoc::sClassSpan, 24, false, true);
 		
 		$this->_iContentCount++;
 	}
@@ -643,7 +881,7 @@ class Paternal extends XH3BlueprintDoc
 			$oDiv->AppendContent($oH);
 		}
 
-		parent::IntegrateObject($oDiv, XPiDDoc::sClassSpan, 24, false, true);
+		parent::IntegrateObject($oDiv, XH3BpDoc::sClassSpan, 24, false, true);
 		
 		$this->_bTitleHeaderSet = true;
 	}
@@ -658,7 +896,7 @@ class Paternal extends XH3BlueprintDoc
 			$oBand->AddStyle("background-color", "#222");
 			$oBand->AddStyle("height", "50px");
 
-		$this->IntegrateObject($oBand, XPiDDoc::sClassSpan, 24, false, true);
+		$this->IntegrateObject($oBand, XH3BpDoc::sClassSpan, 24, false, true);
 
 			$oDiv = new CXHDiv();
 			$oDiv->AddStyle("background-color", "white");
@@ -687,7 +925,7 @@ class Paternal extends XH3BlueprintDoc
 			else
 				$oDiv->AppendContent($vContent);
 
-		$this->IntegrateObject($oDiv, XPiDDoc::sClassSpan, 24, false, true);
+		$this->IntegrateObject($oDiv, XH3BpDoc::sClassSpan, 24, false, true);
 		
 		$this->_bFooterSet = true;
 	}
@@ -718,7 +956,7 @@ class Paternal extends XH3BlueprintDoc
 /**
  *	@todo To document
  */
-class Natural extends XH3BlueprintDoc
+class Natural extends XH3BpDoc
 {
 	/**
 	 *	@todo To document
@@ -770,7 +1008,7 @@ class Natural extends XH3BlueprintDoc
 			$oDiv->AppendContent($vContent);
 		}
 
-		parent::IntegrateObject($oDiv, XPiDDoc::sClassSpan, 15, true, false);
+		parent::IntegrateObject($oDiv, XH3BpDoc::sClassSpan, 15, true, false);
 	}
 	
 	
@@ -786,7 +1024,7 @@ class Natural extends XH3BlueprintDoc
 			$oDiv->AppendContent($vContent);
 		}
 
-		parent::IntegrateObject($oDiv, XPiDDoc::sClassSpan, 8, false, true);	
+		parent::IntegrateObject($oDiv, XH3BpDoc::sClassSpan, 8, false, true);	
 	}
 	
 	

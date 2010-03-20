@@ -27,6 +27,7 @@ require_once("XH2.inc.php");
 
 /**
  *	@todo To document
+ *	@todo To test[3]
  */
 class CXH2ScriptBlock
 {
@@ -74,6 +75,7 @@ class CXH2ScriptBlock
 
 /**
  *	@todo To document
+ *	@todo To test[3]
  */
 class CXH2ImageBlock extends CXHDiv
 {
@@ -333,7 +335,7 @@ class CXH2PanelBlock extends CXHDiv
  *
  *	The CXH2TableBlock generates a table element and manages most of the table elements. The goal of this implementation is to ease the table implementation and its diverse parts for less code management and reading.
  *
- *	@todo To test
+ *	@todo To test[3]
  */
 class CXH2TableBlock extends CXHTable
 {
@@ -563,7 +565,7 @@ class CXH2TableBlock extends CXHTable
 
 /**
  *	@todo To document
- *	@todo To test
+ *	@todo To test[3]
  */
 class CXH2GridBlock extends CXHTable
 {
@@ -744,7 +746,7 @@ class CXH2GridBlock extends CXHTable
 
 /**
  *	@todo To document
- *	@todo To test
+ *	@todo To test[3]
  */
 class CXH2FormField extends CXHDiv
 {
@@ -825,7 +827,7 @@ class CXH2FormField extends CXHDiv
 		{
 			case self::iDisplayStacked:
 			case self::iDisplayInline:
-v			case self::iDisplayRight:
+			case self::iDisplayRight:
 			case self::iDisplayBottom:
 				$this->_iDisplay = $ciDisplay;
 			break;
