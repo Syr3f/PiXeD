@@ -1,12 +1,9 @@
 <?php
 
-include("../../pwl.inc.php");
+include("../../XPiD.inc.php");
 
 $sBodyStyle = <<<BS
-body
-{
-	font-family:Georgia, serif;
-}
+body { font-family:Georgia, serif; }
 BS;
 
 $oDoc = new CXHDocument("en");
@@ -26,7 +23,7 @@ $oDoc = new CXHDocument("en");
 		//$oScript = new CXHScript("javascript", "test.js");
 		// or by script integration
 		$oScript = new CXHScript("javascript");
-		$oScript->AppendFileContent("test.js");
+		$oScript->AddFileContent("test.js");
 	
 	$oHead->AppendContent($oScript);
 	
@@ -228,7 +225,7 @@ $oDoc->ReplaceHead($oHead);
 			$oColGroup->AppendCol($oCol);
 
 				$oCol = new CXHCol();
-				$oCol->SetSpan(2);
+				$oCol->SetSpan("2");
 			
 			$oColGroup->AppendCol($oCol);
 			
@@ -305,7 +302,7 @@ $oDoc->ReplaceHead($oHead);
 	
 			$oMap = new CXHMap($sUseMapId);
 			
-			$oMap->AddArea("http://github.com/index.html", "github.com", CXHArea::sShapeRect, "10,10,500,500");
+			$oMap->AddArea("http://github.com/", "github.com", CXHArea::sShapeRect, "10,10,500,500");
 	
 				//$oArea = new CXHArea("http://cyb3r.ca", "cyb3r.ca", CXHArea::sShapeCircle, "500,300,100");
 	

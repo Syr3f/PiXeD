@@ -82,6 +82,7 @@ class CXH2Doc extends CXHDocument
 	 *	Appends content in the body
 	 *
 	 *	@param mixed $vContent Content to be appended
+	 *	@todo Switch method content with AppendContent
 	 */
 	public function AppendToBody($vContent)
 	{

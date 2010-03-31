@@ -2415,10 +2415,10 @@ class CXHArea extends CXHEntityAttrs
 	{
 		parent::__construct("area", false);
 		
-		if (_sl($sHRef)) parent::SetHRef($sHRef);
-		if (_sl($sAlt)) parent::SetAlt($sAlt);
-		if (_sl($sShape)) parent::SetShape($csShape);
-		if (_sl($sCoords)) parent::SetCoords($sCoords);
+		if (_sl($sHRef)) $this->SetHRef($sHRef);
+		if (_sl($sAlt)) $this->SetAlt($sAlt);
+		if (_sl($csShape)) $this->SetShape($csShape);
+		if (_sl($sCoords)) $this->SetCoords($sCoords);
 		
 		parent::_RegisterEvent("onfocus");
 		parent::_RegisterEvent("onblur");
@@ -3366,7 +3366,7 @@ class CXHPushButton extends CXHFieldAttrs
 				throw new XHException("Type of button is not one of the class constants");
 		}
 		
-		parent::AddAttr("type", $sType);
+		parent::AddAttr("type", $csType);
 		parent::AddAttr("name", $sIdName);
 		parent::AddAttr("value", $sValue);
 		
@@ -4017,14 +4017,14 @@ class CXHCol extends CXHColAttrs
 	 *	@param string $sWidth Column width
 	 *	@param string $sSpan Column spanning value
 	 */
-	public function __construct($sHAlign = CXHTableAlignAttrs::sHALeft, $sVAlign = CXHTableAlignAttrs::sVAMiddle, $sWidth = PXH_EMPTY_STRING, $sSpan = 1)
+	public function __construct($csHAlign = CXHTableAlignAttrs::sHALeft, $csVAlign = CXHTableAlignAttrs::sVAMiddle, $sWidth = PXH_EMPTY_STRING, $sSpan = "1")
 	{
 		parent::__construct("col", false);
 		
-		parent::SetHAlign($sHAlign);
-		parent::SetVAlign($sVAlign);
-		if (_sl((string) $vWidth)) parent::SetWidth($vWidth);
-		parent::SetSpan($iSpan);
+		parent::SetHAlign($csHAlign);
+		parent::SetVAlign($csVAlign);
+		if (_sl((string) $sWidth)) parent::SetWidth($sWidth);
+		parent::SetSpan($sSpan);
 	}
 }
 
