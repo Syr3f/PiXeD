@@ -28,7 +28,7 @@ require_once("XH3.inc.php");
 /**
  *	Creates an XHTML document
  */
-class CXH2Doc extends CXHDocument
+class CXPiDDoc extends CXHDocument
 {
 	/**
 	 *	@var object Holds the XHTML document head object
@@ -196,7 +196,7 @@ class CXH2Doc extends CXHDocument
 /**
  *	Creates a document with default style and Blueprint grid mechanism
  */
-class CBpDoc extends CXH2Doc
+class CBpDoc extends CXPiDDoc
 {
 	/**
 	 *	@var array Top band content element array
@@ -371,7 +371,7 @@ class CBpDoc extends CXH2Doc
 /**
  *	Creates a document with default style and Blueprint grid.
  */
-class XH3BpDoc extends CXH2Doc
+class XH3BpDoc extends CXPiDDoc
 {
 	/**
 	 *	@todo To document
