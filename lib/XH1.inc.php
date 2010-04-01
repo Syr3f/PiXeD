@@ -231,12 +231,14 @@ abstract class CMLEntity
 
 		return $sAttrs;
 	}
-
-
+	
+	
 	/**
+	 *	Generates the markup with it's content 
+	 *
 	 *	@return string
 	 */
-	public function __toString()
+	public function Generate()
 	{
 		$sML = '<'.$this->_sName.$this->_generateAttrsString();
 
@@ -252,6 +254,15 @@ abstract class CMLEntity
 		}
 
 		return $sML;
+	}
+
+
+	/**
+	 *	@return string
+	 */
+	public function __toString()
+	{
+		return $this->Generate();
 	}
 }
 

@@ -92,6 +92,19 @@ class CXHComment
 	{
 		$this->_sContent .= $this->sNL.$this->sTAB.$sContent;
 	}
+	
+	
+	/**
+	 *	Generates the comment
+	 *
+	 *	@return string
+	 */
+	public function Generate()
+	{
+		$sML = $this->sNL."<!--".$this->_sContent.$this->sNL."//-->".$this->sNL;
+
+		return $sML;
+	}
 
 
 	/**
@@ -99,9 +112,7 @@ class CXHComment
 	 */
 	public function __toString()
 	{
-		$sML = $this->sNL."<!--".$this->_sContent.$this->sNL."//-->".$this->sNL;
-
-		return $sML;
+		return $this->Generate();
 	}
 }
 
@@ -151,6 +162,8 @@ abstract class CXHEntityIntl extends CMLEntity
 	
 	
 	/**
+	 *	Sets the entity's language
+	 *
 	 *	@param string $sLang String for the language of the document; short code
 	 */
 	public function SetLang($sLang)
@@ -161,12 +174,27 @@ abstract class CXHEntityIntl extends CMLEntity
 	
 	
 	/**
+	 *	Sets the text direction
+	 *
 	 *	@param string $csDir Class constant defining the text direction
 	 */
-	 public function SetDir($csDir)
-	 {
+	public function SetDir($csDir)
+	{
 		$this->_hAttrs1["dir"] = $csDir;
-	 }
+	}
+	
+	
+	/**
+	 *	Generates the markup
+	 *
+	 *	@return string
+	 */
+	public function Generate()
+	{
+		parent::AddAttrs($this->_hAttrs1);
+
+		return parent::__toString();
+	}
 	
 	
 	/**
@@ -174,9 +202,7 @@ abstract class CXHEntityIntl extends CMLEntity
 	 */
 	public function __toString()
 	{
-		parent::AddAttrs($this->_hAttrs1);
-
-		return parent::__toString();
+		return $this->Generate();
 	}
 }
 
@@ -318,6 +344,21 @@ abstract class CXHEntityCoreAttrs extends CMLEntity
 			$this->_hsAttrs3["style"] = $sTemp;
 		}
 	}
+	
+	
+	/**
+	 *	Generates the markup
+	 *
+	 *	@return string
+	 */
+	public function Generate()
+	{
+		$this->_generateStylesString();
+	
+		parent::AddAttrs($this->_hsAttrs3);
+
+		return parent::__toString();
+	}
 
 
 	/**
@@ -325,11 +366,7 @@ abstract class CXHEntityCoreAttrs extends CMLEntity
 	 */
 	public function __toString()
 	{
-		$this->_generateStylesString();
-	
-		parent::AddAttrs($this->_hsAttrs3);
-
-		return parent::__toString();
+		return $this->Generate();
 	}
 }
 
@@ -513,6 +550,21 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
 			$this->_hsAttrs2["style"] = $sTemp;
 		}
 	}
+	
+	
+	/**
+	 *	Generates markup
+	 *
+	 *	@return string
+	 */
+	public function Generate()
+	{
+		$this->_generateStylesString();
+		
+		parent::AddAttrs($this->_hsAttrs2);
+
+		return parent::__toString();
+	}
 
 
 	/**
@@ -520,11 +572,7 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
 	 */
 	public function __toString()
 	{
-		$this->_generateStylesString();
-		
-		parent::AddAttrs($this->_hsAttrs2);
-
-		return parent::__toString();
+		return $this->Generate();
 	}
 }
 
@@ -3668,12 +3716,13 @@ class CXHTable extends CXHEntityAttrs
 		$this->AddAttr("cellpadding", $sValue);
 	}
 	
+	
 	/**
-	 *  (caption?, (col*|colgroup*), thead?, tfoot?, (tbody+|tr+))
+	 *	Generates markup
 	 *
 	 *	@return string
 	 */
-	public function __toString()
+	public function Generate()
 	{
 		if (!_in($this->_oCaption))
 			parent::AppendContent($this->_oCaption);
@@ -3695,6 +3744,16 @@ class CXHTable extends CXHEntityAttrs
 		}
 		
 		return parent::__toString();
+	}
+	
+	/**
+	 *  (caption?, (col*|colgroup*), thead?, tfoot?, (tbody+|tr+))
+	 *
+	 *	@return string
+	 */
+	public function __toString()
+	{
+		return $this->Generate();
 	}
 }
 
@@ -4305,12 +4364,14 @@ class CXHDocument extends CXHHTML
 
 		}
 	}
-
-
+	
+	
 	/**
+	 *	Generates markup
+	 *
 	 *	@return string
 	 */
-	public function __toString()
+	public function Generate()
 	{
 		if (!_sl($this->_sHead))
 			throw new XHException("Document has no head");
@@ -4323,6 +4384,16 @@ class CXHDocument extends CXHHTML
 		parent::AppendContent($this->_sBody);
 
 		return $this->_sDoctype.chr(13).chr(10).parent::__toString();
+
+	}
+
+
+	/**
+	 *	@return string
+	 */
+	public function __toString()
+	{
+		$this->Generate();
 	}
 }
 

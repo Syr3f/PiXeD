@@ -62,13 +62,22 @@ class CXH2ScriptBlock
 		$this->_oNoScript->AppendContent($sContent);
 	}
 	
+	
+	/**
+	 *	@todo To document
+	 */
+	public function Generate()
+	{
+		return $this->_oScript."".$this->_oNoScript;
+	}
+	
 
 	/**
 	 *	@todo To document
 	 */
 	public function __toString()
 	{
-		return $this->_oScript."".$this->_oNoScript;
+		$this->Generate();
 	}
 }
 
@@ -190,7 +199,7 @@ class CXH2HotzonesBlock extends CXHTable
 	/**
 	 *	@todo To document
 	 */
-	public function __toString()
+	public function Generate()
 	{
 		$oTBody = new CHTMLTableBody();
 			
@@ -300,6 +309,14 @@ class CXH2HotzonesBlock extends CXHTable
 		parent::AppendContent($oTBody);
 	
 		return parent::__toString();
+	}
+	
+	/**
+	 *	@todo To document
+	 */
+	public function __toString()
+	{
+		return $this->Generate();
 	}
 }
 
@@ -535,19 +552,21 @@ class CXH2TableBlock extends CXHTable
 	 *
 	 *	@param mixed $vContent Content to be appended to the table
 	 */
-	 public function AppendContent($vContent)
-	 {
+	public function AppendContent($vContent)
+	{
 		if (_io($vContent, 'CXHCell'))
 			$this->_oCurrentRow->AppendContent($oCell);
 		else
 			parent::AppendContent($vContent);
-	 }
+	}
 	 
 	
 	/**
+	 *	Generates markup
+	 *
 	 *	@return string
 	 */
-	public function __toString()
+	public function Generate()
 	{
 		if ($this->_oTHead2 != PXH_NULL_OBJECT)
 			parent::AppendBody($this->_oTHead2);
@@ -559,6 +578,15 @@ class CXH2TableBlock extends CXHTable
 			parent::AppendBody($oTBody);
 	
 		return parent::__toString();
+	}
+	 
+	
+	/**
+	 *	@return string
+	 */
+	public function __toString()
+	{
+		$this->Generate();
 	}
 }
 
@@ -691,12 +719,14 @@ class CXH2GridBlock extends CXHTable
 	{
 		$this->_aaRows[$iRow][$iColumn][] = $vContent;
 	}
-
-
+	
+	
 	/**
-	 *	@todo To document
+	 *	Generates markup
+	 *
+	 *	@return string
 	 */
-	public function __toString()
+	public function Generate()
 	{
 		$oTBody = new CHTMLTableBody();
 	
@@ -740,6 +770,15 @@ class CXH2GridBlock extends CXHTable
 		parent::AppendContent($oTBody);
 		
 		return parent::__toString();
+	}
+
+
+	/**
+	 *	@todo To document
+	 */
+	public function __toString()
+	{
+		return $this->Generate();
 	}
 }
 
@@ -885,13 +924,24 @@ class CXH2FormField extends CXHDiv
 	
 	
 	/**
-	 *	@todo To document
+	 *	Generates markup
+	 *
+	 *	@return string
 	 */
-	public function __toString()
+	public function Generate()
 	{
 		$this->_setFormField();
 	
 		return parent::__toString();
+	}
+	
+	
+	/**
+	 *	@return string
+	 */
+	public function __toString()
+	{
+		return $this->Generate();
 	}
 }
 

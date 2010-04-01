@@ -168,9 +168,11 @@ class CXH2Doc extends CXHDocument
 	
 	
 	/**
+	 *	Generates markup
+	 *
 	 *	@return string
 	 */
-	public function __toString()
+	public function Generate()
 	{
 		$this->ReplaceHead($this->_oHeader);
 		
@@ -179,6 +181,14 @@ class CXH2Doc extends CXHDocument
 		$this->ReplaceBody($sBody.$this->_sAfterBody);
 	
 		return parent::__toString();
+	}
+	
+	/**
+	 *	@return string
+	 */
+	public function __toString()
+	{
+		return $this->Generate();
 	}
 }
 
@@ -297,9 +307,11 @@ class CBpDoc extends CXH2Doc
 	
 	
 	/**
+	 *	Generates markup
+	 *
 	 *	@return string
 	 */
-	public function __toString()
+	public function Generate()
 	{
 		/*
 		 *	Container class width is 950 pixels
@@ -327,6 +339,15 @@ class CBpDoc extends CXH2Doc
 		parent::AppendContent($oDiv);
 		
 		return parent::__toString();
+	}
+
+	
+	/**
+	 *	@return string
+	 */
+	public function __toString()
+	{
+		return $this->Generate();
 	}
 }
 
