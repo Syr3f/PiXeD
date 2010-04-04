@@ -98,6 +98,17 @@ abstract class CMLEntity
 	 */
 	public function __construct($sName, $bHasEnd = true, $sContent = PXH_EMPTY_STRING)
 	{	
+		self::_Create($sName, $bHasEnd, $sContent);
+	}
+
+
+	/**
+	 *	@param string $sName Name of the entity tag
+	 *	@param bool $bHasEnd Value indicating if entity has an explicit end; if full closed; defaults to true
+	 *	@param string $sContent Initial content to add to the entity; defaults to empty string
+	 */
+	protected function _Create($sName, $bHasEnd, $sContent)
+	{	
 		$this->_sName = $sName;
 		$this->_bHasEnd = $bHasEnd;
 		$this->_sContent = $sContent;
@@ -238,7 +249,7 @@ abstract class CMLEntity
 	 *
 	 *	@return string
 	 */
-	public function Generate()
+	protected function _Generate()
 	{
 		$sML = '<'.$this->_sName.$this->_generateAttrsString();
 
@@ -262,7 +273,7 @@ abstract class CMLEntity
 	 */
 	public function __toString()
 	{
-		return $this->Generate();
+		return self::_Generate();
 	}
 }
 
