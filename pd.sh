@@ -1,1 +1,0 @@
-phpdoc -ti "XPiD Manual" 

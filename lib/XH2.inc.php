@@ -99,7 +99,7 @@ class CXHComment
 	 *
 	 *	@return string
 	 */
-	public function Generate()
+	protected function _Generate()
 	{
 		$sML = $this->sNL."<!--".$this->_sContent.$this->sNL."//-->".$this->sNL;
 
@@ -112,7 +112,7 @@ class CXHComment
 	 */
 	public function __toString()
 	{
-		return $this->Generate();
+		return self::_Generate();
 	}
 }
 
@@ -189,7 +189,7 @@ abstract class CXHEntityIntl extends CMLEntity
 	 *
 	 *	@return string
 	 */
-	public function Generate()
+	protected function _Generate()
 	{
 		parent::AddAttrs($this->_hAttrs1);
 
@@ -202,7 +202,7 @@ abstract class CXHEntityIntl extends CMLEntity
 	 */
 	public function __toString()
 	{
-		return $this->Generate();
+		return self::_Generate();
 	}
 }
 
@@ -351,7 +351,7 @@ abstract class CXHEntityCoreAttrs extends CMLEntity
 	 *
 	 *	@return string
 	 */
-	public function Generate()
+	protected function _Generate()
 	{
 		$this->_generateStylesString();
 	
@@ -366,7 +366,7 @@ abstract class CXHEntityCoreAttrs extends CMLEntity
 	 */
 	public function __toString()
 	{
-		return $this->Generate();
+		return self::_Generate();
 	}
 }
 
@@ -557,7 +557,7 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
 	 *
 	 *	@return string
 	 */
-	public function Generate()
+	protected function _Generate()
 	{
 		$this->_generateStylesString();
 		
@@ -572,7 +572,7 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
 	 */
 	public function __toString()
 	{
-		return $this->Generate();
+		return self::_Generate();
 	}
 }
 
@@ -937,6 +937,8 @@ class CXHBody extends CXHEntityAttrs
 		parent::__construct("body");
 	}
 }
+
+
 ##
 #
 # <!ELEMENT div %Flow;>  <!-- generic language/style container -->
@@ -2747,7 +2749,7 @@ class CXHFieldText extends CXHFieldAttrs
 		}
 
 		parent::AddAttr("name", $sIdName);
-		parent::SetId("id", $sIdName);
+		parent::SetId($sIdName);
 		
 		parent::_RegisterEvent("onselect");
 		parent::_RegisterEvent("onchange");
@@ -3420,7 +3422,8 @@ class CXHPushButton extends CXHFieldAttrs
 		
 		parent::SetId($sIdName);
 		
-		$this->_sContent = $vContent;
+		if (!_sl($vContent))
+			parent::AppendContent($this->_sDefaultContent);
 	}	
 }
 
@@ -3722,7 +3725,7 @@ class CXHTable extends CXHEntityAttrs
 	 *
 	 *	@return string
 	 */
-	public function Generate()
+	protected function _Generate()
 	{
 		if (!_in($this->_oCaption))
 			parent::AppendContent($this->_oCaption);
@@ -3753,7 +3756,7 @@ class CXHTable extends CXHEntityAttrs
 	 */
 	public function __toString()
 	{
-		return $this->Generate();
+		return self::_Generate();
 	}
 }
 
@@ -4296,6 +4299,18 @@ class CXHDocument extends CXHHTML
 	{
 		parent::__construct($sLanguage);
 
+		self::_Create($iType);
+	}
+
+
+	/**
+	 *	Creates the internal necessities of the class
+	 *	@access protected
+	 *
+	 *	@param int $iType Type of the document; defaults to XHTML strict, only implementation
+	 */
+	protected function _Create($iType)
+	{
 		$this->_sHead = "";
 		$this->_sBody = "";
 
@@ -4371,7 +4386,7 @@ class CXHDocument extends CXHHTML
 	 *
 	 *	@return string
 	 */
-	public function Generate()
+	protected function _Generate()
 	{
 		if (!_sl($this->_sHead))
 			throw new XHException("Document has no head");
@@ -4384,7 +4399,6 @@ class CXHDocument extends CXHHTML
 		parent::AppendContent($this->_sBody);
 
 		return $this->_sDoctype.chr(13).chr(10).parent::__toString();
-
 	}
 
 
@@ -4393,7 +4407,7 @@ class CXHDocument extends CXHHTML
 	 */
 	public function __toString()
 	{
-		$this->Generate();
+		return self::_Generate();
 	}
 }
 

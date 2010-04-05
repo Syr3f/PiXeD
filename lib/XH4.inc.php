@@ -60,6 +60,19 @@ class CXPiDDoc extends CXHDocument
 	{
 		parent::__construct($sLanguage);
 		
+		self::_Create($sTitle, $sEncoding);
+	}
+
+
+	/**
+	 *	Builds the internal necessities of the class
+	 *	@access protected
+	 *
+	 *	@param string $sTitle Title of the document
+	 *	@param string $sEncoding Encoding of the document; defaults to UTF-8
+	 */
+	protected function _Create($sTitle, $sEncoding)
+	{
 		$this->_oHeader = new CXHHead($sEncoding, $sTitle);
 		$this->_oBody = new CXHBody();
 		
@@ -172,7 +185,7 @@ class CXPiDDoc extends CXHDocument
 	 *
 	 *	@return string
 	 */
-	public function Generate()
+	protected function _Generate()
 	{
 		$this->ReplaceHead($this->_oHeader);
 		
@@ -188,7 +201,7 @@ class CXPiDDoc extends CXHDocument
 	 */
 	public function __toString()
 	{
-		return $this->Generate();
+		return self::_Generate();
 	}
 }
 
@@ -197,6 +210,119 @@ class CXPiDDoc extends CXHDocument
  *	Creates a document with default style and Blueprint grid mechanism
  */
 class CBpDoc extends CXPiDDoc
+{
+	/**
+	 *	@var array Main content element array
+	 *	@access private
+	 */
+	private $_avMainContents;
+
+
+	/**
+	 *	@param string $sTitle Title of the document
+	 *	@param string $sLanguage Language of the document
+	 */
+	public function __construct($sTitle = "Blueprint Document", $sLanguage = "en")
+	{
+		parent::__construct($sTitle, "UTF-8", $sLanguage);
+
+		self::_Create();
+	}
+
+
+	/**
+	 *	Builds the internal necessaties of the class 
+	 *	@access protected
+	 */
+	protected function _Create()
+	{
+		$this->_avMainContents = array();
+
+			$oCSS = new CXHCSS(CSS_BLUEPRINT_RESET);
+		
+		parent::AppendToHead($oCSS);
+
+			$oCSS = new CXHCSS(CSS_BLUEPRINT_GRID);
+		
+		parent::AppendToHead($oCSS);
+
+			$oCSS = new CXHCSS(CSS_BLUEPRINT_TYPO);
+		
+		parent::AppendToHead($oCSS);
+
+		if ($this->_isIE())
+		{
+				$oCSS = new CXHCSS(CSS_BLUEPRINT_IE);
+		
+			parent::AppendToHead($oCSS);
+		}
+	}
+	
+	
+	/**
+	 *	Tells if browser is Internet Explorer
+	 *	@return bool
+	 *	@access private
+	 */
+	public function _isIE()
+	{
+		$sUA = $_SERVER['HTTP_USER_AGENT'];
+		
+		return (preg_match('/msie/', $userAgent) ? true : false);
+	}
+
+
+	/**
+	 *	Appends elements to page main content container
+	 *
+	 *	@param mixed $vContent Element to be appended
+	 */
+	public function AppendContent($vContent)
+	{
+		$this->_avMainContents[] = $vContent;
+	}
+
+
+		
+	
+	/**
+	 *	Generates markup
+	 *
+	 *	@return string
+	 */
+	protected function _Generate()
+	{
+		/*
+		 *	Container class width is 950 pixels
+		 */
+		$oDiv = new CXHDiv();
+		$oDiv->SetClass("container");
+		
+		foreach ($this->_avMainContents as $vContent)
+		{
+			$oDiv->AppendContent($vContent);
+		}
+		
+		parent::AppendContent($oDiv);
+		
+		return parent::__toString();
+	}
+
+	
+	/**
+	 *	@return string
+	 */
+	public function __toString()
+	{
+		return $this->_Generate();
+	}
+
+}
+
+/**
+ *	Creates a document with default style and Blueprint grid mechanism
+ */
+class CXPiD2Doc extends CBpDoc
 {
 	/**
 	 *	@var array Top band content element array
@@ -213,13 +339,6 @@ class CBpDoc extends CXPiDDoc
 
 
 	/**
-	 *	@var array Main content element array
-	 *	@access private
-	 */
-	private $_avMainContents;
-
-
-	/**
 	 *	@param string $sTitle Title of the document
 	 *	@param string $sLanguage Language of the document
 	 */
@@ -229,7 +348,6 @@ class CBpDoc extends CXPiDDoc
 
 		$this->_avTopBandContents = array();
 		$this->_avHeaderContents = array();
-		$this->_avMainContents = array();
 		
 			$oCSS = new CXHCSS(CSS_BLUEPRINT_RESET);
 		
@@ -293,50 +411,26 @@ class CBpDoc extends CXPiDDoc
 	{
 		$this->_avHeaderContents[] = $vContent;
 	}
-	
-	
-	/**
-	 *	Appends elements to page main content container
-	 *
-	 *	@param mixed $vContent Element to be appended
-	 */
-	public function AppendContent($vContent)
-	{
-		$this->_avMainContents[] = $vContent;
-	}
-	
+		
 	
 	/**
 	 *	Generates markup
 	 *
 	 *	@return string
 	 */
-	public function Generate()
+	protected function _Generate()
 	{
-		/*
-		 *	Container class width is 950 pixels
-		 */
-		$oDiv = new CXHDiv();
-		$oDiv->SetClass("container");
-		
 		foreach ($this->_avTopBandContents as $vContent)
 		{
 			$vContent->AddStyle("height", "48px");
-			$oDiv->AppendContent($vContent);
+			parent::AppendContent($vContent);
 		}
 
 		foreach ($this->_avHeaderContents as $vContent)
 		{
 			$vContent->AddStyle("height", "218px");
-			$oDiv->AppendContent($vContent);
+			parent::AppendContent($vContent);
 		}
-		
-		foreach ($this->_avMainContents as $vContent)
-		{
-			$oDiv->AppendContent($vContent);
-		}
-		
-		parent::AppendContent($oDiv);
 		
 		return parent::__toString();
 	}
@@ -347,7 +441,7 @@ class CBpDoc extends CXPiDDoc
 	 */
 	public function __toString()
 	{
-		return $this->Generate();
+		return $this->_Generate();
 	}
 }
 
@@ -371,7 +465,7 @@ class CBpDoc extends CXPiDDoc
 /**
  *	Creates a document with default style and Blueprint grid.
  */
-class XH3BpDoc extends CXPiDDoc
+class XH3BpDoc extends CBpDoc
 {
 	/**
 	 *	@todo To document

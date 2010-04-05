@@ -111,126 +111,114 @@ function _in($vObject)
 /**
  *	@todo To document
  */
+class DBException extends Exception
+{
+	public function __construct($sMessage)
+	{
+		parent::__construct($sMessage);
+	}
+}
+
+
+/**
+ *	@todo To document
+ */
 class CDatabase
 {
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
-	var $_iServer;
+	private $_iServer;
+
+
+	/**
+	 *	@todo To document
+	 *	@access private
+	 */
+	private $_bConnected;
+
+
+	/**
+	 *	@todo To document
+	 *	@access private
+	 */
+	private $_iLastIsertId;
+
+
+	/**
+	 *	@todo To document
+	 *	@access private
+	 */
+	private $ErrorNo;
+
+
+	/**
+	 *	@todo To document	 
+	 *	@access private
+	 */
+	private $ErrorMsg;
 
 
 	/**
 	 *	@todo To document
 	 */
-	var $_bConnected;
+	public function __construct($sHost = "", $sUser = "", $sPwd = "", $sDatabase = "")
+	{
+		self::_Create($sHost, $sUser, $sPwd, $sDatabase);
+	}
 
 
-	/**
-	 *	@todo To document
-	 */
-	var $_iLastIsertId;
-
-
-	/**
-	 *	@todo To document
-	 */
-	var $ErrorNo;
-
-
-	/**
-	 *	@todo To document
-	 */
-	var $ErrorMsg;
-
-
-	/**
-	 *	@todo To document
-	 */
-	function CDatabase($sHost = "", $sUser = "", $sPwd = "", $sDatabase = "")
+	protected function _Create($sHost, $sUser, $sPwd, $sDatabase)
 	{
 		$this->_bConnected = false;
 		
 		$this->_iLastIsertId = -1;
 
-		if (strlen(trim($sHost)) > 0 and strlen(trim($sUser)) > 0 and strlen(trim($sPwd)) > 0)
-		{
-			$this->_iServer = mysql_connect($sHost, $sUser, $sPwd) or $this->Alert("CDatabase","cannot connect to host");
-		}
-		else
-		{
-			$iCount = 0;
-
-			if (strlen(trim($sHost)) > 0)
-				$iCount++;
-
-			if (strlen(trim($sUser)) > 0)
-				$iCount++;
-
-			if (strlen(trim($sPwd)) > 0)
-				$iCount++;
-
-			if ($iCount > 0 and $iCount < 3)
-				$this->Alert("CDatabase","you must set the 3 minimal parameters or none");
-		}
-
-		if (strlen(trim($sDatabase)) > 0)
-		{
-			if (mysql_select_db($sDatabase, $this->_iServer))
-				$this->_bConnected = true;
-			else
-				 $this->Alert("CDatabase","cannot connect to database");
-		}
+		$this->Connect($sHost, $sUser, $sPwd, $sDatabase);
 	}
 
 
 	/**
 	 *	@todo To document
 	 */
-	function Alert($sFunction, $sMessage)
-	{
-		die("<strong style='color:red;'>ERROR! function ".$sFunction." - ".$sMessage."</strong><br />");
-	}
-
-
-	/**
-	 *	@todo To document
-	 */
-	function Connect($sHost, $sUser, $sPwd, $sDatabase = "")
+	public function Connect($sHost, $sUser, $sPwd, $sDatabase = "")
 	{
 		if (!$this->_bConnected)
 		{
-			if (strlen(trim($sHost)) > 0 and strlen(trim($sUser)) > 0 and strlen(trim($sPwd)) > 0)
+			if (_sl(trim($sHost)) > 0 and _sl(trim($sUser)) > 0 and _sl(trim($sPwd)) > 0)
 			{
-				$this->_iServer = mysql_connect($sHost, $sUser, $sPwd) or die("ERROR! function CDatabase cannot connect to host");
+				if (!($this->_iServer = mysql_connect($sHost, $sUser, $sPwd)))
+					throw new DBException("cannot connect to host");
 			}
 			else
 			{
 				$iCount = 0;
 
-				if (strlen(trim($sHost)) > 0)
+				if (_sl(trim($sHost)) > 0)
 					$iCount++;
 
-				if (strlen(trim($sUser)) > 0)
+				if (_sl(trim($sUser)) > 0)
 					$iCount++;
 
-				if (strlen(trim($sPwd)) > 0)
+				if (_sl(trim($sPwd)) > 0)
 					$iCount++;
 
 				if ($iCount > 0 and $iCount < 3)
-					$this->Alert("Connect","you must set the 3 minimal parameters or none for function");
+					throw new DBException("you must set the 3 minimal parameters or none for function");
 			}
 
-			if (strlen(trim($sDatabase)) > 0)
+			if (_sl(trim($sDatabase)) > 0)
 			{
 				if (mysql_select_db($sDatabase, $this->_iServer))
 					$this->_bConnected = true;
 				else
-					 $this->Alert("Connect","cannot connect to database");
+					 throw new DBException("cannot connect to database");
 			}
 		}
 		else
 		{
-			$this->Alert("Connect","a connection is already established");
+			throw new DBException("a connection is already established");
 		}
 	}
 
@@ -238,7 +226,7 @@ class CDatabase
 	/**
 	 *	@todo To document
 	 */
-	function Disconnect()
+	public function Disconnect()
 	{
 		if ($this->_bConnected)
 		{
@@ -251,7 +239,7 @@ class CDatabase
 	/**
 	 *	@todo To document
 	 */
-	function IsConnected()
+	public function IsConnected()
 	{
 		return $this->_bConnected;
 	}
@@ -260,7 +248,7 @@ class CDatabase
 	/**
 	 *	@todo To document
 	 */
-	function Query($sSQL)
+	public function Query($sSQL)
 	{
 		$vResult = mysql_query($sSQL);
 
@@ -288,7 +276,7 @@ class CDatabase
 		return $vResult;
 	}
 	
-	function GetLastInsertId()
+	public function GetLastInsertId()
 	{
 		return $this->_iLastIsertId;
 	}
@@ -302,32 +290,44 @@ class CRecordset
 {
 	/**
 	 *	@todo To document
+	 *	@access private
 	 */
-	var $_vResult;
+	private $_vResult;
+
+
+	/**
+	 *	@todo To document
+	 *	@access private
+	 */
+	private $_iCursor;
+
+
+	/**
+	 *	@todo To document
+	 *	@access private
+	 */
+	private $_iNumRows;
 
 
 	/**
 	 *	@todo To document
 	 */
-	var $_iCursor;
+	public $Field;
 
 
 	/**
 	 *	@todo To document
 	 */
-	var $_iNumRows;
+	public function __construct($vResult)
+	{
+		self::_Create($vResult);
+	}
 
 
 	/**
 	 *	@todo To document
 	 */
-	var $Field;
-
-
-	/**
-	 *	@todo To document
-	 */
-	function CRecordset($vResult)
+	protected function _Create($vResult)
 	{
 		$this->_vResult = $vResult;
 		$this->_iCursor = 0;
@@ -337,13 +337,12 @@ class CRecordset
 		{
 			$this->Field = mysql_fetch_assoc($this->_vResult);
 		}
-	}
-
+	} 
 
 	/**
 	 *	@todo To document
 	 */
-	function IsEOF() // position after the last recordset
+	public function IsEOF() // position after the last recordset
 	{
 		return ($this->_iNumRows == $this->_iCursor);
 	}
@@ -352,7 +351,7 @@ class CRecordset
 	/**
 	 *	@todo To document
 	 */
-	function IsBOF()
+	public function IsBOF()
 	{
 		return ($this->_iCursor == 0);
 	}
@@ -361,7 +360,7 @@ class CRecordset
 	/**
 	 *	@todo To document
 	 */
-	function MoveNext()
+	public function MoveNext()
 	{
 		$this->_iCursor++;
 		if ($this->_iCursor <= $this->_iNumRows - 1)
@@ -377,7 +376,7 @@ class CRecordset
 	/**
 	 *	@todo To document
 	 */
-	function MoveToData($iPosition)
+	public function MoveToData($iPosition)
 	{
 		if ($iPosition <= $this->_iNumRows - 1)
 		{
@@ -390,7 +389,7 @@ class CRecordset
 		}
 		else
 		{
-			$this->Alert("Move", "The position is beyond the last recordset");
+			throw new DBException("The position is beyond the last recordset");
 		}
 	}
 
@@ -398,18 +397,9 @@ class CRecordset
 	/**
 	 *	@todo To document
 	 */
-	function GetNumRows()
+	public function GetNumRows()
 	{
 		return $this->_iNumRows;
-	}
-
-
-	/**
-	 *	@todo To document
-	 */
-	function Alert($sFunction, $sMessage)
-	{
-		die("<strong style='color:red;'>ERROR! function ".$sFunction." - ".$sMessage."</strong><br />");
 	}
 }
 

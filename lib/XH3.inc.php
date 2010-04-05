@@ -36,6 +36,12 @@ class CXH2ScriptBlock
 	 */
 	public function __construct($sLanguage, $sScriptURL = PXH_EMPTY_STRING, $sNoScriptContent = PXH_EMPTY_STRING)
 	{
+		self::_Create();
+	}
+
+
+	protected function _Create()
+	{
 		$this->_sLanguage = $sLanguage;
 		$this->_sScriptURL = $sScriptURL;
 		$this->_sNoScriptContent = $sNoScriptContent;
@@ -43,7 +49,6 @@ class CXH2ScriptBlock
 		$this->_oScript = new CXHScript($sLanguage, $sScriptURL);
 		$this->_oNoScript = new CXHNoScript($sNoScriptContent);
 	}
-	
 
 	/**
 	 *	@todo To document
@@ -66,7 +71,7 @@ class CXH2ScriptBlock
 	/**
 	 *	@todo To document
 	 */
-	public function Generate()
+	protected function _Generate()
 	{
 		return $this->_oScript."".$this->_oNoScript;
 	}
@@ -77,7 +82,7 @@ class CXH2ScriptBlock
 	 */
 	public function __toString()
 	{
-		$this->Generate();
+		return self::_Generate();
 	}
 }
 
@@ -199,7 +204,7 @@ class CXH2HotzonesBlock extends CXHTable
 	/**
 	 *	@todo To document
 	 */
-	public function Generate()
+	protected function _Generate()
 	{
 		$oTBody = new CHTMLTableBody();
 			
@@ -316,7 +321,7 @@ class CXH2HotzonesBlock extends CXHTable
 	 */
 	public function __toString()
 	{
-		return $this->Generate();
+		return self::_Generate();
 	}
 }
 
@@ -566,7 +571,7 @@ class CXH2TableBlock extends CXHTable
 	 *
 	 *	@return string
 	 */
-	public function Generate()
+	protected function _Generate()
 	{
 		if ($this->_oTHead2 != PXH_NULL_OBJECT)
 			parent::AppendBody($this->_oTHead2);
@@ -586,7 +591,7 @@ class CXH2TableBlock extends CXHTable
 	 */
 	public function __toString()
 	{
-		$this->Generate();
+		return self::_Generate();
 	}
 }
 
@@ -726,7 +731,7 @@ class CXH2GridBlock extends CXHTable
 	 *
 	 *	@return string
 	 */
-	public function Generate()
+	protected function _Generate()
 	{
 		$oTBody = new CHTMLTableBody();
 	
@@ -778,7 +783,7 @@ class CXH2GridBlock extends CXHTable
 	 */
 	public function __toString()
 	{
-		return $this->Generate();
+		return self::_Generate();
 	}
 }
 
@@ -928,7 +933,7 @@ class CXH2FormField extends CXHDiv
 	 *
 	 *	@return string
 	 */
-	public function Generate()
+	protected function _Generate()
 	{
 		$this->_setFormField();
 	
@@ -941,7 +946,7 @@ class CXH2FormField extends CXHDiv
 	 */
 	public function __toString()
 	{
-		return $this->Generate();
+		return self::_Generate();
 	}
 }
 
