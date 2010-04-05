@@ -3,7 +3,7 @@
 
 /**
  *
- *	@package [5]HTTP
+ *	@package [5]MVC
  *	@version 0.0.1
  *	@license MIT License
  *
