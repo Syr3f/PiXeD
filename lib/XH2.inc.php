@@ -2749,7 +2749,7 @@ class CXHFieldText extends CXHFieldAttrs
 		}
 
 		parent::AddAttr("name", $sIdName);
-		parent::SetId("id", $sIdName);
+		parent::SetId($sIdName);
 		
 		parent::_RegisterEvent("onselect");
 		parent::_RegisterEvent("onchange");

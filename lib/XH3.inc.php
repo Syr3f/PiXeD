@@ -36,6 +36,12 @@ class CXH2ScriptBlock
 	 */
 	public function __construct($sLanguage, $sScriptURL = PXH_EMPTY_STRING, $sNoScriptContent = PXH_EMPTY_STRING)
 	{
+		self::_Create();
+	}
+
+
+	protected function _Create()
+	{
 		$this->_sLanguage = $sLanguage;
 		$this->_sScriptURL = $sScriptURL;
 		$this->_sNoScriptContent = $sNoScriptContent;
@@ -43,7 +49,6 @@ class CXH2ScriptBlock
 		$this->_oScript = new CXHScript($sLanguage, $sScriptURL);
 		$this->_oNoScript = new CXHNoScript($sNoScriptContent);
 	}
-	
 
 	/**
 	 *	@todo To document
