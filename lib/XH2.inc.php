@@ -4,16 +4,16 @@
 /**
  *
  *	@package [2]XHTML
- *	@version 0.0.1
+ *	@version 0.2
  *	@license MIT License
  *
- *	@copyright Copyright (c) 2010 Serafim Junior Dos Santos Fagundes Cyb3r Networks
+ *	@copyright Copyright (c) 2010 Serafim Junior Dos Santos Fagundes Cyb3r Network
  *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
  *
  *
- *	The second level of abstraction of the XPiD Library.
+ *	The second level of abstraction of the XD Library.
  *	
- *	This file contains the code elements of the second level of abstraction of the XPiD Library.
+ *	This file contains the code elements of the second level of abstraction of the XD Library.
  *
  *	The idea of this level is to extend the 1st level, Markup Identification, and extend its use in XHTML markup entities as defined in the strict DTD of the XHTML specification of the W3C recommendation available at the http://www.w3.org/TR/xhtml1/.
  *

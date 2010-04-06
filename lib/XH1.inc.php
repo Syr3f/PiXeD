@@ -4,16 +4,16 @@
 /**
  *
  *	@package [1]Markup
- *	@version 0.0.1
+ *	@version 0.2
  *	@license MIT License
  *
- *	@copyright Copyright (c) 2010 Serafim Junior Dos Santos Fagundes Cyb3r Networks
+ *	@copyright Copyright (c) 2010 Serafim Junior Dos Santos Fagundes Cyb3r Network
  *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
  *
  *
- *	The first level of abstraction of the XPiD Library.
+ *	The first level of abstraction of the XD Library.
  *	
- *	This file contains the code elements of the first level of abstraction of the XPiD Library.
+ *	This file contains the code elements of the first level of abstraction of the XD Library.
  *
  *	The first level of abstraction defines the concept of markup identification as used in the XHTML documentation. Only classes and relative Exceptions refered to basic markup creation are defined in this file.
  */
