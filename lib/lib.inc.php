@@ -28,7 +28,7 @@ if (!defined("SPnDX"))
 
 ##	XD Base Library	
 ##
-require_once(SPnDXDIFF.SPnDXDIFFSEP.LIBPATH."/XH2.inc.php");
+require_once(LIBPATH.SPnDXDIFF.SPnDXDIFFSEP."/XH2.inc.php");
 
 
 ?>
