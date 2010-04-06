@@ -1,6 +1,0 @@
-[submodule "srcs/blueprint"]
-	path = srcs/blueprint
-	url = git://github.com/joshuaclayton/blueprint-css.git
-[submodule "srcs/blueprint-liquid"]
-	path = srcs/blueprint-liquid
-	url = git://github.com/Montoya/blueprint-plugin---liquidgrid.git
