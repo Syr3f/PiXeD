@@ -26,7 +26,7 @@ define("CSS_BLUEPRINT_FORMS",	LIBBASEURL."/lib/css/blueprint/forms.css");
 define("CSS_BLUEPRINT_GRID",	LIBBASEURL."/lib/css/blueprint/grid.css");
 define("CSS_BLUEPRINT_PRINT",	LIBBASEURL."/lib/css/blueprint/print.css");
 define("CSS_BLUEPRINT_SCREEN",	LIBBASEURL."/lib/css/blueprint/screen.css");
-define("CSS_BLUEPRINT_IE",		LIBBASEURL."/lib/css/blueprint/ie.css");
+define("CSS_BLUEPRINT_IE",	LIBBASEURL."/lib/css/blueprint/ie.css");
 define("CSS_BLUEPRINT_LIQUID",	LIBBASEURL."/lib/css/blueprint/plugins/liquid/liquid.css");
 
 
@@ -40,6 +40,14 @@ define("CSS_DEFAULT_TYPO",	LIBBASEURL."/lib/css/default/typography.css");
 define("CSS_LOTUS_TYPO",	LIBBASEURL."/lib/css/lotus/typography.css");
 
 
+##	Library Helpers
+##
+require_once("helpers/spyc-0.4.5/spyc.php");
+require_once("helpers/textile-2.0.0/classTextile.php");
+
+
+##	XPiD Base Library	
+##
 require_once("lib/XH6.inc.php");
 
 
