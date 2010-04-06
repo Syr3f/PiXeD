@@ -22,13 +22,13 @@ if (!defined("SPnDX"))
 			define("PATH_SEPARATOR", ":");
 	}
 
-	set_include_path(get_include_path().PATH_SEPARATOR.INCLUDEPATH);
+	set_include_path(get_include_path().PATH_SEPARATOR.LIBPATH);
 }
 
 
 ##	XD Base Library	
 ##
-require_once(SPnDXDIFF.SPnDXDIFFSEP."lib/XH2.inc.php");
+require_once(SPnDXDIFF.SPnDXDIFFSEP.LIBPATH."/XH2.inc.php");
 
 
 ?>
