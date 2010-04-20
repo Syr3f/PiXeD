@@ -1131,7 +1131,7 @@ abstract class CXHList extends CXHEntityAttrs
 	{
 		$oCXHItem = new CXHItem($vContent);
 	
-		$this->AppendContent($vContent);
+		$this->AppendContent($oCXHItem);
 	}
 	
 	
@@ -1223,7 +1223,10 @@ class CXHItem extends CXHEntityAttrs
 	 */
 	public function __construct($vContent = PXH_EMPTY_STRING)
 	{
-		parent::__construct("li", true, $vContent);
+		parent::__construct("li");
+		
+		if (_sl((string) $vContent))
+			$this->AppendContent($vContent);
 	}
 }
 
