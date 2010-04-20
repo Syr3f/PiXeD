@@ -108,16 +108,4 @@ function _in($vObject)
 }
 
 
-/**
- *	@todo To document
- */
-class DBException extends Exception
-{
-	public function __construct($sMessage)
-	{
-		parent::__construct($sMessage);
-	}
-}
-
-
 ?>
