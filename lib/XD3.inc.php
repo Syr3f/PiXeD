@@ -1,21 +1,20 @@
 <?php
 
-
 /**
  *
- *	@package [2]XHTML
- *	@version 0.2
+ *	@package XD[3]XHTML-Entities
+ *	@version 0.1
  *	@license MIT License
  *
  *	@copyright Copyright (c) 2010 Serafim Junior Dos Santos Fagundes Cyb3r Network
  *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
  *
  *
- *	The second level of abstraction of the XD Library.
+ *	The third level of abstraction of the XD Library.
  *	
- *	This file contains the code elements of the second level of abstraction of the XD Library.
+ *	This file contains the code elements of the third level of abstraction of the XD Library.
  *
- *	The idea of this level is to extend the 1st level, Markup Identification, and extend its use in XHTML markup entities as defined in the strict DTD of the XHTML specification of the W3C recommendation available at the http://www.w3.org/TR/xhtml1/.
+ *	The idea of this level is to extend the 2th level of the XD library, XHTML base entity definitions, to allow existence and support of the XHTML entity classes/objects. It defines XHTML markup entities as defined in the strict DTD of the XHTML specification of the W3C recommendation available at the http://www.w3.org/TR/xhtml1/.
  *
  *	The terms element and entity are interchangibly used to mean a DTD declared entity for the XHTML document.
  *
@@ -24,24 +23,9 @@
 
 
 /**
- *	Links the first level file
+ *	Links the second level file
  */
-require_once("XH1.inc.php");
-
-
-/**
- *	Exception class for the XH level
-*/
-class XHException extends Exception
-{
-	/**
-	 *	@param string $sMessage Message of the exception
-	 */
- 	public function __construct($sMessage)
-	{
-		parent::__construct($sMessage);
-	}
-}
+require_once("XD2.inc.php");
 
 
 /**
@@ -117,465 +101,6 @@ class CXHComment
 }
 
 
-# <!--=================== Generic Attributes ===============================-->
-
-# <!ENTITY % i18n
-#  "lang        CDATA #IMPLIED
-#   xml:lang    CDATA #IMPLIED
-#   dir         (ltr|rtl)      #IMPLIED"
-#   >
-/**
- *  Internationalization entity attributes abstraction class
- */
-abstract class CXHEntityIntl extends CMLEntity
-{
-	/**
-	 *	@var array Hash array holding the entity attributes; the keys holds the names and the values the attribute values
-	 *	@access private
-	 */
-	private $_hAttrs1;
-	
-	
-	/**
-	 *	@var string Defines a left to right command
-	 */
-	const sDirLTR = 'ltr';
-	
-	
-	/**
-	 *	@var string Defines a right to left command
-	 */
-	const sDirRTL = 'rtl';
-	
-	
-	/**
-	 *	@param string $sTagName String for the entity tag name
-	 *	@param bool $bHasEnd Variable defining if the entity has a full end or a self closed end
-	 *	@param string $sContent Variable for the initial entity content
-	 */
-	public function __construct($sTagName, $bHasEnd = true, $sContent = PXH_EMPTY_STRING)
-	{	
-		parent::__construct($sTagName, $bHasEnd, $sContent);
-		
-		$this->_hAttrs1 = array();
-	}
-	
-	
-	/**
-	 *	Sets the entity's language
-	 *
-	 *	@param string $sLang String for the language of the document; short code
-	 */
-	public function SetLang($sLang)
-	{
-		$this->_hAttrs1["lang"] = $sLang;
-		$this->_hAttrs1["xml:lang"] = $sLang;
-	}
-	
-	
-	/**
-	 *	Sets the text direction
-	 *
-	 *	@param string $csDir Class constant defining the text direction
-	 */
-	public function SetDir($csDir)
-	{
-		$this->_hAttrs1["dir"] = $csDir;
-	}
-	
-	
-	/**
-	 *	Generates the markup
-	 *
-	 *	@return string
-	 */
-	protected function _Generate()
-	{
-		parent::AddAttrs($this->_hAttrs1);
-
-		return parent::__toString();
-	}
-	
-	
-	/**
-	 *	@return string
-	 */
-	public function __toString()
-	{
-		return self::_Generate();
-	}
-}
-
-
-# <!ENTITY % coreattrs
-#  "id          ID             #IMPLIED
-#   class       CDATA          #IMPLIED
-#   style       CDATA   #IMPLIED
-#   title       CDATA         #IMPLIED"
-#   >
-/**
- *	Core entity attributes abstraction class
- */
-abstract class CXHEntityCoreAttrs extends CMLEntity
-{
-	/**
-	 *	@var array Holds the style list of the entity
-	 *	@access private
-	 */
-	private $_asStyles1;
-
-
-	/**
-	 *	@var array Holds the attributes of the entity
-	 *	@access private
-	 */
-	private $_hsAttrs3;
-
-
-	/**
-	 *	@param string $sTagName String for the entity tag name
-	 *	@param bool $bHasEnd Variable defining if the entity has a full end or a self closed end
-	 *	@param string $sContent Variable for the initial entity content
-	 */
-	public function __construct($sTagName, $bHasEnd = true, $sContent = PXH_EMPTY_STRING)
-	{
-		parent::__construct($sTagName, $bHasEnd, $sContent);
-		
-		$this->_asStyles1 = array();
-		$this->_hsAttrs3 = array();
-	}
-
-
-	/**
-	 *	Adds a style to the entity
-	 *
-	 *	@param string Name of the style
-	 *	@param string Value of the style
-	 */
-	public function AddStyle($sName, $sValue)
-	{
-		$this->_asStyles1[$sName] = $sValue;
-	}
-	
-	
-	/**
-	 *	Sets the id of the entity
-	 *
-	 *	@param string Id of the entity
-	 */
-	public function SetId($sId)
-	{
-		$this->_hsAttrs3["id"] = $sId;
-	}
-	
-	
-	/**
-	 *	Returns the id value of the entity
-	 *
-	 *	@return string
-	 */
-	public function GetId()
-	{
-		$sId = PXH_EMPTY_STRING;
-		
-		if (array_key_exists("id", $this->_hsAttrs3))
-			$sId = $this->_hsAttrs3["id"];
-			
-		return $sId;
-	}
-
-
-	/**
-	 *	Sets the class of the entity
-	 *
-	 *	@param string Class of the entity
-	 */
-	public function SetClass($sClass)
-	{
-		$this->_hsAttrs3["class"] = $sClass;
-	}
-	
-	
-	/**
-	 *	Returns the class value of the entity
-	 *
-	 *	@return string
-	 */
-	public function GetClass()
-	{
-		$sClass = PXH_EMPTY_STRING;
-	
-		if (array_key_exists("class", $this->_hsAttrs3))
-			$sClass = $this->_hsAttrs3["class"];
-		
-		return $sClass;
-	}
-
-
-	/**
-	 *	Sets the title of the entity
-	 *
-	 *	@param string Title of the entity
-	 */
-	public function SetTitle($sTitle)
-	{
-		$this->_hsAttrs3["title"] = $sTitle;
-	}
-
-
-	/**
-	 *	Assembles the style attribute and adds the attribute to the attribute array $_hsAttrs2
-	 *	@access private
-	 */
-	private function _generateStylesString()
-	{
-		$sTemp = PXH_EMPTY_STRING;
-
-		foreach ($this->_asStyles1 as $sN => $sV)
-		{
-			if (_sl($sV))
-			{
-				$sTemp .= $sN.":".$sV.";";
-			}
-		}
-
-		if (_sl($sTemp))
-		{
-			$this->_hsAttrs3["style"] = $sTemp;
-		}
-	}
-	
-	
-	/**
-	 *	Generates the markup
-	 *
-	 *	@return string
-	 */
-	protected function _Generate()
-	{
-		$this->_generateStylesString();
-	
-		parent::AddAttrs($this->_hsAttrs3);
-
-		return parent::__toString();
-	}
-
-
-	/**
-	 *	@return string
-	 */
-	public function __toString()
-	{
-		return self::_Generate();
-	}
-}
-
-
-##
-# <!ENTITY % events
-#  "onclick     CDATA       #IMPLIED
-#   ondblclick  CDATA       #IMPLIED
-#   onmousedown CDATA       #IMPLIED
-#   onmouseup   CDATA       #IMPLIED
-#   onmouseover CDATA       #IMPLIED
-#   onmousemove CDATA       #IMPLIED
-#   onmouseout  CDATA       #IMPLIED
-#   onkeypress  CDATA       #IMPLIED
-#   onkeydown   CDATA       #IMPLIED
-#   onkeyup     CDATA       #IMPLIED"
-#   >
-##
-# <!ENTITY % attrs "%coreattrs %i18n %events">
-/**
- *  Entity attributes abstraction class
- */
-abstract class CXHEntityAttrs extends CXHEntityIntl
-{
-	/**
-	 *	@var array Holds the style list of the entity
-	 *	@access private
-	 */
-	private $_asStyles;
-
-
-	/**
-	 *	@var array Holds the attributes of the entity
-	 *	@access private
-	 */
-	private $_hsAttrs2;
-
-
-	/**
-	 *	@param string $sTagName String for the entity tag name
-	 *	@param bool $bHasEnd Variable defining if the entity has a full end or a self closed end
-	 *	@param string $sContent Variable for the initial entity content
-	 */
-	public function __construct($sTagName, $bHasEnd = true, $sContent = PXH_EMPTY_STRING)
-	{	
-		parent::__construct($sTagName, $bHasEnd, $sContent);
-		
-		$this->_asStyles = array();
-		$this->_hsAttrs2 = array();
-		
-		$this->_aValidEvents = array("onclick","ondblclick","onmousedown","onmouseup","onmouseover","onmousemove","onmouseout","onkeypress","onkeydown","onkeyup");
-	}
-
-
-	/**
-	 *	Registers an event for late validation
-	 *
-	 *	@param string Event name
-	 *
-	 *	@access private
-	 */
-	protected function _RegisterEvent($sEventName)
-	{
-		$this->_aValidEvents[] = $sEvventName;
-	}
-
-
-	/**
-	 *	Adds a style to the entity
-	 *
-	 *	@param string Name of the style
-	 *	@param string Value of the style
-	 */
-	public function AddStyle($sName, $sValue)
-	{
-		$this->_asStyles[$sName] = $sValue;
-	}
-
-
-	/**
-	 *	Adds an event to the entity
-	 *
-	 *	@param string Name of the event
-	 *	@param string Value of the event
-	 */
-	public function AddEvent($sName, $sValue)
-	{
-		if (in_array($sName, $this->_aValidEvents))
-		{
-			$this->_hsAttrs2[$sName] = $sValue;
-		}
-		else
-			throw new XHException("Event $sName is not a valid XHTML strict event");
-	}
-
-
-	/**
-	 *	Sets the id of the entity
-	 *
-	 *	@param string Id of the entity
-	 */
-	public function SetId($sId)
-	{
-		$this->_hsAttrs2["id"] = $sId;
-	}
-	
-	
-	/**
-	 *	Returns the id value of the entity
-	 *
-	 *	@return string
-	 */
-	public function GetId()
-	{
-		$sId = PXH_EMPTY_STRING;
-		
-		if (array_key_exists("id", $this->_hsAttrs2))
-			$sId = $this->_hsAttrs2["id"];
-			
-		return $sId;
-	}
-	
-
-	/**
-	 *	Sets the class of the entity
-	 *
-	 *	@param string Class of the entity
-	 */
-	public function SetClass($sClass)
-	{
-		$this->_hsAttrs2["class"] = $sClass;
-	}
-	
-	
-	/**
-	 *	Returns the class value of the entity
-	 *
-	 *	@return string
-	 */
-	public function GetClass()
-	{
-		$sClass = PXH_EMPTY_STRING;
-	
-		if (array_key_exists("class", $this->_hsAttrs2))
-			$sClass = $this->_hsAttrs2["class"];
-		
-		return $sClass;
-	}
-	
-
-	/**
-	 *	Sets the title of the entity
-	 *
-	 *	@param string Title of the entity
-	 */
-	public function SetTitle($sTitle)
-	{
-		$this->_hsAttrs2["title"] = $sTitle;
-	}
-
-
-	/**
-	 *	Assembles the style attribute and adds the attribute to the attribute array $_hsAttrs2
-	 *
-	 *	@access private
-	 */
-	private function _generateStylesString()
-	{
-		$sTemp = PXH_EMPTY_STRING;
-
-		foreach ($this->_asStyles as $sN => $sV)
-		{
-			if (_sl($sV))
-			{
-				$sTemp .= $sN.":".$sV.";";
-			}
-		}
-
-		if (_sl($sTemp))
-		{
-			$this->_hsAttrs2["style"] = $sTemp;
-		}
-	}
-	
-	
-	/**
-	 *	Generates markup
-	 *
-	 *	@return string
-	 */
-	protected function _Generate()
-	{
-		$this->_generateStylesString();
-		
-		parent::AddAttrs($this->_hsAttrs2);
-
-		return parent::__toString();
-	}
-
-
-	/**
-	 *	@return string
-	 */
-	public function __toString()
-	{
-		return self::_Generate();
-	}
-}
-
 
 # <!--================ Document Structure ==================================-->
 
@@ -628,6 +153,38 @@ class CXHHTML extends CXHEntityIntl
 #   %i18n
 #   profile     CDATA          #IMPLIED
 #   >
+/**
+ *	Creates a head element.
+ *
+ *	The head element contains information about the current document, such as its title, keywords that may be useful to search engines, and other data that is not considered to be document content. This information is usually not displayed by browsers.
+ *	@todo To test
+ */
+class CXHHead extends CXHEntityIntl
+{
+	/**
+	 *	@param string $sProfile Profile of comma separated URIs for link and meta references
+	 */
+	public function __construct($sProfile = PXH_EMPTY_STRING)
+	{
+		parent::__construct("head");
+		
+		if (_sl($sProfile))
+			$this->SetProfile($sProfile);
+	}
+	
+	
+	/**
+	 *	Sets the profile attribute
+	 *
+	 *	@param string $sProfile Profile of comma separated URIs for link and meta references
+	 */
+	public function SetProfile($sProfile)
+	{
+		parent::AddAttr("profile", $sProfile);
+	}
+}
+
+
 ##
 #
 # <!ELEMENT title (#PCDATA)>
@@ -665,36 +222,21 @@ class CXHTitle extends CMLEntity
 #   href        CDATA          #IMPLIED
 #   >
 /**
- *	Creates a head element.
+ *	Creates a base element.
  *
- *	The head element contains information about the current document, such as its title, keywords that may be useful to search engines, and other data that is not considered to be document content. This information is usually not displayed by browsers.
+ *	To resolve relative URLs, Web browsers will use the base URL from where the Web page was downloaded. In some circumstances, it is necessary to instruct the Web browser to use a different base URL, in which case the base element is used.
+ *	@todo To test
  */
-class CXHHead extends CXHEntityIntl
+class CXHBase extends CMLEntity
 {
 	/**
-	 *	@param string $sEncoding Encoding of the document
-	 *	@param string $sTitle Title of the document
-	 *	@param string $sBaseHref Base URI of the document
+	 *	@param string $sBaseHref Base URL for relative paths references
 	 */
-	public function __construct($sEncoding, $sTitle = PXH_EMPTY_STRING, $sBaseHref = PXH_EMPTY_STRING)
+	public function __construct($sBaseHref)
 	{
-		parent::__construct("head");
-
-		$oTitle = new CXHTitle($sTitle);
-
-		$this->AppendContent($oTitle);
-
-		if (_sl($sBaseHref))
-		{
-			$oBase = new CMLEntity("base", false);
-			$oBase->AddAttr("href", $sBaseHref);
-
-			$this->AppendContent($oBase);
-		}
+		parent::__construct("base");
 		
-		$oEncoding = new CXHMeta("Content-Type", PXH_EMPTY_STRING, "text/html;charset=".$sEncoding);		
-		
-		$this->AppendContent($oEncoding);
+		parent::AddAttr("href", $sBaseHref);
 	}
 }
 
@@ -779,57 +321,57 @@ class CXHLink extends CXHEntityAttrs
 #   xml:space   (preserve)     #FIXED 'preserve'
 #   >
 /**
- *	Creates a link or a style element.
+ *	Creates a style element.
  *
- *	The link element conveys relationship information that can be used by Web browsers and search engines. You can have multiple link elements that link to different resources or describe different relationships. The link elements can be contained in the head element.
  *	The style element can contain CSS rules (called embedded CSS) or a URL that leads to a file containing CSS rules (called external CSS).
- *	
- *	@todo Put this class in H2 and create element style
+ *	@todo To test
  */
-class CXHCSS extends CXHEntityIntl
+class CXHStyle extends CXHEntityIntl
 {
 	/**
-	 *	@param string $sFileURL URL reference of the style sheet
-	 *	@param string $sMedia Intended destination of the referenced link or content
+	 *	@param string $sType Type of style
+	 *	@param string $sMedia Media target of the style
+	 *	@param string $sTitle Title of the entity
 	 */
-	public function __construct($sFileURL = PXH_EMPTY_STRING, $sMedia = "screen")
+	public function __construct($sType = PXH_EMPTY_STRING, $sMedia = PXH_EMPTY_STRING, $sTitle = PXH_EMPTY_STRING)
 	{
-		if (_sl($sFileURL))
-		{
-			parent::__construct("link", false);
-		}
-		else
-		{
-			parent::__construct("style");
-		}
+		parent::__construct("style");
 		
-		$this->AddAttr("media", $sMedia);
-		$this->AddAttr("type", "text/css");
+		if (_sl($sType))
+			$this->SetType($sType);
 		
-		if (_sl($sFileURL))
-		{
-			$this->AddAttr("href", $sFileURL);
-			$this->AddAttr("rel", "stylesheet");
-		}
-	}
-
-
-	/**
-	 *	Adds the content of the referenced file in the style entity content
-	 *
-	 *	@param string $sFileName File reference of the style content
-	 */
-	public function AddFileContent($sFileName)
-	{
-		ob_start();
-		
-			include($sFileName);
-		
-			$sCode = ob_get_contents();
+		if (_sl($sMedia))
+			$this->SetMedia($sMedia);
 			
-		ob_end_clean();
-		
-		parent::AppendContent($sCode);
+		if (_sl($sTitle))
+			$this->SetTitle($sTitle);
+	}
+	
+	
+	/**
+	 *	@param string $sType Type of style
+	 */
+	public function SetType($sType)
+	{
+		parent::AddAttr("type", $sType);
+	}
+	
+	
+	/**
+	 *	@param string $sMedia Media target of the style
+	 */
+	public function SetMedia($sMedia)
+	{
+		parent::AddAttr("media", $sMedia);
+	}
+	
+	
+	/**
+	 *	@param string $sTitle Title of the entity
+	 */
+	public function SetTitle($sTitle)
+	{
+		parent::AddAttr("title", $sTitle);
 	}
 }
 
@@ -960,6 +502,7 @@ class CXHDiv extends CXHEntityAttrs
 		parent::__construct("div", true, $vContent);
 	}
 }
+
 
 # <!--=================== Paragraphs =======================================-->
 
@@ -1103,59 +646,6 @@ class CXHHeading extends CXHEntityAttrs
 
 
 # <!--=================== Lists ============================================-->
-/**
- *	Abstract class for the list elements ul and ol
- *
- *	Defines the base methods to be used by the ordered and unordered list elements
- *	@abstract
- *
- *	@todo To test[2]
- */
-abstract class CXHList extends CXHEntityAttrs
-{
-	/**
-	 *	@param string $sTagName Name of the entity
-	 */
-	public function __construct($sTagName)
-	{
-		parent::__construct($sTagName);
-	}
-	
-	
-	/**
-	 *	Adds content to a li element
-	 *
-	 *	@param mixed $vContent Content of the entity
-	 */
-	public function AddItem($vContent)
-	{
-		$oCXHItem = new CXHItem($vContent);
-	
-		$this->AppendContent($oCXHItem);
-	}
-	
-	
-	/**
-	 *	@param object $oCXHItem Inserts a li element
-	 */
-	public function InsertItem($oCXHItem)
-	{
-		$this->AppendContent($oCXHItem);
-	}
-	
-	
-	/**
-	 *	@param object $oCXHItem Inserts a li element
-	 */
-	public function AppendContent($oCXHItem)
-	{
-		if (_io($oCXHItem, 'CXHItem'))
-			parent::AppendContent($oCXHItem);
-		else
-			throw new XHException("Parameter is not an instance of CXHItem");
-	}
-}
-
 
 ##
 #
@@ -1399,7 +889,7 @@ class CXHAddress extends CXHEntityAttrs
  *
  *	he hr element is used to separate sections of content. Though the name of the hr element is "horizontal rule", most visual Web browsers render hr as a horizontal line.
  */
-class CXHSep extends CXHEntityAttrs
+class CXHHRule extends CXHEntityAttrs
 {
 	public function __construct()
 	{
@@ -2532,29 +2022,6 @@ class CXHArea extends CXHEntityAttrs
 
 
 # <!--================ Forms ===============================================-->
-/**
- *	Defines the base class of the form fields
- *	@abstract
- */
-abstract class CXHFieldAttrs extends CXHEntityAttrs
-{
-	/**
-	 *	@param string $sTagName Name of the element
-	 *	@param mixed $vContent Initial content of the element
-	 *	@param bool $bHasEnd If element has end; true for full end, false for self closed
-	 *	@param bool $bIsDisabled indicates if element is disabled
-	 */
-	public function __construct($sTagName, $vContent, $bIsDisabled, $bHasEnd)
-	{
-		parent::__construct($sTagName, $bHasEnd, $vContent);
-		
-		parent::_RegisterEvent("onfocus");
-		parent::_RegisterEvent("onblur");
-		
-		if ($bIsDisabled) $this->AddAttr("disabled", "disabled");
-	}
-}
-
 
 ##
 #
@@ -2659,36 +2126,6 @@ class CXHLabel extends CXHEntityAttrs
 #   onchange    CDATA          #IMPLIED
 #   accept      CDATA          #IMPLIED
 #   >
-/**
- *	Defines the base class of the input elements
- *
- *	The input element is a multi-purpose form control. The type attribute specifies the type of form control to be created.
- *
- *	@abstract
- */
-abstract class CXHFieldInput extends CXHFieldAttrs
-{
-	/**
-	 *	@param string $sIdName Id and name of the input element
-	 *	@param string $sValue Initial value of the input element
-	 *	@param string $sType Type of the input element
-	 *	@param bool $bIsDisabled Indicates if element is disabled
-	 */
-	public function __construct($sIdName, $sValue, $sType, $bIsDisabled = false)
-	{
-		parent::__construct("input", PXH_EMPTY_STRING, $bIsDisabled, false);
-
-		parent::AddAttr("type", $sType);
-
-		parent::AddAttr("name", $sIdName);
-		parent::AddAttr("value", $sValue);
-		
-		parent::SetId($sIdName);
-		
-		parent::_RegisterEvent("onselect");
-		parent::_RegisterEvent("onchange");
-	}
-}
 
 
 ##
@@ -2980,92 +2417,6 @@ class CXHButton extends CXHFieldInput
 #   onblur      CDATA       #IMPLIED
 #   onchange    CDATA       #IMPLIED
 #   >
-/**
- *	Defines an abstract class for options insertions
- *	@abstract
- */
-abstract class CXHOptionsInsertions extends CXHFieldAttrs
-{
-	/**
-	 *	@var int Holds the number of items selected
-	 *	@access private
-	 */
-	private $_iNumSelected;
-
-
-	/**
-	 *	@param string $sTagName Name of the entity
-	 *	@param bool $bIsDisabled 
-	 */
-	public function __construct($sTagName, $bIsDisabled = false)
-	{
-		parent::__construct($sTagName, PXH_EMPTY_STRING, $bIsDisabled, true);
-		
-		$this->_iNumSelected = 0;
-	}
-
-
-	/**
-	 *	Adds an option element
-	 *
-	 *	@param string $sValue Value of the option
-	 *	@param string $sDisplay Text display of the option
-	 *	@param bool $bSelected Indicates if option is selected
-	 *	@param bool $bIsDisabled Indicates if option is disabled
-	 */
-	public function AddOption($sValue, $sDisplay, $bSelected = false, $bIsDisabled = false)
-	{
-		$oOption = new CXHOption($sValue,$sDisplay, $bSelected, $bIsDisabled);
-
-		if ($bSelected)
-			$this->IncrementSelections();
-
-		parent::AppendContent($oOption);
-	}
-	
-
-	/**
-	 *	Inserts an option element
-	 *
-	 *	@param object $oOption Instance of class CXHOption
-	 */
-	public function InsertOption($oOption)
-	{
-		if (_io($oOption, 'CXHOption'))
-		{
-			if ($oOption->IsSelected())
-				$this->IncrementSelections();
-		
-			parent::AppendContent($oOption);
-		}
-		else
-		{
-			throw new XHException("option is not an instance of class CXHOption");
-		}
-	}
-	
-	
-	/**
-	 *	Increments the number of selections
-	 */
-	protected function IncrementSelections()
-	{
-		$this->_iNumSelected++;
-	}
-	
-
-	/**
-	 *	Return the number of options selected
-	 *
-	 *	@return int
-	 */
-	public function GetNumSelections()
-	{
-		return $this->_iNumSelected;
-	}
-}
-
-
 /**
  *	Creates a select element
  *
@@ -3432,132 +2783,6 @@ class CXHPushButton extends CXHFieldAttrs
 
 
 # <!--======================= Tables =======================================-->
-
-# <!ENTITY %CAlign "(top|bottom|left|right)">
-#
-# <!ENTITY % cellhalign
-#   "align      (left|center|right|justify|char) #IMPLIED
-#    char       CDATA    #IMPLIED
-#    charoff    CDATA       #IMPLIED"
-#   >
-#
-# <!ENTITY % cellvalign
-#   "valign     (top|middle|bottom|baseline) #IMPLIED"
-#   >
-/**
- *	Defines an abstract class for some table content elements
- *
- *	@abstract
- */
-abstract class CXHTableAlignAttrs extends CXHEntityAttrs
-{
-	/**
-	 *	@var string Class constant defining a left alignment
-	 */
-	const sHALeft =		'left';
-
-
-	/**
-	 *	@var string Class constant defining a center alignment
-	 */
-	const sHACenter =	'center';
-
-
-	/**
-	 *	@var string Class constant defining a right alignment
-	 */
-	const sHARight =	'right';
-
-
-	/**
-	 *	@var string Class constant defining a justified alignment
-	 */
-	const sHAJustify = 	'justify';
-
-
-	/**
-	 *	@var string Class constant defining a character alignment
-	 */
-	const sHAChar =		'char';
-	
-
-	/**
-	 *	@var string Class constant defining a top alignment
-	 */
-	const sVATop = 		'top';
-
-
-	/**
-	 *	@var string Class constant defining a middle alignment
-	 */
-	const sVAMiddle =	'middle';
-
-
-	/**
-	 *	@var string Class constant defining a bottom alignment
-	 */
-	const sVABottom =	'bottom';
-
-
-	/**
-	 *	@var string Class constant defining a baseline alignment
-	 */
-	const sVABaseline =	'baseline';
-	
-
-	/**
-	 *	@param string $sTagName Name of the element
-	 *	@param bool $bHasEnd Indicates if element has end; true for foll end, false for self closed
-	 */
-	public function __construct($sTagName, $bHasEnd = true)
-	{
-		parent::__construct($sTagName, $bHasEnd);
-	}
-	
-
-	/**
-	 *	Sets the horizontal alignment
-	 *
-	 *	@param string $csHAlign Class constant defining an horizontal alignment
-	 */
-	public function SetHAlign($csHAlign)
-	{
-		switch ($csHAlign)
-		{
-			case self::sHALeft:
-			case self::sHACenter:
-			case self::sHARight:
-			case self::sHAJustify:
-			case self::sHAChar:
-				parent::AddAttr("align", $csHAlign);
-			break;
-			default:
-				throw new XHException("Value is not an horizontal alignment class constant");
-		}
-	}
-	
-
-	/**
-	 *	Sets the vertical alignment
-	 *
-	 *	@param string $csVAlign Class constant defining a vertical alignment
-	 */
-	public function SetVAlign($csVAlign)
-	{
-		switch ($csVAlign)
-		{
-			case self::sVATop:
-			case self::sVAMiddle:
-			case self::sVABottom:
-			case self::sVABaseline:
-				parent::AddAttr("valign", $csVAlign);
-			break;
-			default:
-				throw new XHException("Value is not a vertical alignment class constant");
-		}
-	}
-}
-
 
 ##
 #
@@ -3975,47 +3200,6 @@ class CXHTableBody extends CXHTableAlignAttrs
 #   %cellvalign
 #   >
 /**
- *	Defines an abstract class for the colgroup and col elements
- *	@abstract
- *
- *	@todo To test[2]
- */
-abstract class CXHColAttrs extends CXHTableAlignAttrs
-{
-	/**
-	 *	@param string $sTagName Name of the entity
-	 *	@param bool $bHasEnd Indicates if element has end; true for full end, false for self closed
-	 */
-	public function __construct($sTagName, $bHasEnd = true)
-	{
-		parent::__construct($sTagName, $bHasEnd);
-	}
-	
-
-	/**
-	 *	Sets the spanning of the column
-	 *
-	 *	@param string $sSpanVal Number indicating the column spanning
-	 */
-	public function SetSpan($sSpanVal)
-	{
-		parent::AddAttr("span", $sSpanVal);
-	}
-	
-
-	/**
-	 *	Sets the width of the column
-	 *
-	 *	@param string $sWidth Width of the column
-	 */
-	public function SetWidth($sWidth)
-	{
-		parent::AddAttr("width", $sWidth);
-	}
-}
-
-
-/**
  *	Creates a colgroup element
  *
  *	The colgroup element provides a mechanism to apply attributes to a logical conception of a column. The colgroup element is most commonly used to apply table cell alignment using the align and valign attributes, to apply column width using the width attribute, and CSS formatting using the class attribute.
@@ -4259,158 +3443,6 @@ class CXHCell extends CXHEntityAttrs
 	public function SetColspan($sValue)
 	{
 		$this->AddAttr("colspan", $sValue);
-	}
-}
-
-
-define("XHTYPE_XHTML_1_0_STRICT",1);
-define("XHTYPE_XHTML_1_0_TRANS", 2);
-define("XHTYPE_XHTML_1_0_FRAMS", 3);
-
-
-/**
- *	Creates a XHTML document structure
- */
-class CXHDocument extends CXHHTML
-{
-	/**
-	 *	@var string String holding the head of the document
-	 *	@access private
-	 */
-	private $_sHead;
-	
-	
-	/**
-	 *	@var string String holding the body of the document
-	 *	@access private
-	 */
-	private $_sBody;
-	
-	
-	/**
-	 *	@var string String holding the doctype of the document
-	 *	@access private
-	 */
-	private $_sDoctype;
-
-	
-	/**
-	 *	@param string $sLanguage Language abbreviation used in document
-	 *	@param int $iType Type of the document; defaults to XHTML strict, only implementation
-	 */
-	public function __construct($sLanguage, $iType = XHTYPE_XHTML_1_0_STRICT)
-	{
-		parent::__construct($sLanguage);
-
-		self::_Create($iType);
-	}
-
-
-	/**
-	 *	Creates the internal necessities of the class
-	 *	@access protected
-	 *
-	 *	@param int $iType Type of the document; defaults to XHTML strict, only implementation
-	 */
-	protected function _Create($iType)
-	{
-		$this->_sHead = "";
-		$this->_sBody = "";
-
-		switch ($iType)
-		{
-			case XHTYPE_XHTML_1_0_FRAMS:
-			//break;
-			case XHTYPE_XHTML_1_0_TRANS:
-			//	$this->_sDoctype = "<!DOCTYPE html PUBLIC ".chr(13).chr(10).chr(9).chr(34)."-//W3C//DTD XHTML 1.0 Transitional//EN".chr(34).chr(13).chr(10).chr(9).chr(34)."http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd".chr(34).">";
-			//break;
-			case XHTYPE_XHTML_1_0_STRICT:
-			//break;
-			default:
-				$this->_sDoctype = "<!DOCTYPE html PUBLIC ".chr(13).chr(10).chr(9).chr(34)."-//W3C//DTD XHTML 1.0 Strict//EN".chr(34).chr(13).chr(10).chr(9).chr(34)."http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd".chr(34).">";
-		}
-	}
-
-
-	/**
-	 *	Sets the head of the XHTML document
-	 *
-	 *	@param mixed $vHead Head string or object for the XHTML document
-	 */
-	public function ReplaceHead($vHead)
-	{
-		switch (getType($vHead))
-		{
-			case "object":
-				if (_io($vHead, 'CXHHead'))
-				{
-					$this->_sHead = (string) $vHead;
-				}
-				break;
-			case "string":
-				$this->_sHead = $vHead;
-				break;
-			default:
-				throw new XHException("\$vHead is not of type CXHHead");
-
-		}
-	}
-
-
-	/**
-	 *	Sets the body to the XHTML document
-	 *
-	 *	@param mixed $vBody Body string or object for the XHTML document
-	 */
-	public function ReplaceBody($vBody)
-	{
-		switch (getType($vBody))
-		{
-			case "object":
-
-				if (_io($vBody, 'CXHBody'))
-				{
-					$this->_sBody = (string) $vBody;
-				}
-
-				break;
-			case "string":
-				$this->_sBody = $vBody;
-				break;
-			default:
-				throw new XHException("\$vBody is not of type CXHBody");
-
-		}
-	}
-	
-	
-	/**
-	 *	Generates markup
-	 *
-	 *	@return string
-	 */
-	protected function _Generate()
-	{
-		if (!_sl($this->_sHead))
-			throw new XHException("Document has no head");
-			
-		parent::AppendContent($this->_sHead);
-
-		if (!_sl($this->_sBody))
-			throw new XHException("Document has no body");
-
-		parent::AppendContent($this->_sBody);
-
-		return $this->_sDoctype.chr(13).chr(10).parent::__toString();
-	}
-
-
-	/**
-	 *	@return string
-	 */
-	public function __toString()
-	{
-		return self::_Generate();
 	}
 }
 

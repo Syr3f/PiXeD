@@ -3,7 +3,7 @@
 
 /**
  *
- *	@package [1]Markup
+ *	@package XD[1]Markup
  *	@version 0.2
  *	@license MIT License
  *
@@ -22,7 +22,7 @@
 /**
  *	Links base utilitaries file
  */
-require_once("XH0.inc.php");
+require_once("XD0.inc.php");
 
 
 /**

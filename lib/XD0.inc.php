@@ -3,7 +3,7 @@
 
 /**
  *
- *	@package [0]Utilitaries
+ *	@package XD[0]Utilitaries
  *	@version 0.2
  *	@license MIT License
  *

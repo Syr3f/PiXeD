@@ -1,6 +1,6 @@
 <?php
 
-include("../../XPiD.inc.php");
+include("../../XD.inc.php");
 
 $sBodyStyle = <<<BS
 body { font-family:Georgia, serif; }
@@ -304,9 +304,9 @@ $oDoc->ReplaceHead($oHead);
 			
 			$oMap->AddArea("http://github.com/", "github.com", CXHArea::sShapeRect, "10,10,500,500");
 	
-				//$oArea = new CXHArea("http://cyb3r.ca", "cyb3r.ca", CXHArea::sShapeCircle, "500,300,100");
+				$oArea = new CXHArea("http://cyb3r.ca", "cyb3r.ca", CXHArea::sShapeCircle, "500,300,100");
 	
-			//$oMap->InsertArea($oArea);
+			$oMap->InsertArea($oArea);
 	
 		$oDiv->AppendContent($oMap);
 	
