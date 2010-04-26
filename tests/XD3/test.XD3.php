@@ -2,14 +2,15 @@
 
 include("../../XD.inc.php");
 
-$sBodyStyle = <<<BS
+$sContentStyle = <<<CS
 body { font-family:Georgia, serif; }
-BS;
+CS;
 
 $oDoc = new CXHDocument("en");
 
-	$oHead = new CXHHead("UTF-8", "Test file");
 
+	$oHead = new CXHHead();
+/*
 		$oCSS = new CXHCSS();
 		
 		$oCSS->AppendContent($sBodyStyle);
@@ -30,11 +31,12 @@ $oDoc = new CXHDocument("en");
 		$oNoScript = new CXHNoScript();
 	
 	$oHead->AppendContent($oNoScript);
+*/
 	
 $oDoc->ReplaceHead($oHead);
 	
 	$oBody = new CXHBody();
-	
+/*	
 		$oH1 = new CXHHeading();
 	
 		$oH1->AppendContent("Hello World!");
@@ -311,6 +313,14 @@ $oDoc->ReplaceHead($oHead);
 		$oDiv->AppendContent($oMap);
 	
 	$oBody->AppendContent($oDiv);
+
+*/
+
+		$oComment = new CXHComment("test");
+	
+		$oComment->AddLine("Another test");
+		
+	$oBody->AppendContent($oComment);
 	
 $oDoc->ReplaceBody($oBody);
 

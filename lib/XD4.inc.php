@@ -249,11 +249,10 @@ class CXH2Doc extends CXHDocument
 	 *	Appends content in the body
 	 *
 	 *	@param mixed $vContent Content to be appended
-	 *	@todo Switch method content with AppendContent
 	 */
 	public function AppendToBody($vContent)
 	{
-		$this->_oBody->AppendContent($vContent);
+		$this->AppendToBody($vContent);
 	}
 	
 	
@@ -298,7 +297,7 @@ class CXH2Doc extends CXHDocument
 	 */
 	public function AppendContent($vContent)
 	{
-		$this->AppendToBody($vContent);
+		$this->_oBody->AppendContent($vContent);
 	}
 	
 	
@@ -455,7 +454,7 @@ class CXH2CSS extends CXHEntityIntl
  *
  *	The CXH2TableBlock generates a table element and manages most of the table elements for its generation. The goal of this implementation is to ease the table implementation with XD and its diverse parts for less code management and reading.
  *
- *	@todo To test[3]
+ *	@todo To test[4]
  */
 class CXH2TableBlock extends CXHTable
 {

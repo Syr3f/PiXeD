@@ -15,7 +15,7 @@
  *	
  *	This file contains the code elements of the second level of abstraction of the XD Library.
  *
- *	The idea of this level is to extend the 1st level, Markup Identification and build the foundation of the XHTML entities. It generally contains abstract classes where usage is directly related to the next level of abstraction.
+ *	The idea of this level is to extend the 1st level, Markup Identification, and build the foundation of the XHTML entities. It generally contains abstract classes where usage is directly related to the next level of abstraction.
  */
 
 
@@ -49,6 +49,8 @@ class XHException extends Exception
 #   >
 /**
  *  Internationalization entity attributes abstraction class
+ *
+ *	@abstract
  */
 abstract class CXHEntityIntl extends CMLEntity
 {
@@ -138,6 +140,8 @@ abstract class CXHEntityIntl extends CMLEntity
 #   >
 /**
  *	Core entity attributes abstraction class
+ *
+ *	@abstract
  */
 abstract class CXHEntityCoreAttrs extends CMLEntity
 {
@@ -311,6 +315,8 @@ abstract class CXHEntityCoreAttrs extends CMLEntity
 # <!ENTITY % attrs "%coreattrs %i18n %events">
 /**
  *  Entity attributes abstraction class
+ *
+ *	@abstract
  */
 abstract class CXHEntityAttrs extends CXHEntityIntl
 {
@@ -504,8 +510,8 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
  *	Abstract class for the list elements ul and ol
  *
  *	Defines the base methods to be used by the ordered and unordered list elements
- *	@abstract
  *
+ *	@abstract
  *	@todo To test[2]
  */
 abstract class CXHList extends CXHEntityAttrs
@@ -556,6 +562,7 @@ abstract class CXHList extends CXHEntityAttrs
 
 /**
  *	Defines the base class of the form fields
+ *
  *	@abstract
  */
 abstract class CXHFieldAttrs extends CXHEntityAttrs
@@ -612,6 +619,7 @@ abstract class CXHFieldInput extends CXHFieldAttrs
 
 /**
  *	Defines an abstract class for options insertions
+ *
  *	@abstract
  */
 abstract class CXHOptionsInsertions extends CXHFieldAttrs

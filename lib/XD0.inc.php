@@ -13,7 +13,7 @@
  *
  *	Base utilities for the XD library
  *
- *	This file contains the base code elements of the XD library and utilitary classes. Most of the code in this file is to be used by the XD library and shouldn't but can be used outsite of the XD library scope.
+ *	This file contains the base code elements of the XD library and utilitary classes. Most of the code in this file is to be used by the XD library and shouldn't, but can, be used outsite of the XD library scope.
  */
 
  

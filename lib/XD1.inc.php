@@ -41,9 +41,36 @@ class MLException extends Exception
 
 
 /**
- *  Markup entity abstraction class
+ *	XD abstraction class
+ *
+ *	All objects to be used in an XHTML document must be an instance of this class.
+ *
+ *	@abstract
  */
-abstract class CMLEntity
+abstract class CMLObject
+{
+	/**
+	 *	Main initializer of the class. Variable assignments and methods used to instantiate the class should be processed in this method, not in __construct. Default parameter values should be used in __construct vs. non mandatory parameters should have an explicit value in _Create.
+	 *
+	 *	@abstract
+	 */
+	abstract protected function _Create();
+
+	
+	/**
+	 *	Main generator of the markup entity. Markup should be assembled in this method not in __toString.
+	 *
+	 *	@abstract
+	 */
+	abstract protected function _Generate();
+}
+
+/**
+ *  Markup entity abstraction class
+ *	
+ *	@abstract
+ */
+abstract class CMLEntity extends CMLObject
 {
 	/**
 	 *	@var string Name of the entity tag
@@ -190,7 +217,7 @@ abstract class CMLEntity
 		{
 			if ($this->_bHasEnd)
 			{
-				if (is_string($vContent) || _io($vContent, 'CMLEntity'))
+				if (is_string($vContent) || _io($vContent, 'CMLObject'))
 				{
 					$this->_sContent .= $vContent;
 					$this->_iSizeCount += _sl(utf8_decode($vContent));

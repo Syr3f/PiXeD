@@ -31,7 +31,7 @@ require_once("XD2.inc.php");
 /**
  *  Creates an HTML/XHTML comment
  */
-class CXHComment
+class CXHComment extends CMLObject
 {
 	/**
 	 *	@var string Holds the comment content
@@ -58,6 +58,15 @@ class CXHComment
 	 *	@param string $sContent String passed as the initial content of the class
 	 */
 	public function __construct($sContent = "")
+	{
+		self::_Create($sContent);
+	}
+	
+	
+	/**
+	 *	@param string $sContent String passed as the initial content of the class
+	 */
+	protected function _Create($sContent)
 	{
 		$this->sNL = chr(13).chr(10);
 		$this->sTAB = chr(9);
@@ -157,7 +166,8 @@ class CXHHTML extends CXHEntityIntl
  *	Creates a head element.
  *
  *	The head element contains information about the current document, such as its title, keywords that may be useful to search engines, and other data that is not considered to be document content. This information is usually not displayed by browsers.
- *	@todo To test
+ *
+ *	@todo To test[3]
  */
 class CXHHead extends CXHEntityIntl
 {
@@ -659,7 +669,7 @@ class CXHHeading extends CXHEntityAttrs
  *	The ul element is used to create unordered lists. An unordered list is a grouping of items whose sequence in the list is not important. For example, the order in which ingredients for a recipe are presented will not affect the outcome of the recipe.
  *	The ul element must contain one or more li elements, used to define a list item. To create sublists (ordered or unordered), place ul or ol inside a li element.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHUnorderedList extends CXHList
 {
@@ -682,7 +692,7 @@ class CXHUnorderedList extends CXHList
  *	The ol element is used to create ordered lists. An ordered list is a grouping of items whose sequence in the list is important. For example, the sequence of steps in a recipe is important if the result is to be the intended one.
  *	The ol element must contain one or more li elements, used to define a list item. To create sublists (ordered or unordered), put ol or ul inside a li element.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHOrderedList extends CXHList
 {
@@ -704,7 +714,7 @@ class CXHOrderedList extends CXHList
  *
  *	The li element represents a list item in ordered lists and unordered lists.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHItem extends CXHEntityAttrs
 {
@@ -732,7 +742,7 @@ class CXHItem extends CXHEntityAttrs
  *
  *	The dl element is used to create a list where each item in the list comprises two parts: a term and a description. A glossary of terms is a typical example of a definition list, where each item consists of the term being defined and a definition of the term.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHDefList extends CXHEntityAttrs
 {
@@ -817,7 +827,7 @@ class CXHDefList extends CXHEntityAttrs
  *
  *	The dt element is a definition term for an item in a definition list.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHTerm extends CXHEntityAttrs
 {
@@ -840,7 +850,7 @@ class CXHTerm extends CXHEntityAttrs
  *
  *	The dd element is a definition description for an item in a definition list.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHDef extends CXHEntityAttrs
 {
@@ -865,7 +875,7 @@ class CXHDef extends CXHEntityAttrs
  *
  *	The address element is used to supply contact information. This element often appears at the beginning or end of a document.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHAddress extends CXHEntityAttrs
 {
@@ -942,7 +952,7 @@ class CXHPre extends CXHEntityAttrs
  *
  *	The blockquote element is used to identify larger amounts of quoted text.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHBlockquote extends CXHEntityAttrs
 {
@@ -984,7 +994,7 @@ class CXHBlockquote extends CXHEntityAttrs
  *	By default, most Web browsers render content found inside the ins element with underline formatting.
  *	The ins element can be used as either a block element or an inline element. When used as a block element, the ins element can contain block elements, inline elements or text. When used as an inline element, the ins element can only contain inline elements or text.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHInsertion extends CXHEntityAttrs
 {
@@ -1043,7 +1053,7 @@ class CXHInsertion extends CXHEntityAttrs
  *	By default, most Web browsers render content inside the del element with strike-through formatting.
  *	The del element can be used as either a block element, or as an inline element. When used as a block element, the del element can contain block elements, inline elements, or text. When used as an inline element, the del element can only contain inline elements, or text.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHDeletion extends CXHEntityAttrs
 {
@@ -1236,7 +1246,7 @@ class CXHBreak extends CXHEntityCoreAttrs
  *
  *	The em element is used to indicate emphasis.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHEmphasis extends CXHEntityAttrs
 {
@@ -1259,7 +1269,7 @@ class CXHEmphasis extends CXHEntityAttrs
  *
  *	The strong element is used to indicate stronger emphasis.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHStrong extends CXHEntityAttrs
 {
@@ -1282,7 +1292,7 @@ class CXHStrong extends CXHEntityAttrs
  *
  *	The dfn element contains the defining instance of the enclosed term.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHDefining extends CXHEntityAttrs
 {
@@ -1305,7 +1315,7 @@ class CXHDefining extends CXHEntityAttrs
  *
  *	The code element contains a fragment of computer code.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHCode extends CXHEntityAttrs
 {
@@ -1328,7 +1338,7 @@ class CXHCode extends CXHEntityAttrs
  *
  *	The samp element is used to designate sample output from programs, scripts, etc.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHSample extends CXHEntityAttrs
 {
@@ -1352,7 +1362,7 @@ class CXHSample extends CXHEntityAttrs
  *
  *	The kbd element indicates input to be entered by the user.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHKeyboard extends CXHEntityAttrs
 {
@@ -1375,7 +1385,7 @@ class CXHKeyboard extends CXHEntityAttrs
  *
  *	The var element is used to indicate an instance of a computer code variable or program argument.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHVar extends CXHEntityAttrs
 {
@@ -1398,7 +1408,7 @@ class CXHVar extends CXHEntityAttrs
  *
  *	The cite element contains a citation or reference to another source.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHCite extends CXHEntityAttrs
 {
@@ -1421,7 +1431,7 @@ class CXHCite extends CXHEntityAttrs
  *
  *	An abbreviation is a shortened form of a word or phrase. The abbr element is used to identify an abbreviation, and can help assistive technologies to correctly pronounce abbreviated text.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHAbbreviation extends CXHEntityAttrs
 {
@@ -1448,7 +1458,7 @@ class CXHAbbreviation extends CXHEntityAttrs
  *
  *	An acronym is a word formed from the initial letters of a series of words. The acronym element identifies acronyms, and can help assistive technologies to correctly pronounce the acronym.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHAcronym extends CXHEntityAttrs
 {
@@ -1474,7 +1484,7 @@ class CXHAcronym extends CXHEntityAttrs
  *
  *	The q is used to identify short quoted text.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHQuote extends CXHEntityAttrs
 {
@@ -1497,7 +1507,7 @@ class CXHQuote extends CXHEntityAttrs
  *
  *	The sub element indicates that its contents should be regarded as a subscript.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHSubScript extends CXHEntityAttrs
 {
@@ -1520,7 +1530,7 @@ class CXHSubScript extends CXHEntityAttrs
  *
  *	The sup element indicates that its contents should regarded as superscript.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHSuperScript extends CXHEntityAttrs
 {
@@ -1569,7 +1579,7 @@ class CXHTeletype extends CXHEntityAttrs
  *
  *	The i element renders text in italic style.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHItalic extends CXHEntityAttrs
 {
@@ -1592,7 +1602,7 @@ class CXHItalic extends CXHEntityAttrs
  *
  *	The b element renders text in bold style.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHBold extends CXHEntityAttrs
 {
@@ -1615,7 +1625,7 @@ class CXHBold extends CXHEntityAttrs
  *
  *	The big element renders text in a large font.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHBig extends CXHEntityAttrs
 {
@@ -1638,7 +1648,7 @@ class CXHBig extends CXHEntityAttrs
  *
  *	The small element renders text in a small font.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHSmall extends CXHEntityAttrs
 {
@@ -1676,7 +1686,7 @@ class CXHSmall extends CXHEntityAttrs
 /**
  *	@todo To implement
  *	@todo To document
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHObject extends CXHEntityAttrs
 {
@@ -1718,7 +1728,7 @@ class CXHObject extends CXHEntityAttrs
 /**
  *	@todo To implement
  *	@todo To document
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHParam extends CXHEntityAttrs
 {
@@ -2292,7 +2302,7 @@ class CXHFieldRadio extends CXHFieldInput
 
 /**
  *	Creates a submit button input type element
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHButtonSubmit extends CXHFieldInput
 {
@@ -2312,7 +2322,7 @@ class CXHButtonSubmit extends CXHFieldInput
  *	Creates a reset button input type element
  *
  *	Restores the value of all controls on the form to their initial state.
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHButtonReset extends CXHFieldInput
 {
@@ -2387,7 +2397,7 @@ class CXHFieldImage extends CXHFieldInput
 
 /**
  *	Creates a button input type element
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHButton extends CXHFieldInput
 {
@@ -2803,7 +2813,7 @@ class CXHPushButton extends CXHFieldAttrs
  *
  *	The table element is used to define a table. A table is a construct where data is organized into rows and columns of cells.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHTable extends CXHEntityAttrs
 {
@@ -3000,7 +3010,7 @@ class CXHTable extends CXHEntityAttrs
  *
  *	The caption element creates a caption for a table. If a caption is to be used, it should be the first element after the opening table element.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHCaption extends CXHEntityAttrs
 {
@@ -3027,7 +3037,7 @@ class CXHCaption extends CXHEntityAttrs
  *
  *	The thead element can be used to group table rows that contain table header information. This can be useful when printing long tables that span several printed pages, since the data in thead will be repeated on each page.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHTableHead extends CXHTableAlignAttrs
 {
@@ -3086,7 +3096,7 @@ class CXHTableHead extends CXHTableAlignAttrs
  *
  *	The tfoot element can be used to group table rows that contain table footer information. This may be useful when printing longer tables that span several printed pages, since the data in tfoot is repeated on each page. The tfoot element should appear before tbody elements.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHTableFoot extends CXHTableAlignAttrs
 {
@@ -3205,7 +3215,7 @@ class CXHTableBody extends CXHTableAlignAttrs
  *	The colgroup element provides a mechanism to apply attributes to a logical conception of a column. The colgroup element is most commonly used to apply table cell alignment using the align and valign attributes, to apply column width using the width attribute, and CSS formatting using the class attribute.
  *	The colgroup element contains col elements that represent individual columns.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHColGroup extends CXHColAttrs
 {
@@ -3256,7 +3266,7 @@ class CXHColGroup extends CXHColAttrs
  *
  *	The col element provides a mechanism to apply attributes to a logical conception of a column. The col element is most commonly used to apply table cell alignment using the align and valign attributes, to apply column width using the width attribute, and CSS formatting using the class attribute.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHCol extends CXHColAttrs
 {
@@ -3354,7 +3364,7 @@ class CXHRow extends CXHEntityAttrs
  *
  *	The th element defines a table header cell.
  *
- *	@todo To test[2]
+ *	@todo To test[3]
  */
 class CXHCellHead extends CXHEntityAttrs
 {
