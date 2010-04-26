@@ -50,20 +50,13 @@ class MLException extends Exception
 abstract class CMLObject
 {
 	/**
-	 *	Main initializer of the class. Variable assignments and methods used to instantiate the class should be processed in this method, not in __construct. Default parameter values should be used in __construct vs. non mandatory parameters should have an explicit value in _Create.
-	 *
-	 *	@abstract
-	 */
-	abstract protected function _Create();
-
-	
-	/**
-	 *	Main generator of the markup entity. Markup should be assembled in this method not in __toString.
+	 *	Main generator of the markup entity. Markup string should be assembled and produced in this method not in __toString.
 	 *
 	 *	@abstract
 	 */
 	abstract protected function _Generate();
 }
+
 
 /**
  *  Markup entity abstraction class

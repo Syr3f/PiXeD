@@ -10,6 +10,18 @@ $oDoc = new CXHDocument("en");
 
 
 	$oHead = new CXHHead();
+	
+		$oTitle = new CXHTitle("Test XD3");
+	
+	$oHead->AppendContent($oTitle);
+	
+		$oBase = new CXHBase("http://www.cyb3r.ca/");
+	
+	$oHead->AppendContent($oBase);
+	
+		$oEncoding = new CXHMeta("Content-Type", "", "text/html;charset=UTF-8");
+		
+	$oHead->AppendContent($oEncoding);
 /*
 		$oCSS = new CXHCSS();
 		

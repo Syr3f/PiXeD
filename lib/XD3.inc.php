@@ -166,8 +166,6 @@ class CXHHTML extends CXHEntityIntl
  *	Creates a head element.
  *
  *	The head element contains information about the current document, such as its title, keywords that may be useful to search engines, and other data that is not considered to be document content. This information is usually not displayed by browsers.
- *
- *	@todo To test[3]
  */
 class CXHHead extends CXHEntityIntl
 {
@@ -277,9 +275,50 @@ class CXHMeta extends CXHEntityIntl
 	{
 		parent::__construct("meta", false);
 		
-		if (_sl($sHttpEquiv)) $this->AddAttr("http-equiv", $sHttpEquiv);
-		if (_sl($sName)) $this->AddAttr("name", $sName);
-		if (_sl($sContent)) $this->AddAttr("content", $sContent);
+		if (_sl($sHttpEquiv))
+			$this->SetHTTPEquiv($sHttpEquiv);
+			
+		if (_sl($sName))
+			$this->SetName($sName);
+			
+		if (_sl($sContent))
+			$this->SetContent($sContent);
+	}
+	
+	
+	/**
+	 *	@param string $sHttpEquiv HTTP header name; Used in place of the $sName parameter
+	 */
+	public function SetHTTPEquiv($sHttpEquiv)
+	{
+		$this->AddAttr("http-equiv", $sHttpEquiv);
+	}
+	
+	
+	/**
+	 *	@param string $sName Name of the meta information
+	 */
+	public function SetName($sName)
+	{
+		$this->AddAttr("name", $sName);
+	}
+	
+	
+	/**
+	 *	@param string $sContent Value of the HTTP-quiv or name parameter
+	 */
+	public function SetContent($sContent)
+	{
+		$this->AddAttr("content", $sContent);
+	}
+	
+	
+	/**
+	 *	@param string $sScheme Scheme name of the property's value to be interpreted
+	 */
+	public function SetScheme($sScheme)
+	{
+		$this->AddAttr("scheme", $sScheme);
 	}
 }
 
