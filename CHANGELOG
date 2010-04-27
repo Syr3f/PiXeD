@@ -1,3 +1,8 @@
+0.3
+	Renaming of project from XD to PiXeD
+	Adjustments to some class names to better reflect XHTML elements
+	Placement of elements/classes into better abstraction layers/files
+	Tested 80% of classes; major XHTML elements
 0.2
 	Major change from initial implementation
 	Library splitted for better abstraction separation
