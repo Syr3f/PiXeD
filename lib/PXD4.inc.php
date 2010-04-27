@@ -11,9 +11,9 @@
  *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
  *
  *
- *	The fourth level of abstraction of the XD Library.
+ *	The fourth level of abstraction of the PiXeD Library.
  *	
- *	This file contains the code elements of the fourth level of abstraction of the XD Library.
+ *	This file contains the code elements of the fourth level of abstraction of the PiXeD Library.
  *
  *	The idea of this level is to extend the 3th level, XHTML entities, and builds an higher level of absctraction for component integration within documents and templates. It generally contains combinations or extentions of XD3 XHTML entities.
  */
@@ -22,7 +22,7 @@
 /**
  *	Links the third level file
  */
-require_once("XD3.inc.php");
+require_once("PXD3.inc.php");
 
 
 
@@ -452,7 +452,7 @@ class CXH2CSS extends CXHEntityIntl
 /**
  *	Creates a table element
  *
- *	The CXH2TableBlock generates a table element and manages most of the table elements for its generation. The goal of this implementation is to ease the table implementation with XD and its diverse parts for less code management and reading.
+ *	The CXH2TableBlock generates a table element and manages most of the table elements for its generation. The goal of this implementation is to ease the table implementation with PiXeD and its diverse parts for less code management and reading.
  *
  *	@todo To test[4]
  */

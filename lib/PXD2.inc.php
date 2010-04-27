@@ -11,9 +11,9 @@
  *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
  *
  *
- *	The second level of abstraction of the XD Library.
+ *	The second level of abstraction of the PiXeD Library.
  *	
- *	This file contains the code elements of the second level of abstraction of the XD Library.
+ *	This file contains the code elements of the second level of abstraction of the PiXeD Library.
  *
  *	The idea of this level is to extend the 1st level, Markup Identification, and build the foundation of the XHTML entities. It generally contains abstract classes where usage is directly related to the next level of abstraction.
  */
@@ -22,7 +22,7 @@
 /**
  *	Links the first level file
  */
-require_once("XD1.inc.php");
+require_once("PXD1.inc.php");
 
 
 /**
@@ -512,7 +512,6 @@ abstract class CXHEntityAttrs extends CXHEntityIntl
  *	Defines the base methods to be used by the ordered and unordered list elements
  *
  *	@abstract
- *	@todo To test[2]
  */
 abstract class CXHList extends CXHEntityAttrs
 {
@@ -532,7 +531,7 @@ abstract class CXHList extends CXHEntityAttrs
 	 */
 	public function AddItem($vContent)
 	{
-		$oCXHItem = new CXHItem($vContent);
+		$oCXHItem = new CXHListItem($vContent);
 	
 		$this->AppendContent($oCXHItem);
 	}
@@ -552,10 +551,10 @@ abstract class CXHList extends CXHEntityAttrs
 	 */
 	public function AppendContent($oCXHItem)
 	{
-		if (_io($oCXHItem, 'CXHItem'))
+		if (_io($oCXHItem, 'CXHListItem'))
 			parent::AppendContent($oCXHItem);
 		else
-			throw new XHException("Parameter is not an instance of CXHItem");
+			throw new XHException("Parameter is not an instance of CXHListItem");
 	}
 }
 
@@ -833,8 +832,6 @@ abstract class CXHTableAlignAttrs extends CXHEntityAttrs
 /**
  *	Defines an abstract class for the colgroup and col elements
  *	@abstract
- *
- *	@todo To test[2]
  */
 abstract class CXHColAttrs extends CXHTableAlignAttrs
 {

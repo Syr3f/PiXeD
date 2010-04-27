@@ -26,9 +26,9 @@ if (!defined("SPnDX"))
 }
 
 
-##	XD Base Library	
+##	PiXeD Base Library	
 ##
-require_once(LIBPATH.SPnDXDIFF.SPnDXDIFFSEP."/XD4.inc.php");
+require_once(LIBPATH.SPnDXDIFF.SPnDXDIFFSEP."/PXD4.inc.php");
 
 
 ?>

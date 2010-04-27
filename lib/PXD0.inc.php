@@ -3,7 +3,7 @@
 
 /**
  *
- *	@package XD[0]Utilitaries
+ *	@package PXD[0]Utilitaries
  *	@version 0.2
  *	@license MIT License
  *
@@ -11,9 +11,9 @@
  *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
  *
  *
- *	Base utilities for the XD library
+ *	Base utilities for the PiXeD library
  *
- *	This file contains the base code elements of the XD library and utilitary classes. Most of the code in this file is to be used by the XD library and shouldn't, but can, be used outsite of the XD library scope.
+ *	This file contains the base code elements of the PiXeD library and utilitary classes. Most of the code in this file is to be used by the PiXeD library and shouldn't, but can, be used outsite of the PiXeD library scope.
  */
 
  

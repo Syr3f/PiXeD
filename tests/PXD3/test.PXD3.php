@@ -1,9 +1,12 @@
 <?php
 
-include("../../XD.inc.php");
+include("../../PXD.inc.php");
 
 $sContentStyle = <<<CS
-body { font-family:Georgia, serif; }
+body
+{
+	font-family:Georgia, serif;
+}
 CS;
 
 $oDoc = new CXHDocument("en");
@@ -11,28 +14,31 @@ $oDoc = new CXHDocument("en");
 
 	$oHead = new CXHHead();
 	
-		$oTitle = new CXHTitle("Test XD3");
+		$oTitle = new CXHTitle("Test PXD3");
 	
 	$oHead->AppendContent($oTitle);
 	
-		$oBase = new CXHBase("http://www.cyb3r.ca/");
+		$oBase = new CXHBase("http://pixed.cyb3r.ca/tests/PXD3/");
 	
 	$oHead->AppendContent($oBase);
 	
 		$oEncoding = new CXHMeta("Content-Type", "", "text/html;charset=UTF-8");
 		
 	$oHead->AppendContent($oEncoding);
-/*
-		$oCSS = new CXHCSS();
-		
-		$oCSS->AppendContent($sBodyStyle);
-
-	$oHead->AppendContent($oCSS);
 	
 		$oLink = new CXHLink("test.css", "text/css", "stylesheet");
 	
 	$oHead->AppendContent($oLink);
-	
+
+		$oStyle = new CXHStyle("text/css");
+		
+		$oStyle->SetMedia("screen");
+		
+		$oStyle->AppendContent($sContentStyle);
+
+	$oHead->AppendContent($oStyle);
+
+
 		//$oScript = new CXHScript("javascript", "test.js");
 		// or by script integration
 		$oScript = new CXHScript("javascript");
@@ -43,45 +49,134 @@ $oDoc = new CXHDocument("en");
 		$oNoScript = new CXHNoScript();
 	
 	$oHead->AppendContent($oNoScript);
-*/
 	
 $oDoc->ReplaceHead($oHead);
 	
 	$oBody = new CXHBody();
-/*	
+	
+		$oDiv = new CXHDiv("This is a div element.");
+		
+			$oP = new CXHParagraph("This is a paragraph in a div element.");
+			
+		$oDiv->AppendContent($oP);
+		
+	$oBody->AppendContent($oDiv);
+	
 		$oH1 = new CXHHeading();
 	
-		$oH1->AppendContent("Hello World!");
+		$oH1->AppendContent("Hello World 1!");
 		$oH1->AddStyle("color", "#666");
 		$oH1->AddEvent("onclick", "alert('Hello again!')");
 	
 	$oBody->AppendContent($oH1);
 
-			$oP = new CXHParagraph("This is a paragraph in a div");
+		$oH2 = new CXHHeading(CXHHeading::iLvl2);
 	
-		$oDiv = new CXHDiv($oP);
+		$oH2->AppendContent("Hello World 2!");
 	
-	$oBody->AppendContent($oDiv);
+	$oBody->AppendContent($oH2);
+
+		$oH3 = new CXHHeading(CXHHeading::iLvl3);
 	
-		$oHR = new CXHSep();
+		$oH3->AppendContent("Hello World 3!");
 	
+	$oBody->AppendContent($oH3);
+
+		$oH4 = new CXHHeading(CXHHeading::iLvl4);
+	
+		$oH4->AppendContent("Hello World 4!");
+	
+	$oBody->AppendContent($oH4);
+
+		$oH5 = new CXHHeading(CXHHeading::iLvl5);
+	
+		$oH5->AppendContent("Hello World 5!");
+	
+	$oBody->AppendContent($oH5);
+
+		$oH6 = new CXHHeading(CXHHeading::iLvl6);
+	
+		$oH6->AppendContent("Hello World 6!");
+	
+	$oBody->AppendContent($oH6);
+	
+		$oUL = new CXHUnorderedList();
+		
+		$oUL->AddItem("This is item 1");
+		
+			$oLI = new CXHListItem("This is item 2");
+			
+		$oUL->InsertItem($oLI);
+		
+	$oBody->AppendContent($oUL);
+
+		$oOL = new CXHOrderedList();
+		
+		$oOL->AddItem("This is item 1");
+		
+			$oLI = new CXHListItem("This is item 2");
+			
+		$oOL->InsertItem($oLI);
+		
+	$oBody->AppendContent($oOL);
+	
+		$oDL = new CXHDefList();
+		
+		$oDL->AddTerm("Term 1");
+		
+		$oDL->AddDef("This is the definition 1 of term 1");
+		
+			$oDT = new CXHTerm("Term 2");
+		
+		$oDL->InsertTerm($oDT);
+
+			$oDD = new CXHDef("This is the definition 1 of term 2");
+		
+		$oDL->InsertDef($oDD);
+		
+	$oBody->AppendContent($oDL);
+		
+		$oAddress = new CXHAddress();
+		
+		$oAddress->AppendContent("Santa Claus, North Pole, H0H 0H0");
+		
+	$oBody->AppendContent($oAddress);
+		
+		$oHR = new CXHHRule();
+		
 	$oBody->AppendContent($oHR);
 	
-		$oA = new CXHAnchor("http://github.com", "Testing a link");
+		$oPre = new CXHPre();
+		
+		$oPre->AppendContent($sContentStyle);
+		
+	$oBody->AppendContent($oPre);
+	
+		$oBq = new CXHBlockquote();
+		
+			$sLorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis aliquet nunc vel commodo. Nullam pretium commodo lectus, quis consequat velit ullamcorper non. Ut vitae blandit sem. Vestibulum blandit diam pharetra risus tempus posuere. Quisque ligula massa, molestie vitae posuere eget, lobortis et nunc. Sed a tempor sem. Quisque rhoncus mi id turpis molestie viverra. Nulla ut metus turpis, nec feugiat mi. Nunc dolor sem, fermentum a fringilla sit amet, fermentum et eros. Vestibulum est erat, volutpat ac dapibus quis, consectetur porttitor nibh. Aenean ac erat dolor. Nullam dapibus tincidunt ligula vel luctus. Curabitur et tellus non augue accumsan pulvinar et sed mauris.";
+			
+			$sCite = "http://www.lipsum.com/";
+		
+		$oBq->AppendContent($sLorem);
+		
+		$oBq->SetCite($sCite);
+	
+	$oBody->AppendContent($oBq);
+	
+		$oIns = new CXHInsertion($sCite, "2010-04-27", $sLorem);
+		
+	$oBody->AppendContent($oIns);
+	
+		$oDel = new CXHDeletion($sCite, "2010-04-27", $sLorem);
+	
+	$oBody->AppendContent($oDel);
+	
+		$oA = new CXHAnchor($sCite, "Lorem Ipsum");
 	
 	$oBody->AppendContent($oA);
-	
-	$oBody->AppendContent(new CXHBreak());
-	
-		$oA = new CXHAnchor("http://github.com", "Testing a link with target", "", "_blank");
-	
-	$oBody->AppendContent($oA);
-	
-	$oBody->AppendContent(new CXHBreak());
-	
-		$oImg = new CXHImage("http://www.gravatar.com/avatar/49453871216937223cb2afbe9ffc688f", "A picture");
-	
-	$oBody->AppendContent($oImg);
+
+	/*	
 	
 		$oForm = new CXHForm("#", "post", "FORM1");
 
@@ -220,7 +315,7 @@ $oDoc->ReplaceHead($oHead);
 		$oForm->AppendContent($oFS);
 		
 	$oBody->AppendContent($oForm);
-	
+*/
 				$oCell = new CXHCell("Test cell");
 	
 			$oRow = new CXHRow($oCell);
@@ -306,27 +401,21 @@ $oDoc->ReplaceHead($oHead);
 	$oBody->AppendContent($oTable);
 	
 		$sUseMapId = "frog";
-	
-		$oDiv = new CXHDiv();
 			
-			$oImg = new CXHImage("george.jpg", "george the wrebbit");
-			$oImg->SetUseMap($sUseMapId);
+		$oImg = new CXHImage("george.jpg", "george wrebbit");
+		$oImg->SetUseMap($sUseMapId);
 			
-		$oDiv->AppendContent($oImg);
+	$oBody->AppendContent($oImg);
 	
-			$oMap = new CXHMap($sUseMapId);
-			
-			$oMap->AddArea("http://github.com/", "github.com", CXHArea::sShapeRect, "10,10,500,500");
-	
-				$oArea = new CXHArea("http://cyb3r.ca", "cyb3r.ca", CXHArea::sShapeCircle, "500,300,100");
-	
-			$oMap->InsertArea($oArea);
-	
-		$oDiv->AppendContent($oMap);
-	
-	$oBody->AppendContent($oDiv);
+		$oMap = new CXHMap($sUseMapId);
+		
+		$oMap->AddArea("http://github.com/", "github.com", CXHArea::sShapeRect, "10,10,100,100");
 
-*/
+			$oArea = new CXHArea("http://cyb3r.ca", "cyb3r.ca", CXHArea::sShapeCircle, "100,300,100");
+
+		$oMap->InsertArea($oArea);
+	
+	$oBody->AppendContent($oMap);
 
 		$oComment = new CXHComment("test");
 	

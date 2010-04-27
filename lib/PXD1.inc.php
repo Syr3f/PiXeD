@@ -3,7 +3,7 @@
 
 /**
  *
- *	@package XD[1]Markup
+ *	@package PXD[1]Markup
  *	@version 0.2
  *	@license MIT License
  *
@@ -11,9 +11,9 @@
  *	@author Serafim Junior Dos Santos Fagundes <serafim@cyb3r.ca>
  *
  *
- *	The first level of abstraction of the XD Library.
+ *	The first level of abstraction of the PiXeD Library.
  *	
- *	This file contains the code elements of the first level of abstraction of the XD Library.
+ *	This file contains the code elements of the first level of abstraction of the PiXeD Library.
  *
  *	The first level of abstraction defines the concept of markup identification as used in the XHTML documentation. Only classes and relative Exceptions refered to basic markup creation are defined in this file.
  */
@@ -22,7 +22,7 @@
 /**
  *	Links base utilitaries file
  */
-require_once("XD0.inc.php");
+require_once("PXD0.inc.php");
 
 
 /**
@@ -41,7 +41,7 @@ class MLException extends Exception
 
 
 /**
- *	XD abstraction class
+ *	PiXeD abstraction class
  *
  *	All objects to be used in an XHTML document must be an instance of this class.
  *
